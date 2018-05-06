@@ -51,11 +51,11 @@ class MoveToBeacon(base_agent.BaseAgent):
       return actions.FunctionCall(_SELECT_ARMY, [_SELECT_ALL])
 
 
-class CollectMineralShards(base_agent.BaseAgent):
+class Test(base_agent.BaseAgent):
   """An agent specifically for solving the CollectMineralShards map."""
 
   def step(self, obs):
-    super(CollectMineralShards, self).step(obs)
+    super(Test, self).step(obs)
     if _MOVE_SCREEN in obs.observation["available_actions"]:
       player_relative = obs.observation["screen"][_PLAYER_RELATIVE]
       neutral_y, neutral_x = (player_relative == _PLAYER_NEUTRAL).nonzero()
