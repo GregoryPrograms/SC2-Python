@@ -35,6 +35,8 @@ _NOT_QUEUED = [0]
 _SELECT_ALL = [0]
 
 
+
+
 class MoveToBeacon(base_agent.BaseAgent):
   """An agent specifically for solving the MoveToBeacon map."""
 
