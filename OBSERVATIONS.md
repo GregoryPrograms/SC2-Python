@@ -55,7 +55,8 @@ Most observations are done using map layers, that hold an array of positions on 
    Selected = 1
 
 ### unit\_density 
-    How many units are in this pixel (might need this to calculate 
+    
+  How many units are in this pixel (might need this to calculate 
     center of mass)
   
 
