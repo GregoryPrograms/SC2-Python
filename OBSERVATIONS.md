@@ -59,6 +59,20 @@ Most observations are done using map layers, that hold an array of positions on 
   How many units are in this pixel (might need this to calculate 
     center of mass)
   
+## General obs calls:
+  
+### obs.player\_common.minerals:\
+   Tells us how many minerals we have available.
+### obs.player\_common.vespene\
+   Tells us how much vespene gas we have available.
+### obs.player\_common.food\_used\
+   Tells us how much food we have used.
+### obs.player\_common.food\_cap\
+   Tells us how much max food we can use. Cap - Used = Available.
+### obs.player\_common.army\_count\
+   Tells us how many army units we have.
+### obs.player\_common.larva\_count\
+   Tells us how many larva we have.
 
 
 
