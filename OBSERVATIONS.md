@@ -16,10 +16,10 @@ Most observations are done using map layers, that hold an array of positions on 
   Denotes whether terrain is visible, not visible but has been revealed, or 
    hasn't been revealed (Not entirely sure what 'Full Hidden' means).
    
-  Hidden = 0,
-  Fogged = 1,
-  Visible = 2,
-  FullHidden = 3 
+  Hidden = 0,\
+  Fogged = 1,\
+  Visible = 2,\
+  FullHidden = 3\ 
 
 ### creep
    
