@@ -16,9 +16,9 @@ Most observations are done using map layers, that hold an array of positions on 
   Denotes whether terrain is visible, not visible but has been revealed, or 
    hasn't been revealed (Not entirely sure what 'Full Hidden' means).
    
-  Hidden = 0,
-  Fogged = 1,
-  Visible = 2,
+  Hidden = 0,\
+  Fogged = 1,\
+  Visible = 2,\
   FullHidden = 3 
 
 ### creep
@@ -26,17 +26,17 @@ Most observations are done using map layers, that hold an array of positions on 
  Denotes whether this portion of the map is covered in zerg creep (Zerg can 
    only build structures on zerg creep)
    
- No Creep = 0,
+ No Creep = 0,\
  Creep = 1
 
 ### player\_relative
 
  Denotes whether units are friendly vs hostile
  
- Background = 0,
- Self = 1,
- Ally = 2,
- Neutral = 3,
+ Background = 0,\
+ Self = 1,\
+ Ally = 2,\
+ Neutral = 3,\
  Enemy = 4
 
 ### unit\_type 
@@ -51,7 +51,7 @@ Most observations are done using map layers, that hold an array of positions on 
 
  Which units are selected
 
-   Not selected = 0,
+   Not selected = 0,\
    Selected = 1
 
 ### unit\_density 
