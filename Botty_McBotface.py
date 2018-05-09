@@ -25,10 +25,16 @@ from pysc2.lib import features
 
 
 smart_actions = [
-  'noop',
-  'defensive_positions',
-  'build_next_in_order',
-  'zerg_rush_nearby',
+  'no_op',
+  'build_building',
+  'build_units',
+  'research',
+  'cancel',
+  'move_view',
+  'attack',
+  'defend',
+  'patrol',
+  'return_to_base'
 ]
 
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
@@ -66,7 +72,7 @@ def no_op(obs):
 
 
 #Build actions
-def build_buildings(obs):
+def build_building(obs):
   """Build next building in build order"""
 
 def build_units(obs):
