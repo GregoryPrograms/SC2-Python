@@ -23,6 +23,14 @@ from pysc2.agents import base_agent
 from pysc2.lib import actions
 from pysc2.lib import features
 
+
+smart_actions = [
+  'noop',
+  'defensive_positions',
+  'build_next_in_order',
+  'zerg_rush_nearby',
+]
+
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
 _PLAYER_FRIENDLY = 1
 _PLAYER_NEUTRAL = 3  # beacon/minerals
@@ -37,43 +45,64 @@ _SELECT_ALL = [0]
 
 
 
-class MoveToBeacon(base_agent.BaseAgent):
-  """An agent specifically for solving the MoveToBeacon map."""
-
-  def step(self, obs):
-    super(MoveToBeacon, self).step(obs)
-    if _MOVE_SCREEN in obs.observation["available_actions"]:
-      player_relative = obs.observation["screen"][_PLAYER_RELATIVE]
-      neutral_y, neutral_x = (player_relative == _PLAYER_NEUTRAL).nonzero()
-      if not neutral_y.any():
-        return actions.FunctionCall(_NO_OP, [])
-      target = [int(neutral_x.mean()), int(neutral_y.mean())]
-      return actions.FunctionCall(_MOVE_SCREEN, [_NOT_QUEUED, target])
-    else:
-      return actions.FunctionCall(_SELECT_ARMY, [_SELECT_ALL])
 
 
 class Test(base_agent.BaseAgent):
-  """An agent specifically for solving the CollectMineralShards map."""
-
   def step(self, obs):
     super(Test, self).step(obs)
-    if _MOVE_SCREEN in obs.observation["available_actions"]:
-      player_relative = obs.observation["screen"][_PLAYER_RELATIVE]
-      neutral_y, neutral_x = (player_relative == _PLAYER_NEUTRAL).nonzero()
-      player_y, player_x = (player_relative == _PLAYER_FRIENDLY).nonzero()
-      if not neutral_y.any() or not player_y.any():
-        return actions.FunctionCall(_NO_OP, [])
-      player = [int(player_x.mean()), int(player_y.mean())]
-      closest, min_dist = None, None
-      for p in zip(neutral_x, neutral_y):
-        dist = numpy.linalg.norm(numpy.array(player) - numpy.array(p))
-        if not min_dist or dist < min_dist:
-          closest, min_dist = p, dist
-      return actions.FunctionCall(_MOVE_SCREEN, [_NOT_QUEUED, closest])
-    else:
-      return actions.FunctionCall(_SELECT_ARMY, [_SELECT_ALL])
 
+
+
+
+
+
+# ADD SOME ACTIONS
+# SHOULD TAKE IN FULL OBSERVATIONS
+
+#Nothing
+def no_op(obs):
+  """THIS IS THE NO OPERATION ACTION"""
+  return #Something not zero?
+
+
+#Build actions
+def build_buildings(obs):
+  """Build next building in build order"""
+
+def build_units(obs):
+  """Build more units. Maybe separate into military and worker?"""
+
+def research(obs):
+  """get upgrades going. Maybe abstract this into build?"""
+
+def cancel(obs):
+  """Cancel build queue. To free up resources? May be to complicated of action for learner to consider."""
+
+#View control
+def move_view(obs):
+  """Move screen/ minimap to see more. This is the action that will fuck us."""
+
+
+#Unit Control
+def attack(obs):
+  """General Attack Function."""
+
+def defend(obs):
+  """Send units to defensive"""
+
+def patrol(obs):
+  """Make it part of defend?"""
+
+def return_to_base(obs):
+  """Go HOME"""
+
+
+
+
+
+
+
+# THESE ARE SOME EXAMPLES FOR US TO LOOK AT.
 
 class DefeatRoaches(base_agent.BaseAgent):
   """An agent specifically for solving the DefeatRoaches map."""
@@ -92,3 +121,17 @@ class DefeatRoaches(base_agent.BaseAgent):
       return actions.FunctionCall(_SELECT_ARMY, [_SELECT_ALL])
     else:
       return actions.FunctionCall(_NO_OP, [])
+class MoveToBeacon(base_agent.BaseAgent):
+  """An agent specifically for solving the MoveToBeacon map."""
+
+  def step(self, obs):
+    super(MoveToBeacon, self).step(obs)
+    if _MOVE_SCREEN in obs.observation["available_actions"]:
+      player_relative = obs.observation["screen"][_PLAYER_RELATIVE]
+      neutral_y, neutral_x = (player_relative == _PLAYER_NEUTRAL).nonzero()
+      if not neutral_y.any():
+        return actions.FunctionCall(_NO_OP, [])
+      target = [int(neutral_x.mean()), int(neutral_y.mean())]
+      return actions.FunctionCall(_MOVE_SCREEN, [_NOT_QUEUED, target])
+    else:
+      return actions.FunctionCall(_SELECT_ARMY, [_SELECT_ALL])

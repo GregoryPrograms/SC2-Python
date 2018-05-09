@@ -25,7 +25,7 @@ Functions IDs 0-11 are essential (UI functions).
 **_Patrol_** - might be useful for defensive AI mechanics (action ID 333-334)
  - unit will move between original location and patrol point set by user 
  
-**_Rally_** - set rally points (?) (action ID 335-350)
+**_Rally_** - set rally points (?) (action ID 335-350) Will be hardcoding this in.
 
 **_Smart_** - ?? (action ID 451-452)
 
