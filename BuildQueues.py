@@ -24,7 +24,7 @@ class BuildingQueue:
 #Unit Queue
 
 class UnitQueue:
-    #Build order:
+    #Military Build order:
     #Queen
     #Zerglings
     #Roaches
