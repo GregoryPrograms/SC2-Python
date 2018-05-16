@@ -12,5 +12,8 @@ class stratBrain:
     def choose_action(self, state):
         """This method chooses which action to do."""
 
-    def learn(self, state, action):
+    def add_state(self,state):
+        """This method gets new state and reward from the environment """
+
+    def learn(self, state,next_state, action, reward):
         """This method will call the action function and use reward to update table."""
