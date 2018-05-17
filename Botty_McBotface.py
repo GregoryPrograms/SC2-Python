@@ -17,11 +17,13 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import numpy
-
 from pysc2.agents import base_agent
 from pysc2.lib import actions
 from pysc2.lib import features
+
+import numpy as np
+
+from RLBrain import RLBrain
 
 smart_actions = [
     'no_op',
@@ -52,11 +54,9 @@ class Botty(base_agent.BaseAgent):
     def __init__(self):
         super(Botty, self).__init__()
 
-        # TODO remove comments after brain is done
-        # self.brain = strat manager
-        # self.prev_rewards = (0, 0) ?
-        # self.prev_action = none
-        # self.prev_state = none
+        self.strategy_manager = RLBrain(smart_actions)  # keeping default rates for now.
+        self.prev_action = None
+        self.prev_state = None
 
     def step(self, obs):
         """
@@ -131,7 +131,7 @@ class DefeatRoaches(base_agent.BaseAgent):
             roach_y, roach_x = (player_relative == _PLAYER_HOSTILE).nonzero()
             if not roach_y.any():
                 return actions.FunctionCall(_NO_OP, [])
-            index = numpy.argmax(roach_y)
+            index = np.argmax(roach_y)
             target = [roach_x[index], roach_y[index]]
             return actions.FunctionCall(_ATTACK_SCREEN, [_NOT_QUEUED, target])
         elif _SELECT_ARMY in obs.observation["available_actions"]:
