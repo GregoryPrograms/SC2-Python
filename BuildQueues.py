@@ -1,59 +1,60 @@
-#Building Queue
+# Building Queue
 class BuildingQueue:
-    #Build order:
-    #Hatchery
-    #Spawning Pool
-    #Spine crawler
-    #Extractor
-    #Roach Warren
-    #Extractor x3
-    #Lair
-    #Hydralisk Den
-    #Spore Crawler
-    #Hatchery
+    # Build order:
+    # Hatchery
+    # Spawning Pool
+    # Spine crawler
+    # Extractor
+    # Roach Warren
+    # Extractor x3
+    # Lair
+    # Hydralisk Den
+    # Spore Crawler
+    # Hatchery
 
     def _init_(self):
-        #Set build order
+        """Set build order"""
 
     def dequeue(self):
-        #dequeue
+        """dequeue"""
 
     def enqueue(self):
-        #enqueue
+        """enqueue"""
 
-#Unit Queue
+
+# Unit Queue
 
 class UnitQueue:
-    #Military Build order:
-    #Queen
-    #Zerglings
-    #Roaches
-    #Hydralisks
+    # Military Build order:
+    # Queen
+    # Zerglings
+    # Roaches
+    # Hydralisks
 
     def _init_(self):
-        #Set build order
+        """Set build order"""
 
     def dequeue(self):
-        #dequeue
+        """dequeue"""
 
     def enqueue(self):
-        #enqueue
+        """enqueue"""
 
-#Research Queue
+
+# Research Queue
 
 class ResearchQueue:
-    #Order:
-    #Metabolic Boost
-    #Glial reconstitution
-    #Zerg Missile Attacks level 1
-    #Grooved Spines
-    #Zerg Missile Attacks level 2
+    # Order:
+    # Metabolic Boost
+    # Glial reconstitution
+    # Zerg Missile Attacks level 1
+    # Grooved Spines
+    # Zerg Missile Attacks level 2
     def _init_(self):
-        #Set build order
+        """"""
 
     def dequeue(self):
-        #dequeue
+        """"""
 
     def enqueue(self):
-        #enqueue
-
+        """"""

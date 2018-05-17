@@ -23,18 +23,17 @@ from pysc2.agents import base_agent
 from pysc2.lib import actions
 from pysc2.lib import features
 
-
 smart_actions = [
-  'no_op',
-  'build_building',
-  'build_units',
-  'research',
-  'cancel',
-  'move_view',
-  'attack',
-  'defend',
-  'patrol',
-  'return_to_base'
+    'no_op',
+    'build_building',
+    'build_units',
+    'research',
+    'cancel',
+    'move_view',
+    'attack',
+    'defend',
+    'patrol',
+    'return_to_base'
 ]
 
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
@@ -49,95 +48,109 @@ _NOT_QUEUED = [0]
 _SELECT_ALL = [0]
 
 
+class Botty(base_agent.BaseAgent):
+    def __init__(self):
+        super(Botty, self).__init__()
 
+        # TODO remove comments after brain is done
+        # self.brain = strat manager
+        # self.prev_rewards = (0, 0) ?
+        # self.prev_action = none
+        # self.prev_state = none
 
-
-
-class Test(base_agent.BaseAgent):
-  def step(self, obs):
-    super(Test, self).step(obs)
-
-
-
-
+    def step(self, obs):
+        """
+        1. reduce state.
+        2. Allow brain to learn based prev action, state, & rewards
+        3. Choose action based on current state.
+        4. Update prev actions & state.
+        5. Do action
+        :param obs:
+        :return:
+        """
+        super(Botty, self).step(obs)
 
 
 # ADD SOME ACTIONS
 # SHOULD TAKE IN FULL OBSERVATIONS
 
-#Nothing
+# Nothing
 def no_op(obs):
-  """THIS IS THE NO OPERATION ACTION"""
-  return #Something not zero?
+    """THIS IS THE NO OPERATION ACTION"""
+    return  # Something not zero?
 
 
-#Build actions
+# Build actions
 def build_building(obs):
-  """Build next building in build order"""
+    """Build next building in build order"""
+
 
 def build_units(obs):
-  """Build more units. Maybe separate into military and worker?"""
+    """Build more units. Maybe separate into military and worker?"""
+
 
 def research(obs):
-  """get upgrades going. Maybe abstract this into build?"""
+    """get upgrades going. Maybe abstract this into build?"""
+
 
 def cancel(obs):
-  """Cancel build queue. To free up resources? May be to complicated of action for learner to consider."""
+    """Cancel build queue. To free up resources? May be to complicated of action for learner to consider."""
 
-#View control
+
+# View control
 def move_view(obs):
-  """Move screen/ minimap to see more. This is the action that will fuck us."""
+    """Move screen/ minimap to see more. This is the action that will fuck us."""
 
 
-#Unit Control
+# Unit Control
 def attack(obs):
-  """General Attack Function."""
+    """General Attack Function."""
+
 
 def defend(obs):
-  """Send units to defensive"""
+    """Send units to defensive"""
+
 
 def patrol(obs):
-  """Make it part of defend?"""
+    """Make it part of defend?"""
+
 
 def return_to_base(obs):
-  """Go HOME"""
-
-
-
-
-
+    """Go HOME"""
 
 
 # THESE ARE SOME EXAMPLES FOR US TO LOOK AT.
 
 class DefeatRoaches(base_agent.BaseAgent):
-  """An agent specifically for solving the DefeatRoaches map."""
+    """An agent specifically for solving the DefeatRoaches map."""
 
-  def step(self, obs):
-    super(DefeatRoaches, self).step(obs)
-    if _ATTACK_SCREEN in obs.observation["available_actions"]:
-      player_relative = obs.observation["screen"][_PLAYER_RELATIVE]
-      roach_y, roach_x = (player_relative == _PLAYER_HOSTILE).nonzero()
-      if not roach_y.any():
-        return actions.FunctionCall(_NO_OP, [])
-      index = numpy.argmax(roach_y)
-      target = [roach_x[index], roach_y[index]]
-      return actions.FunctionCall(_ATTACK_SCREEN, [_NOT_QUEUED, target])
-    elif _SELECT_ARMY in obs.observation["available_actions"]:
-      return actions.FunctionCall(_SELECT_ARMY, [_SELECT_ALL])
-    else:
-      return actions.FunctionCall(_NO_OP, [])
+    def step(self, obs):
+        super(DefeatRoaches, self).step(obs)
+        if _ATTACK_SCREEN in obs.observation["available_actions"]:
+            player_relative = obs.observation["screen"][_PLAYER_RELATIVE]
+            roach_y, roach_x = (player_relative == _PLAYER_HOSTILE).nonzero()
+            if not roach_y.any():
+                return actions.FunctionCall(_NO_OP, [])
+            index = numpy.argmax(roach_y)
+            target = [roach_x[index], roach_y[index]]
+            return actions.FunctionCall(_ATTACK_SCREEN, [_NOT_QUEUED, target])
+        elif _SELECT_ARMY in obs.observation["available_actions"]:
+            return actions.FunctionCall(_SELECT_ARMY, [_SELECT_ALL])
+        else:
+            return actions.FunctionCall(_NO_OP, [])
+
+
 class MoveToBeacon(base_agent.BaseAgent):
-  """An agent specifically for solving the MoveToBeacon map."""
+    """An agent specifically for solving the MoveToBeacon map."""
 
-  def step(self, obs):
-    super(MoveToBeacon, self).step(obs)
-    if _MOVE_SCREEN in obs.observation["available_actions"]:
-      player_relative = obs.observation["screen"][_PLAYER_RELATIVE]
-      neutral_y, neutral_x = (player_relative == _PLAYER_NEUTRAL).nonzero()
-      if not neutral_y.any():
-        return actions.FunctionCall(_NO_OP, [])
-      target = [int(neutral_x.mean()), int(neutral_y.mean())]
-      return actions.FunctionCall(_MOVE_SCREEN, [_NOT_QUEUED, target])
-    else:
-      return actions.FunctionCall(_SELECT_ARMY, [_SELECT_ALL])
+    def step(self, obs):
+        super(MoveToBeacon, self).step(obs)
+        if _MOVE_SCREEN in obs.observation["available_actions"]:
+            player_relative = obs.observation["screen"][_PLAYER_RELATIVE]
+            neutral_y, neutral_x = (player_relative == _PLAYER_NEUTRAL).nonzero()
+            if not neutral_y.any():
+                return actions.FunctionCall(_NO_OP, [])
+            target = [int(neutral_x.mean()), int(neutral_y.mean())]
+            return actions.FunctionCall(_MOVE_SCREEN, [_NOT_QUEUED, target])
+        else:
+            return actions.FunctionCall(_SELECT_ARMY, [_SELECT_ALL])
