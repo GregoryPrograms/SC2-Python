@@ -1,4 +1,3 @@
-
 import asyncio
 
 from pysc2.agents import base_agent
@@ -12,7 +11,7 @@ _BUILD_SPINE_CRAWLER = actions.FUNCTIONS.Build_SpineCrawler_screen.id
 _BUILD_EXTRACTOR = actions.FUNCTIONS.Build_Extractor_screen_screen.id
 _BUILD_ROACH_WARREN = actions.FUNCTIONS.Build_RoachWarren_screen.id
 _BUILD_LAIR = actions.FUNCTIONS.Morph_Lair_quick.id
-    #from Hatchery
+# from Hatchery
 _BUILD_HYDRALISK_DEN = actions.FUNCTIONS.Build_HydraliskDen_screen.id
 _BUILD_SPORE_CRAWLER = actions.FUNCTIONS.Build_SporeCrawler_screen.id
 
@@ -48,7 +47,7 @@ class BuildingQueue:
 
     def dequeue(self):
         """dequeue"""
-        #check if in available actions before dequeuing
+        # check if in available actions before dequeuing
         return self.BuildQ.get_nowait()
 
     def enqueue(self, order):
@@ -62,6 +61,7 @@ _TRAIN_QUEEN = actions.FUNCTIONS.Train_Queen_quick.id
 _TRAIN_ZERGLING = actions.FUNCTIONS.Train_Zergling_quick.id
 _TRAIN_ROACH = actions.FUNCTIONS.Train_Roach_quick.id
 _TRAIN_HYDRALISK = actions.FUNCTIONS.Train_Hydralisk_quick.id
+
 
 # Unit Queue
 
@@ -83,29 +83,31 @@ class UnitQueue:
 
     def dequeue(self):
         """dequeue"""
-        #check if in available actions before dequeuing
+        # check if in available actions before dequeuing
         # build in a cycle?
         # if UnitQ.empty(), then refill?
 
-        #possible formulation:
-        #request = self.UnitQ.get_nowait()
-        #check if empty, refill if it is
-        #return request
+        # possible formulation:
+        # request = self.UnitQ.get_nowait()
+        # check if empty, refill if it is
+        # return request
         return self.UnitQ.get_nowait()
 
     def enqueue(self, order):
         """enqueue"""
         self.BuildQ.put_nowait(order)
 
+
 # Research Macros
 _RESEARCH_METABOLIC_BOOST = actions.FUNCTIONS.Research_ZerglingMetabolicBoost_quick.id
 _RESEARCH_GLIAL = actions.FUNCTIONS.Research_GlialRegeneration_quick.id
-    #closest thing I could find to glial reconstitution in the actions list
+# closest thing I could find to glial reconstitution in the actions list
 _RESEARCH_ZERG_MISSILE_WEAPONS = actions.FUNCTIONS.Research_ZergMissileWeapons_quick.id
-    #I'm assuming this is needed before missile levels can be achieved
+# I'm assuming this is needed before missile levels can be achieved
 _RESEARCH_ZERG_MISSILE_LVL1 = actions.FUNCTIONS.Research_ZergMissileWeaponsLevel1_quick.id
 _RESEARCH_ZERG_MISSILE_LVL2 = actions.FUNCTIONS.Research_ZergMissileWeaponsLevel2_quick.id
 _RESEARCH_GROOVED_SPINES = actions.FUNCTIONS.Research_GroovedSpines_quick.id
+
 
 # Research Queue
 
@@ -130,5 +132,5 @@ class ResearchQueue:
         # check if in available actions before dequeuing
         return self.ResearchQ.get_nowait()
 
-    def enqueue(self,order):
+    def enqueue(self, order):
         self.ResearchQ.put_nowait(order)

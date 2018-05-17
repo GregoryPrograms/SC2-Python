@@ -44,7 +44,6 @@ class CartPoleProblem:
                 i += 1
 
             score_list.append(i)
-            average_score = np.mean(score_list)
             # TODO exit condition based on the score
 
         print("Ran {} episodes, solved: {}".format(e, self.solved))
