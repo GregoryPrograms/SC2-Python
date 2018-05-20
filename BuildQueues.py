@@ -67,10 +67,11 @@ _TRAIN_HYDRALISK = actions.FUNCTIONS.Train_Hydralisk_quick.id
 
 class UnitQueue:
     # Military Build order:
-    # Queen
+    # Queen (every time a new base is built)
     # Zerglings
     # Roaches
     # Hydralisks
+    # Overlord (only when supply is low i.e. max supply - current supply < supply required for next unit)
 
     def _init_(self):
         """Set build order"""
