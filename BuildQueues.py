@@ -72,6 +72,9 @@ class UnitQueue:
     # Roaches
     # Hydralisks
     # Overlord (only when supply is low i.e. max supply - current supply < supply required for next unit)
+    
+    # Move military units to top of priority queue as they become available? I.e. zerglings once spawning pool
+    # is up, roaches once roach warren is up, etc.
 
     def _init_(self):
         """Set build order"""
