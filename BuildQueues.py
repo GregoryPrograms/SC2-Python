@@ -10,6 +10,8 @@ num_queens = 0
 have_roach_warren = False
 have_spawning_pool = False
 have_hydra_den = False
+have_evo = False
+have_lair = False
 
 # Building Macros
 _BUILD_HATCHERY = actions.FUNCTIONS.Build_Hatchery_screen.id
@@ -32,8 +34,9 @@ spine_crawler = (3, _BUILD_SPINE_CRAWLER)
 extractor = (4, _BUILD_EXTRACTOR)
 roach_warren = (5, _BUILD_ROACH_WARREN)
 evo = (6, _BUILD_EVOLUTION_CHAMBER)
-hydra_den = (7, _BUILD_HYDRALISK_DEN)
-spore_crawler = (8, _BUILD_SPORE_CRAWLER)
+hydra_den = (8, _BUILD_HYDRALISK_DEN)
+spore_crawler = (9, _BUILD_SPORE_CRAWLER)
+lair = (7, _BUILD_LAIR)
 
 class BuildingQueue:
     # Build order:
@@ -52,15 +55,37 @@ class BuildingQueue:
 
     def _init_(self)
         #use priority queue? in case buildings are destroyed
-        self.BuildQ = [hatchery, spawning_pool, spine_crawler, extractor, roach_warren, evo, hydra_den, spore_crawler]
+        self.BuildQ = [hatchery, spawning_pool, spine_crawler, extractor, roach_warren, evo, lair, hydra_den, spore_crawler]
 
     def dequeue(self):
         # agent will handle the actually function call, we are just passing back the function id
 
         # repeated: hatchery, spine_crawler, spore crawler, extractor
         # everything else just need one of
+        max = 0
+        target_build = ''
 
-        return self.BuildQ.get_nowait()
+        for i in len(self.BuildQ):
+            if max < self.BuildQ[i][0]:
+                max = self.BuildQ[i][0]
+                target_build = self.BuildQ[i][1]
+
+        return target_build
+
+    def update(self):
+
+        if(not have_evo):
+            self.BuildQ[5][0] = 3
+        if(not have_roach_warren):
+            self.BuildQ[4][0] = 4
+        if(not have_spawning_pool):
+            self.BuildQ[1][0] = 5
+        if(not have_hydra_den):
+            self.BuildQ[7][0] = 1
+        if(not have_lair):
+            self.BuildQ[6][0] = 2
+
+        #update further based on game state
 
 
 # Unit Macros
@@ -169,6 +194,7 @@ class ResearchQueue:
     # Zerg Missile Attacks level 1
     # Grooved Spines
     # Zerg Missile Attacks level 2
+    
     def _init_(self):
         self.ResearchQ = asyncio.Queue()
         self.ResearchQ.put(_RESEARCH_METABOLIC_BOOST)
