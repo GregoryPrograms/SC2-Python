@@ -133,15 +133,15 @@ class UnitQueue:
         # need to optimize so one unit does not outpace another
         # queen for every base (running total of num bases)
         if num_bases > num_queens:
-            self.BuildQ[0][0] = 100
+            self.UnitQ[0][0] = 100
         # roaches go up with warren built (warren)
         if have_roach_warren:
-            self.BuildQ[2][0] += 2
+            self.UnitQ[2][0] += 2
         # same for zergling and hydralisk (spawn pool, hydra den)
         if have_spawning_pool:
-            self.BuildQ[1][0] += 1
+            self.UnitQ[1][0] += 1
         if have_hydra_den:
-            self.BuildQ[3][0] += 3
+            self.UnitQ[3][0] += 3
 
         # overlord max if need more supplies, otherwise lowest
         # if max supply - current supply < supply required for next unit:
