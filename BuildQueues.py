@@ -10,49 +10,51 @@ _BUILD_SPAWNING_POOL = actions.FUNCTIONS.Build_SpawningPool_screen.id
 _BUILD_SPINE_CRAWLER = actions.FUNCTIONS.Build_SpineCrawler_screen.id
 _BUILD_EXTRACTOR = actions.FUNCTIONS.Build_Extractor_screen_screen.id
 _BUILD_ROACH_WARREN = actions.FUNCTIONS.Build_RoachWarren_screen.id
-_BUILD_LAIR = actions.FUNCTIONS.Morph_Lair_quick.id
+_BUILD_LAIR = actions.FUNCTIONS.Morph_Lair_quick.id #the only quick function, keep separate from queue?
 # from Hatchery
 _BUILD_HYDRALISK_DEN = actions.FUNCTIONS.Build_HydraliskDen_screen.id
 _BUILD_SPORE_CRAWLER = actions.FUNCTIONS.Build_SporeCrawler_screen.id
+_BUILD_EVOLUTION_CHAMBER = actions.FUNCTIONS.Build_EvolutionChamber_screen.id
 
+# Building Queue # Unit Queue (need list? to change the priorities)
 
-# Building Queue
 class BuildingQueue:
     # Build order:
-    # Hatchery: return Actions.FunctionCall('Build_Hatchery_screen', cmd_screen, 1152)
+    # Hatchery:
     # Spawning Pool
     # Spine crawler
     # Extractor
     # Roach Warren
+    # Evolution Chamber (needed for research)
     # Extractor x3
     # Lair
     # Hydralisk Den
     # Spore Crawler
-    # Hatchery
+    # find new base
 
-    def _init_(self):
-        """Set build order"""
-        self.BuildQ = asyncio.Queue()
-        self.BuildQ.put(_BUILD_HATCHERY)
-        self.BuildQ.put(_BUILD_SPAWNING_POOL)
-        self.BuildQ.put(_BUILD_SPINE_CRAWLER)
-        self.BuildQ.put(_BUILD_EXTRACTOR)
-        self.BuildQ.put(_BUILD_ROACH_WARREN)
-        self.BuildQ.put(_BUILD_EXTRACTOR)
-        self.BuildQ.put(_BUILD_EXTRACTOR)
-        self.BuildQ.put(_BUILD_EXTRACTOR)
-        self.BuildQ.put(_BUILD_HYDRALISK_DEN)
-        self.BuildQ.put(_BUILD_SPORE_CRAWLER)
-        self.BuildQ.put(_BUILD_HATCHERY)
+
+    def _init_(self)
+        #use priority queue? in case buildings are destroyed
+        self.BuildQ = asyncio.PriorityQueue()
+        self.BuildQ.put(1, _BUILD_HATCHERY)
+        self.BuildQ.put(2, _BUILD_SPAWNING_POOL)
+        self.BuildQ.put(3, _BUILD_SPINE_CRAWLER)
+        self.BuildQ.put(4, _BUILD_EXTRACTOR)
+        self.BuildQ.put(5, _BUILD_ROACH_WARREN)
+        self.BuildQ.put(6, _BUILD_EVOLUTION_CHAMBER)
+        self.BuildQ.put(7, _BUILD_EXTRACTOR)
+        self.BuildQ.put(8, _BUILD_EXTRACTOR)
+        self.BuildQ.put(9, _BUILD_EXTRACTOR)
+        self.BuildQ.put(10, _BUILD_HYDRALISK_DEN)
+        self.BuildQ.put(11, _BUILD_SPORE_CRAWLER)
+
 
     def dequeue(self):
-        """dequeue"""
-        # check if in available actions before dequeuing
+        # agent will handle the actually function call, we are just passing back the function id
         return self.BuildQ.get_nowait()
 
     def enqueue(self, order):
-        # order should be macro
-        """enqueue"""
+        # change to accomodate priority queue
         self.BuildQ.put_nowait(order)
 
 
@@ -63,7 +65,7 @@ _TRAIN_ROACH = actions.FUNCTIONS.Train_Roach_quick.id
 _TRAIN_HYDRALISK = actions.FUNCTIONS.Train_Hydralisk_quick.id
 
 
-# Unit Queue
+# Unit Queue (need list? to change the priorities)
 
 class UnitQueue:
     # Military Build order:
@@ -72,35 +74,41 @@ class UnitQueue:
     # Roaches
     # Hydralisks
     # Overlord (only when supply is low i.e. max supply - current supply < supply required for next unit)
-    
+
+    # new Hatchery means build queen
+    # queen should be at the top in priority
+
     # Move military units to top of priority queue as they become available? I.e. zerglings once spawning pool
     # is up, roaches once roach warren is up, hydralisks once hydralisk den is up, etc.
     
     # Also move queen to top of priority queue when a new hatchery is built, and overlord when more supply is needed.
 
+    # zerglings for early game only
+    # roaches only when roach warren achieved
+    # interchange roaches and hydralisks depending on strategy
+
     def _init_(self):
         """Set build order"""
+        # use priority queue
+        # have all units start at 100, decrement for increasing priority
+        self.UnitQ = asyncio.PriorityQueue()
+        self.UnitQ.put(1, _TRAIN_QUEEN)
+        self.UnitQ.put(2, _TRAIN_ZERGLING)
 
-        self.UnitQ = asyncio.Queue()
-        self.UnitQ.put(_TRAIN_QUEEN)
-        self.UnitQ.put(_TRAIN_ZERGLING)
-        self.UnitQ.put(_TRAIN_ROACH)
-        self.UnitQ.put(_TRAIN_HYDRALISK)
 
     def dequeue(self):
-        """dequeue"""
-        # check if in available actions before dequeuing
-        # build in a cycle?
-        # if UnitQ.empty(), then refill?
 
-        # possible formulation:
-        # request = self.UnitQ.get_nowait()
-        # check if empty, refill if it is
-        # return request
+        # early game: if we dequeue a zergling and we don't have roach warren
+        # then keeping enqueuing zerglings
+
+        # mid-game: roaches only when roach warren is present
+
+        # hydralisks?
+
         return self.UnitQ.get_nowait()
 
     def enqueue(self, order):
-        """enqueue"""
+        # change to accomodate priority queue
         self.BuildQ.put_nowait(order)
 
 
@@ -140,3 +148,6 @@ class ResearchQueue:
 
     def enqueue(self, order):
         self.ResearchQ.put_nowait(order)
+
+
+
