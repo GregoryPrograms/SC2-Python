@@ -87,6 +87,9 @@ def build_building(obs):
 
 def build_units(obs):
     """Build more units. Maybe separate into military and worker?"""
+    
+def build_workers(obs):
+    """Build workers"""
 
 
 def research(obs):
