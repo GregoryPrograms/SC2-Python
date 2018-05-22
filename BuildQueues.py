@@ -4,6 +4,13 @@ from pysc2.agents import base_agent
 from pysc2.lib import actions
 from pysc2.lib import features
 
+# Global Tracking vars
+num_bases = 1
+num_queens = 0
+have_roach_warren = False
+have_spawning_pool = False
+have_hydra_den = False
+
 # Building Macros
 _BUILD_HATCHERY = actions.FUNCTIONS.Build_Hatchery_screen.id
 _BUILD_SPAWNING_POOL = actions.FUNCTIONS.Build_SpawningPool_screen.id
@@ -17,6 +24,16 @@ _BUILD_SPORE_CRAWLER = actions.FUNCTIONS.Build_SporeCrawler_screen.id
 _BUILD_EVOLUTION_CHAMBER = actions.FUNCTIONS.Build_EvolutionChamber_screen.id
 
 # Building Queue # Unit Queue (need list? to change the priorities)
+# tuples for buildings:
+
+hatchery = (1, _BUILD_HATCHERY)
+spawning_pool = (2, _BUILD_SPAWNING_POOL)
+spine_crawler = (3, _BUILD_SPINE_CRAWLER)
+extractor = (4, _BUILD_EXTRACTOR)
+roach_warren = (5, _BUILD_ROACH_WARREN)
+evo = (6, _BUILD_EVOLUTION_CHAMBER)
+hydra_den = (7, _BUILD_HYDRALISK_DEN)
+spore_crawler = (8, _BUILD_SPORE_CRAWLER)
 
 class BuildingQueue:
     # Build order:
@@ -35,27 +52,15 @@ class BuildingQueue:
 
     def _init_(self)
         #use priority queue? in case buildings are destroyed
-        self.BuildQ = asyncio.PriorityQueue()
-        self.BuildQ.put(1, _BUILD_HATCHERY)
-        self.BuildQ.put(2, _BUILD_SPAWNING_POOL)
-        self.BuildQ.put(3, _BUILD_SPINE_CRAWLER)
-        self.BuildQ.put(4, _BUILD_EXTRACTOR)
-        self.BuildQ.put(5, _BUILD_ROACH_WARREN)
-        self.BuildQ.put(6, _BUILD_EVOLUTION_CHAMBER)
-        self.BuildQ.put(7, _BUILD_EXTRACTOR)
-        self.BuildQ.put(8, _BUILD_EXTRACTOR)
-        self.BuildQ.put(9, _BUILD_EXTRACTOR)
-        self.BuildQ.put(10, _BUILD_HYDRALISK_DEN)
-        self.BuildQ.put(11, _BUILD_SPORE_CRAWLER)
-
+        self.BuildQ = [hatchery, spawning_pool, spine_crawler, extractor, roach_warren, evo, hydra_den, spore_crawler]
 
     def dequeue(self):
         # agent will handle the actually function call, we are just passing back the function id
-        return self.BuildQ.get_nowait()
 
-    def enqueue(self, order):
-        # change to accomodate priority queue
-        self.BuildQ.put_nowait(order)
+        # repeated: hatchery, spine_crawler, spore crawler, extractor
+        # everything else just need one of
+
+        return self.BuildQ.get_nowait()
 
 
 # Unit Macros
@@ -63,7 +68,16 @@ _TRAIN_QUEEN = actions.FUNCTIONS.Train_Queen_quick.id
 _TRAIN_ZERGLING = actions.FUNCTIONS.Train_Zergling_quick.id
 _TRAIN_ROACH = actions.FUNCTIONS.Train_Roach_quick.id
 _TRAIN_HYDRALISK = actions.FUNCTIONS.Train_Hydralisk_quick.id
+_TRAIN_WORKER = actions.FUNCTIONS.Train_Drone_quick.id
+_TRAIN_OVERLORD = actions.FUNCTIONS.Train_Overlord_quick.id
 
+# DO NOT USE TUPLES, THIS IS FOR MODELING PURPOSES ONLY
+queen = (0, _TRAIN_QUEEN)
+zergling = (0, _TRAIN_ZERGLING)
+roach = (0, _TRAIN_ROACH)
+hydra = (0, _TRAIN_HYDRALISK)
+worker = (0, _TRAIN_WORKER)
+overlord = (0, _TRAIN_OVERLORD)
 
 # Unit Queue (need list? to change the priorities)
 
@@ -89,11 +103,7 @@ class UnitQueue:
 
     def _init_(self):
         """Set build order"""
-        # use priority queue
-        # have all units start at 100, decrement for increasing priority
-        self.UnitQ = asyncio.PriorityQueue()
-        self.UnitQ.put(1, _TRAIN_QUEEN)
-        self.UnitQ.put(2, _TRAIN_ZERGLING)
+        self.UnitQ = [queen, zergling, roach, hydra, worker, overlord]
 
 
     def dequeue(self):
@@ -105,11 +115,38 @@ class UnitQueue:
 
         # hydralisks?
 
-        return self.UnitQ.get_nowait()
+        # get max priority unit, update list
 
-    def enqueue(self, order):
-        # change to accomodate priority queue
-        self.BuildQ.put_nowait(order)
+        # access list like a 2D array
+        max = 0
+        target_unit = ''
+
+        for i in len(self.UnitQ):
+            if max < self.UnitQ[i][0] :
+                max = self.UnitQ[i][0]
+                target_unit = self.UnitQ[i][1]
+
+        return target_unit
+
+
+    def update(self):
+        # need to optimize so one unit does not outpace another
+        # queen for every base (running total of num bases)
+        if num_bases > num_queens:
+            self.BuildQ[0][0] = 100
+        # roaches go up with warren built (warren)
+        if have_roach_warren:
+            self.BuildQ[2][0] += 2
+        # same for zergling and hydralisk (spawn pool, hydra den)
+        if have_spawning_pool:
+            self.BuildQ[1][0] += 1
+        if have_hydra_den:
+            self.BuildQ[3][0] += 3
+
+        # overlord max if need more supplies, otherwise lowest
+        # if max supply - current supply < supply required for next unit:
+            # self.BuildQ[5][0] = very high
+
 
 
 # Research Macros
