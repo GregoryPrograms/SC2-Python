@@ -49,8 +49,17 @@ class RLBrain:
 
         self.QTable.at[state, action] += self.learn_rate * (q_target - q_value)
 
-    def read_from_file(self, filename):
+    def read_from_file_QT(self, filename):
         self.QTable = pd.read_csv(filename, index_col=0)
 
-    def write_to_file(self, filename):
+    def write_to_file_QT(self, filename):
         self.QTable.to_csv(filename)
+
+    def get_size(self):
+        print(self.QTable.shape)
+
+    def read_from_file_states(self, filename):
+
+    def write_to_file_states(self,filename):
+
+ 
