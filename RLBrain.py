@@ -48,3 +48,9 @@ class RLBrain:
         q_target = reward + self.decay_rate * self.QTable.loc[next_state, :].max()
 
         self.QTable.at[state, action] += self.learn_rate * (q_target - q_value)
+
+    def read_from_file(self, filename):
+        self.QTable = pd.read_csv(filename, index_col=0)
+
+    def write_to_file(self, filename):
+        self.QTable.to_csv(filename)

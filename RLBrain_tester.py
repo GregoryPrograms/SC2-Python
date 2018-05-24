@@ -19,8 +19,9 @@ from time import sleep
 # actions space is a tuple? I think i want a list
 class CartPoleProblem:
     NUM_BUCKET = [2, 1, 6, 3]
+    new_agent = True
 
-    def __init__(self, num_episodes=500):
+    def __init__(self, num_episodes=200):
         self.episodes = num_episodes
         self.env = gym.make('CartPole-v0')
         self.brain = brain.RLBrain([0, 1])
@@ -49,8 +50,11 @@ class CartPoleProblem:
         return buckets
 
     def run(self):
+        if not self.new_agent:
+            self.brain.read_from_file('cart_pole.txt')
         score_list = []
         solved = 0
+        print(self.brain.QTable.to_string())
         for e in range(self.episodes):
 
             current_state = str(self.get_state(self.env.reset()))
@@ -90,9 +94,12 @@ class CartPoleProblem:
                 self.solved_last = 0
 
             if solved > 100:
+                print("Have a Working Agent!")
+                self.brain.write_to_file('cart_pole.txt')
                 break
             # solved += 1
-        print("Ran {} episodes, solved: {}".format(e, self.solved))
+        print("Ran {} episodes, solved: {}".format(1, self.solved))
+
 
 
 if __name__ == "__main__":
