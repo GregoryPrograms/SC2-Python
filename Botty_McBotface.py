@@ -71,58 +71,9 @@ class Botty(base_agent.BaseAgent):
         super(Botty, self).step(obs)
 
 
-# ADD SOME ACTIONS
-# SHOULD TAKE IN FULL OBSERVATIONS
+# I FIGURED THIS PAGE WOULD BLOAT DUE TO BOT ANYWAYS SO I'VE MOVED ACTIONS INTO A SEPARATE FILE
+# THERE IS ALSO A FILE FOR TESTING ACTIONS. THIS WILL BE A COMPLETELY SEPARATE AGENT.
 
-# Nothing
-def no_op(obs):
-    """THIS IS THE NO OPERATION ACTION"""
-    return  # Something not zero?
-
-
-# Build actions
-def build_building(obs):
-    """Build next building in build order"""
-
-
-def build_units(obs):
-    """Build more units. Maybe separate into military and worker?"""
-    
-def build_workers(obs):
-    """Build workers"""
-
-
-def research(obs):
-    """get upgrades going. Maybe abstract this into build?"""
-
-
-def cancel(obs):
-    """Cancel build queue. To free up resources? May be to complicated of action for learner to consider."""
-
-
-# View control
-def move_view(obs):
-    """Move screen/ minimap to see more. This is the action that will fuck us."""
-
-
-# Unit Control
-def attack(obs):
-    """General Attack Function."""
-
-
-def defend(obs):
-    """Send units to defensive"""
-
-
-def patrol(obs):
-    """Make it part of defend?"""
-
-
-def return_to_base(obs):
-    """Go HOME"""
-
-
-# THESE ARE SOME EXAMPLES FOR US TO LOOK AT.
 
 class DefeatRoaches(base_agent.BaseAgent):
     """An agent specifically for solving the DefeatRoaches map."""

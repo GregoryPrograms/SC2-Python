@@ -19,7 +19,7 @@ _BUILD_SPAWNING_POOL = actions.FUNCTIONS.Build_SpawningPool_screen.id
 _BUILD_SPINE_CRAWLER = actions.FUNCTIONS.Build_SpineCrawler_screen.id
 _BUILD_EXTRACTOR = actions.FUNCTIONS.Build_Extractor_screen_screen.id
 _BUILD_ROACH_WARREN = actions.FUNCTIONS.Build_RoachWarren_screen.id
-_BUILD_LAIR = actions.FUNCTIONS.Morph_Lair_quick.id #the only quick function, keep separate from queue?
+_BUILD_LAIR = actions.FUNCTIONS.Morph_Lair_quick.id  # the only quick function, keep separate from queue?
 # from Hatchery
 _BUILD_HYDRALISK_DEN = actions.FUNCTIONS.Build_HydraliskDen_screen.id
 _BUILD_SPORE_CRAWLER = actions.FUNCTIONS.Build_SporeCrawler_screen.id
@@ -38,6 +38,7 @@ hydra_den = (8, _BUILD_HYDRALISK_DEN)
 spore_crawler = (9, _BUILD_SPORE_CRAWLER)
 lair = (7, _BUILD_LAIR)
 
+
 class BuildingQueue:
     # Build order:
     # Hatchery:
@@ -52,10 +53,10 @@ class BuildingQueue:
     # Spore Crawler
     # find new base
 
-
-    def _init_(self)
-        #use priority queue? in case buildings are destroyed
-        self.BuildQ = [hatchery, spawning_pool, spine_crawler, extractor, roach_warren, evo, lair, hydra_den, spore_crawler]
+    def _init_(self):
+        # use priority queue? in case buildings are destroyed
+        self.BuildQ = [hatchery, spawning_pool, spine_crawler, extractor, roach_warren, evo, lair, hydra_den,
+                       spore_crawler]
 
     def dequeue(self):
         # agent will handle the actually function call, we are just passing back the function id
@@ -74,18 +75,18 @@ class BuildingQueue:
 
     def update(self):
 
-        if(not have_evo):
+        if not have_evo:
             self.BuildQ[5][0] = 3
-        if(not have_roach_warren):
+        if not have_roach_warren:
             self.BuildQ[4][0] = 4
-        if(not have_spawning_pool):
+        if not have_spawning_pool:
             self.BuildQ[1][0] = 5
-        if(not have_hydra_den):
+        if not have_hydra_den:
             self.BuildQ[7][0] = 1
-        if(not have_lair):
+        if not have_lair:
             self.BuildQ[6][0] = 2
 
-        #update further based on game state
+        # update further based on game state
 
 
 # Unit Macros
@@ -104,6 +105,7 @@ hydra = (0, _TRAIN_HYDRALISK)
 worker = (0, _TRAIN_WORKER)
 overlord = (0, _TRAIN_OVERLORD)
 
+
 # Unit Queue (need list? to change the priorities)
 
 class UnitQueue:
@@ -119,7 +121,7 @@ class UnitQueue:
 
     # Move military units to top of priority queue as they become available? I.e. zerglings once spawning pool
     # is up, roaches once roach warren is up, hydralisks once hydralisk den is up, etc.
-    
+
     # Also move queen to top of priority queue when a new hatchery is built, and overlord when more supply is needed.
 
     # zerglings for early game only
@@ -129,7 +131,6 @@ class UnitQueue:
     def _init_(self):
         """Set build order"""
         self.UnitQ = [queen, zergling, roach, hydra, worker, overlord]
-
 
     def dequeue(self):
 
@@ -147,12 +148,11 @@ class UnitQueue:
         target_unit = ''
 
         for i in len(self.UnitQ):
-            if max < self.UnitQ[i][0] :
+            if max < self.UnitQ[i][0]:
                 max = self.UnitQ[i][0]
                 target_unit = self.UnitQ[i][1]
 
         return target_unit
-
 
     def update(self):
         # need to optimize so one unit does not outpace another
@@ -170,8 +170,7 @@ class UnitQueue:
 
         # overlord max if need more supplies, otherwise lowest
         # if max supply - current supply < supply required for next unit:
-            # self.BuildQ[5][0] = very high
-
+        # self.BuildQ[5][0] = very high
 
 
 # Research Macros
@@ -194,7 +193,7 @@ class ResearchQueue:
     # Zerg Missile Attacks level 1
     # Grooved Spines
     # Zerg Missile Attacks level 2
-    
+
     def _init_(self):
         self.ResearchQ = asyncio.Queue()
         self.ResearchQ.put(_RESEARCH_METABOLIC_BOOST)
@@ -211,6 +210,3 @@ class ResearchQueue:
 
     def enqueue(self, order):
         self.ResearchQ.put_nowait(order)
-
-
-
