@@ -6,23 +6,19 @@ from pysc2.lib import features
 
 
 class gamestate():
-    """
-    visibility
     creep
     player_relative
     unit_type
     selected
-    unit_density;
-    minerals;
-    vespene;
-    availFood;
-    armyCount;
-    larvaCount;
+    unit_density
+    minerals
+    vespene
+    availFood
+    armyCount
+    larvaCount
     state
-    """
 
     def __init__(self, obs=None):
-        self.visibility = obs.observation.feature_screen.visibility_map
         self.creep = obs.observation.feature_screen.creep
         self.player_relative = obs.observation.feature_screen.player_relative
         self.unit_type = obs.observation.feature_screen.unit_type
@@ -37,7 +33,6 @@ class gamestate():
                       self.unit_density, self.minerals, self.vespene, self.availFood, self.armyCount, self.larvaCount]
 
     def update(self, obs):
-        self.visibility = obs.observation.feature_screen.visibility_map
         self.creep = obs.observation.feature_screen.creep
         self.player_relative = obs.observation.feature_screen.player_relative
         self.unit_type = obs.observation.feature_screen.unit_type
