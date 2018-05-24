@@ -6,7 +6,6 @@
 # In our agent we can then use a state machine to iterate through the action list.
 # Would allow much more dynamic actions I think.
 
-
 # Nothing
 def no_op(obs):
     """THIS IS THE NO OPERATION ACTION"""
@@ -20,10 +19,17 @@ def build_building(obs):
 
 def build_units(obs):
     """Build more units. Maybe separate into military and worker?"""
+    #Train next unit in military build order
+
+def build_worker(obs):
+    """Build workers"""
+    #Build drone
+    #Send drone to nearest unoccupied mineral/gas deposit
 
 
 def research(obs):
     """get upgrades going. Maybe abstract this into build?"""
+    #Research next upgrade in research build order
 
 
 def cancel(obs):
@@ -38,10 +44,13 @@ def move_view(obs):
 # Unit Control
 def attack(obs):
     """General Attack Function."""
+    #Have army attack enemy base/enemy army
 
 
 def defend(obs):
     """Send units to defensive"""
+    #Send army to base
+    #Move defensive structures up in priority?
 
 
 def patrol(obs):
