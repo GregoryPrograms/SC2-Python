@@ -45,6 +45,7 @@ def move_view(obs):
 def attack(obs):
     """General Attack Function."""
     #Have army attack enemy base/enemy army
+    #If possible, keep roaches and ultralisks at the front of the army and hydralisks at the rear
 
 
 def defend(obs):
