@@ -148,5 +148,5 @@ def return_to_base(obs):
     #Spread creep tumors
         #For all creep tumors:
             #Select the tumor
-            #Use Spawn creep tumor ability
+            #Use Spawn creep tumor ability (if available, if not go to the next creep tumor)
             #Target as far away as possible
