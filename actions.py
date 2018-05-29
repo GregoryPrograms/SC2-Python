@@ -126,6 +126,8 @@ def patrol(obs):
 def return_to_base(obs):
     """Go HOME"""
 
+#Maybe these could be part of the other actions:
+    
 #def spawn_larvae(obs):
     # Spawn larvae
     
