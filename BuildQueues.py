@@ -186,7 +186,7 @@ class UnitQueue:
         if have_hydra_den:
             self.UnitQ[3][0] += 4
         if have_ultra_cavern:
-            self.UnitQ[6][0] += 3
+            self.UnitQ[6][0] += 1
 
         # overlord max if need more supplies, otherwise lowest
         # if max supply - current supply < supply required for next unit:
