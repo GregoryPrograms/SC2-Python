@@ -135,8 +135,10 @@ class UnitQueue:
 
     def _init_(self):
         """Set build order"""
-        self.UnitQ =
-        self.UnitQ = [queen, zergling, roach, hydra, worker, overlord, ultralisk]
+        self.UnitQ = [[0 for x in range(7)] for y in range(2)]
+        self.UnitQ[0] = [0, 0, 0, 0, 0, 0, 0]
+        self.UnitQ[1] = [_TRAIN_QUEEN, _TRAIN_ZERGLING, _TRAIN_ROACH, _TRAIN_HYDRALISK,
+                         _TRAIN_WORKER, _TRAIN_OVERLORD, _TRAIN_ULTRALISK]
 
     def dequeue(self):
 
@@ -156,14 +158,14 @@ class UnitQueue:
         maxindex = 0
         
         for i in len(self.UnitQ):
-            if max < self.UnitQ[i][0]:
-                max = self.UnitQ[i][0]
+            if max < self.UnitQ[0][i]:
+                max = self.UnitQ[0][i]
                 maxindex = i
-                target_unit = self.UnitQ[i][1]
+                target_unit = self.UnitQ[1][i]
 
-        #Set priority of target unit to 0, then update priorities
-        self.UnitQ[i][0] = 0
-        update()
+        # Set priority of target unit to 0, then update priorities
+        self.UnitQ[0][i] = 0
+        self.update()
         
         return target_unit
 
@@ -174,14 +176,14 @@ class UnitQueue:
             self.UnitQ[0][0] = 100
         # roaches go up with warren built (warren)
         if have_roach_warren:
-            self.UnitQ[2][0] += 2
+            self.UnitQ[0][2] += 2
         # same for zergling, hydralisk and ultralisk (spawn pool, hydra den, ultralisk cavern)
         if have_spawning_pool:
-            self.UnitQ[1][0] += 1
+            self.UnitQ[0][1] += 1
         if have_hydra_den:
-            self.UnitQ[3][0] += 4
+            self.UnitQ[0][3] += 4
         if have_ultra_cavern:
-            self.UnitQ[6][0] += 1
+            self.UnitQ[0][6] += 1
 
         # overlord max if need more supplies, otherwise lowest
         # if max supply - current supply < supply required for next unit:
@@ -191,9 +193,7 @@ class UnitQueue:
 # Research Macros
 _RESEARCH_METABOLIC_BOOST = actions.FUNCTIONS.Research_ZerglingMetabolicBoost_quick.id
 _RESEARCH_GLIAL = actions.FUNCTIONS.Research_GlialRegeneration_quick.id
-# closest thing I could find to glial reconstitution in the actions list
 _RESEARCH_ZERG_MISSILE_WEAPONS = actions.FUNCTIONS.Research_ZergMissileWeapons_quick.id
-# I'm assuming this is needed before missile levels can be achieved
 _RESEARCH_ZERG_MISSILE_LVL1 = actions.FUNCTIONS.Research_ZergMissileWeaponsLevel1_quick.id
 _RESEARCH_ZERG_MISSILE_LVL2 = actions.FUNCTIONS.Research_ZergMissileWeaponsLevel2_quick.id
 _RESEARCH_ZERG_MISSILE_LVL3 = actions.FUNCTIONS.Research_ZergMissileWeaponsLevel2_quick.id
