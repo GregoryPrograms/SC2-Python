@@ -69,10 +69,6 @@ def build_building(obs):
 def build_units(obs):
     """Build more units. Maybe separate into military and worker?"""
     # Train next unit in military build order
-    
-    #Select hatchery (or lair/hive) with available larvae
-    
-    #Train the next unit in the military build order
 
 
 def build_worker(obs):
