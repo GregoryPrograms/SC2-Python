@@ -125,3 +125,26 @@ def patrol(obs):
 
 def return_to_base(obs):
     """Go HOME"""
+
+#def spawn_larvae(obs):
+    # Spawn larvae
+    
+    #Select queen
+    
+    #Use spawn larvae ability
+    
+    #Target nearest hatchery/lair/hive
+
+#def spread_creep(obs):
+    #Spawn creep tumor and have all available creep tumors spawn another
+    
+    #Spawn creep tumor
+        #Select queen
+        #Spawn creep tumor
+        #Target the edge of the creep
+    
+    #Spread creep tumors
+        #For all creep tumors:
+            #Select the tumor
+            #Spawn creep tumor
+            #Target as far away as possible
