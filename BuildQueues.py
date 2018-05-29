@@ -22,27 +22,15 @@ _BUILD_SPINE_CRAWLER = actions.FUNCTIONS.Build_SpineCrawler_screen.id
 _BUILD_EXTRACTOR = actions.FUNCTIONS.Build_Extractor_screen_screen.id
 _BUILD_ROACH_WARREN = actions.FUNCTIONS.Build_RoachWarren_screen.id
 _BUILD_LAIR = actions.FUNCTIONS.Morph_Lair_quick.id  # the only quick function, keep separate from queue?
-# from Hatchery
 _BUILD_HYDRALISK_DEN = actions.FUNCTIONS.Build_HydraliskDen_screen.id
 _BUILD_SPORE_CRAWLER = actions.FUNCTIONS.Build_SporeCrawler_screen.id
 _BUILD_EVOLUTION_CHAMBER = actions.FUNCTIONS.Build_EvolutionChamber_screen.id
 _BUILD_HIVE = actions.FUNCTIONS.Morph_Hive_quick.id
 _BUILD_ULTRA_CAVERN = actions.FUNCTIONS.Build_UltraliskCavern_screen.id
 
+
 # Building Queue # Unit Queue (need list? to change the priorities)
 # tuples for buildings:
-
-hatchery = (1, _BUILD_HATCHERY)
-spawning_pool = (2, _BUILD_SPAWNING_POOL)
-spine_crawler = (3, _BUILD_SPINE_CRAWLER)
-extractor = (4, _BUILD_EXTRACTOR)
-roach_warren = (5, _BUILD_ROACH_WARREN)
-evo = (6, _BUILD_EVOLUTION_CHAMBER)
-hydra_den = (8, _BUILD_HYDRALISK_DEN)
-spore_crawler = (9, _BUILD_SPORE_CRAWLER)
-lair = (7, _BUILD_LAIR)
-hive = (10, _BUILD_HIVE)
-ultra_cavern = (11, _BUILD_ULTRA_CAVERN)
 
 
 class BuildingQueue:
@@ -65,8 +53,12 @@ class BuildingQueue:
 
     def _init_(self):
         # use priority queue? in case buildings are destroyed
-        self.BuildQ = [hatchery, spawning_pool, spine_crawler, extractor, roach_warren, evo, lair, hydra_den,
-                       spore_crawler, hive, ultra_cavern]
+        self.BuildQ = [[0 for x in range(11)] for y in range(2)]
+        self.BuildQ[0] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        self.BuildQ[1] = [_BUILD_HATCHERY, _BUILD_SPAWNING_POOL, _BUILD_SPINE_CRAWLER, _BUILD_EXTRACTOR,
+                          _BUILD_ROACH_WARREN,
+                          _BUILD_EVOLUTION_CHAMBER, _BUILD_LAIR, _BUILD_HYDRALISK_DEN,
+                          _BUILD_SPORE_CRAWLER, _BUILD_HIVE, _BUILD_ULTRA_CAVERN]
 
     def dequeue(self):
         # agent will handle the actually function call, we are just passing back the function id
@@ -77,30 +69,28 @@ class BuildingQueue:
         target_build = ''
 
         for i in len(self.BuildQ):
-            if max < self.BuildQ[i][0]:
-                max = self.BuildQ[i][0]
-                target_build = self.BuildQ[i][1]
+            if max < self.BuildQ[0][i]:
+                max = self.BuildQ[0][i]
+                target_build = self.BuildQ[1][i]
 
         return target_build
 
     def update(self):
-
-        if not have_evo:
-            self.BuildQ[5][0] = 5
-        if not have_roach_warren:
-            self.BuildQ[4][0] = 6
+        # if a building does not exist, then push it up in priority
         if not have_spawning_pool:
-            self.BuildQ[1][0] = 7
-        if not have_hydra_den:
-            self.BuildQ[7][0] = 3
+            self.BuildQ[0][1] = 7
+        if not have_roach_warren:
+            self.BuildQ[0][4] = 6
+        if not have_evo:
+            self.BuildQ[0][5] = 5
         if not have_lair:
-            self.BuildQ[6][0] = 4
+            self.BuildQ[0][6] = 4
+        if not have_hydra_den:
+            self.BuildQ[0][7] = 3
         if not have_hive:
-            self.BuildQ[9][0] = 2
+            self.BuildQ[0][9] = 2
         if not have_ultra_cavern:
-            self.BuildQ[10][0] = 1
-
-        # update further based on game state
+            self.BuildQ[0][10] = 1
 
 
 # Unit Macros
@@ -148,7 +138,10 @@ class UnitQueue:
 
     def _init_(self):
         """Set build order"""
-        self.UnitQ = [queen, zergling, roach, hydra, worker, overlord, ultralisk]
+        self.UnitQ = [[0 for x in range(7)] for y in range(2)]
+        self.UnitQ[0] = [0, 0, 0, 0, 0, 0, 0]
+        self.UnitQ[1] = [_TRAIN_QUEEN, _TRAIN_ZERGLING, _TRAIN_ROACH, _TRAIN_HYDRALISK,
+                         _TRAIN_WORKER, _TRAIN_OVERLORD, _TRAIN_ULTRALISK]
 
     def dequeue(self):
 
@@ -166,17 +159,17 @@ class UnitQueue:
         target_unit = ''
 
         maxindex = 0
-        
-        for i in len(self.UnitQ):
-            if max < self.UnitQ[i][0]:
-                max = self.UnitQ[i][0]
-                maxindex = i
-                target_unit = self.UnitQ[i][1]
 
-        #Set priority of target unit to 0, then update priorities
-        self.UnitQ[i][0] = 0
-        update()
-        
+        for i in len(self.UnitQ):
+            if max < self.UnitQ[0][i]:
+                max = self.UnitQ[0][i]
+                maxindex = i
+                target_unit = self.UnitQ[1][i]
+
+        # Set priority of target unit to 0, then update priorities
+        self.UnitQ[0][i] = 0
+        self.update()
+
         return target_unit
 
     def update(self):
@@ -186,14 +179,14 @@ class UnitQueue:
             self.UnitQ[0][0] = 100
         # roaches go up with warren built (warren)
         if have_roach_warren:
-            self.UnitQ[2][0] += 2
+            self.UnitQ[0][2] += 2
         # same for zergling, hydralisk and ultralisk (spawn pool, hydra den, ultralisk cavern)
         if have_spawning_pool:
-            self.UnitQ[1][0] += 1
+            self.UnitQ[0][1] += 1
         if have_hydra_den:
-            self.UnitQ[3][0] += 4
+            self.UnitQ[0][3] += 4
         if have_ultra_cavern:
-            self.UnitQ[6][0] += 1
+            self.UnitQ[0][6] += 1
 
         # overlord max if need more supplies, otherwise lowest
         # if max supply - current supply < supply required for next unit:
@@ -203,9 +196,7 @@ class UnitQueue:
 # Research Macros
 _RESEARCH_METABOLIC_BOOST = actions.FUNCTIONS.Research_ZerglingMetabolicBoost_quick.id
 _RESEARCH_GLIAL = actions.FUNCTIONS.Research_GlialRegeneration_quick.id
-# closest thing I could find to glial reconstitution in the actions list
 _RESEARCH_ZERG_MISSILE_WEAPONS = actions.FUNCTIONS.Research_ZergMissileWeapons_quick.id
-# I'm assuming this is needed before missile levels can be achieved
 _RESEARCH_ZERG_MISSILE_LVL1 = actions.FUNCTIONS.Research_ZergMissileWeaponsLevel1_quick.id
 _RESEARCH_ZERG_MISSILE_LVL2 = actions.FUNCTIONS.Research_ZergMissileWeaponsLevel2_quick.id
 _RESEARCH_ZERG_MISSILE_LVL3 = actions.FUNCTIONS.Research_ZergMissileWeaponsLevel2_quick.id
@@ -215,7 +206,6 @@ _RESEARCH_ZERG_CARAPACE_LVL2 = actions.FUNCTIONS.Research_ZergGroundArmorLevel2_
 _RESEARCH_ZERG_CARAPACE_LVL3 = actions.FUNCTIONS.Research_ZergGroundArmorLevel3_quick.id
 _RESEARCH_CHITINOUS_PLATING = actions.FUNCTIONS.Research_ChitinousPlating_quick.id
 _RESEARCH_PNEUMATIZED_CARAPACE = actions.FUNCTIONS.Research_PneumatizedCarapace_quick.id
-
 
 
 # Research Queue
@@ -233,7 +223,6 @@ class ResearchQueue:
     # Zerg Carapace Level 3
     # Chitinous Plating
     # Pneumatized Carapace
-    
 
     def _init_(self):
         self.ResearchQ = asyncio.Queue()
@@ -250,7 +239,6 @@ class ResearchQueue:
         self.ResearchQ.put(_RESEARCH_ZERG_CARAPACE_LVL3)
         self.ResearchQ.put(_RESEARCH_CHITINOUS_PLATING)
         self.ResearchQ.put(_RESEARCH_PNEUMATIZED_CARAPACE)
-        
 
     def dequeue(self):
         # check if in available actions before dequeuing
