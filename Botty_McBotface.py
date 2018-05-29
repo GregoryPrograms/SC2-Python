@@ -26,6 +26,7 @@ import numpy as np
 import actions as our_actions
 from RLBrain import RLBrain
 from Learner import GameState
+from BuildQueues import BuildingQueue, UnitQueue, ResearchQueue
 
 smart_actions = [
     'no_op',
@@ -67,7 +68,9 @@ class Botty(base_agent.BaseAgent):
         self.prev_action = None
         self.prev_state = None
         self.base = 'right'
-
+        self.building_queue = BuildingQueue()
+        self.unit_queue = UnitQueue()
+        self.research_queue = ResearchQueue()
     def step(self, obs):
         """
         1. reduce state.

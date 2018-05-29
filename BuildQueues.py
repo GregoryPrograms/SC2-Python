@@ -28,6 +28,7 @@ _BUILD_EVOLUTION_CHAMBER = actions.FUNCTIONS.Build_EvolutionChamber_screen.id
 _BUILD_HIVE = actions.FUNCTIONS.Morph_Hive_quick.id
 _BUILD_ULTRA_CAVERN = actions.FUNCTIONS.Build_UltraliskCavern_screen.id
 
+
 # Building Queue # Unit Queue (need list? to change the priorities)
 # tuples for buildings:
 
@@ -53,10 +54,11 @@ class BuildingQueue:
     def _init_(self):
         # use priority queue? in case buildings are destroyed
         self.BuildQ = [[0 for x in range(11)] for y in range(2)]
-        self.BuildQ[0] = [1,2,3,4,5,6,7,8,9,10,11]
-        self.BuildQ[1] = [_BUILD_HATCHERY, _BUILD_SPAWNING_POOL, _BUILD_SPINE_CRAWLER, _BUILD_EXTRACTOR, _BUILD_ROACH_WARREN,
+        self.BuildQ[0] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        self.BuildQ[1] = [_BUILD_HATCHERY, _BUILD_SPAWNING_POOL, _BUILD_SPINE_CRAWLER, _BUILD_EXTRACTOR,
+                          _BUILD_ROACH_WARREN,
                           _BUILD_EVOLUTION_CHAMBER, _BUILD_LAIR, _BUILD_HYDRALISK_DEN,
-                       _BUILD_SPORE_CRAWLER, _BUILD_HIVE, _BUILD_ULTRA_CAVERN]
+                          _BUILD_SPORE_CRAWLER, _BUILD_HIVE, _BUILD_ULTRA_CAVERN]
 
     def dequeue(self):
         # agent will handle the actually function call, we are just passing back the function id
@@ -89,6 +91,7 @@ class BuildingQueue:
             self.BuildQ[0][9] = 2
         if not have_ultra_cavern:
             self.BuildQ[0][10] = 1
+
 
 # Unit Macros
 _TRAIN_QUEEN = actions.FUNCTIONS.Train_Queen_quick.id
@@ -156,7 +159,7 @@ class UnitQueue:
         target_unit = ''
 
         maxindex = 0
-        
+
         for i in len(self.UnitQ):
             if max < self.UnitQ[0][i]:
                 max = self.UnitQ[0][i]
@@ -166,7 +169,7 @@ class UnitQueue:
         # Set priority of target unit to 0, then update priorities
         self.UnitQ[0][i] = 0
         self.update()
-        
+
         return target_unit
 
     def update(self):
@@ -205,7 +208,6 @@ _RESEARCH_CHITINOUS_PLATING = actions.FUNCTIONS.Research_ChitinousPlating_quick.
 _RESEARCH_PNEUMATIZED_CARAPACE = actions.FUNCTIONS.Research_PneumatizedCarapace_quick.id
 
 
-
 # Research Queue
 
 class ResearchQueue:
@@ -221,7 +223,6 @@ class ResearchQueue:
     # Zerg Carapace Level 3
     # Chitinous Plating
     # Pneumatized Carapace
-    
 
     def _init_(self):
         self.ResearchQ = asyncio.Queue()
@@ -238,7 +239,6 @@ class ResearchQueue:
         self.ResearchQ.put(_RESEARCH_ZERG_CARAPACE_LVL3)
         self.ResearchQ.put(_RESEARCH_CHITINOUS_PLATING)
         self.ResearchQ.put(_RESEARCH_PNEUMATIZED_CARAPACE)
-        
 
     def dequeue(self):
         # check if in available actions before dequeuing

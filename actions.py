@@ -12,7 +12,7 @@ from pysc2.lib import features
 
 import random
 
-from BuildQueues import Zerg
+from BuildQueues import Zerg, BuildingQueue, UnitQueue, ResearchQueue
 
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
 _PLAYER_SELF = 1
@@ -54,27 +54,23 @@ def build_building(obs):
         building_actions.append(actions.FunctionCall(_SELECT_POINT, [_NOT_QUEUED, target]))
     else:
         # Can't select a drone. A problem.
+        pass
 
-    hatc_x, hatc_y = (units == Zerg.Hatchery).nonzero()
+    hatch_x, hatch_y = (units == Zerg.Hatchery).nonzero()
 
-    if hatc_y.any():
-        target = [hatc_x.mean(), hatc_y.mean()]
-        building_actions.append()
-
-
-
-
+    if hatch_y.any():
+        target = [hatch_x.mean(), hatch_y.mean()]
+        building_actions.append(actions.FunctionCall(BuildingQueue.dequeue(), [_NOT_QUEUED, target]))
 
 
 def build_units(obs):
     """Build more units. Maybe separate into military and worker?"""
-    # Train next unit in military build order
+
 
 
 def build_worker(obs):
-    """Build workers"""
-    # Build drone
-    # Send drone to nearest unoccupied mineral/gas deposit
+    """Build a drone. Send it to the nearest available vespene/mineral."""
+
 
 
 def research(obs):
