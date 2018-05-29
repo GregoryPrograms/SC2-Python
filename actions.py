@@ -142,11 +142,11 @@ def return_to_base(obs):
     
     #Spawn creep tumor
         #Select queen
-        #Spawn creep tumor
+        #Use Spawn creep tumor ability
         #Target the edge of the creep
     
     #Spread creep tumors
         #For all creep tumors:
             #Select the tumor
-            #Spawn creep tumor
+            #Use Spawn creep tumor ability
             #Target as far away as possible
