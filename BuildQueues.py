@@ -12,6 +12,8 @@ have_spawning_pool = False
 have_hydra_den = False
 have_evo = False
 have_lair = False
+have_hive = False
+have_ultra_cavern = False
 
 # Building Macros
 _BUILD_HATCHERY = actions.FUNCTIONS.Build_Hatchery_screen.id
@@ -84,15 +86,19 @@ class BuildingQueue:
     def update(self):
 
         if not have_evo:
-            self.BuildQ[5][0] = 3
+            self.BuildQ[5][0] = 5
         if not have_roach_warren:
-            self.BuildQ[4][0] = 4
+            self.BuildQ[4][0] = 6
         if not have_spawning_pool:
-            self.BuildQ[1][0] = 5
+            self.BuildQ[1][0] = 7
         if not have_hydra_den:
-            self.BuildQ[7][0] = 1
+            self.BuildQ[7][0] = 3
         if not have_lair:
-            self.BuildQ[6][0] = 2
+            self.BuildQ[6][0] = 4
+        if not have_hive:
+            self.BuildQ[9][0] = 2
+        if not have_ultra_cavern:
+            self.BuildQ[10][0] = 1
 
         # update further based on game state
 
