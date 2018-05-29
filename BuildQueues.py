@@ -4,6 +4,9 @@ from pysc2.agents import base_agent
 from pysc2.lib import actions
 from pysc2.lib import features
 
+# Misc. Actions
+_NOOP = actions.FUNCTIONS.no_op.id
+
 # Global Tracking vars
 num_bases = 1
 num_queens = 0
@@ -27,11 +30,6 @@ _BUILD_SPORE_CRAWLER = actions.FUNCTIONS.Build_SporeCrawler_screen.id
 _BUILD_EVOLUTION_CHAMBER = actions.FUNCTIONS.Build_EvolutionChamber_screen.id
 _BUILD_HIVE = actions.FUNCTIONS.Morph_Hive_quick.id
 _BUILD_ULTRA_CAVERN = actions.FUNCTIONS.Build_UltraliskCavern_screen.id
-
-
-# Building Queue # Unit Queue (need list? to change the priorities)
-# tuples for buildings:
-
 
 class BuildingQueue:
     # Build order:
@@ -60,9 +58,8 @@ class BuildingQueue:
                           _BUILD_EVOLUTION_CHAMBER, _BUILD_LAIR, _BUILD_HYDRALISK_DEN,
                           _BUILD_SPORE_CRAWLER, _BUILD_HIVE, _BUILD_ULTRA_CAVERN]
 
-    def dequeue(self):
+    def dequeue(self, obs):
         # agent will handle the actually function call, we are just passing back the function id
-
         # repeated: hatchery, spine_crawler, spore crawler, extractor
         # everything else just need one of
         max = 0
@@ -73,10 +70,15 @@ class BuildingQueue:
                 max = self.BuildQ[0][i]
                 target_build = self.BuildQ[1][i]
 
-        return target_build
+        # if target_build not an available action, then return NO_OP
+        if target_build in obs.observations["available_actions"]:
+            return target_build
+        else :
+            return _NOOP
 
     def update(self):
         # if a building does not exist, then push it up in priority
+        # needs reconfiguring, a more intuitive numbering system
         if not have_spawning_pool:
             self.BuildQ[0][1] = 7
         if not have_roach_warren:
@@ -101,18 +103,6 @@ _TRAIN_HYDRALISK = actions.FUNCTIONS.Train_Hydralisk_quick.id
 _TRAIN_WORKER = actions.FUNCTIONS.Train_Drone_quick.id
 _TRAIN_OVERLORD = actions.FUNCTIONS.Train_Overlord_quick.id
 _TRAIN_ULTRALISK = actions.FUNCTIONS.Train_Ultralisk_quick.id
-
-# DO NOT USE TUPLES, THIS IS FOR MODELING PURPOSES ONLY
-queen = (0, _TRAIN_QUEEN)
-zergling = (0, _TRAIN_ZERGLING)
-roach = (0, _TRAIN_ROACH)
-hydra = (0, _TRAIN_HYDRALISK)
-worker = (0, _TRAIN_WORKER)
-overlord = (0, _TRAIN_OVERLORD)
-ultralisk = (0, _TRAIN_ULTRALISK)
-
-
-# Unit Queue (need list? to change the priorities)
 
 class UnitQueue:
     # Military Build order:
@@ -143,7 +133,7 @@ class UnitQueue:
         self.UnitQ[1] = [_TRAIN_QUEEN, _TRAIN_ZERGLING, _TRAIN_ROACH, _TRAIN_HYDRALISK,
                          _TRAIN_WORKER, _TRAIN_OVERLORD, _TRAIN_ULTRALISK]
 
-    def dequeue(self):
+    def dequeue(self, obs):
 
         # early game: if we dequeue a zergling and we don't have roach warren
         # then keeping enqueuing zerglings
@@ -169,6 +159,11 @@ class UnitQueue:
         # Set priority of target unit to 0, then update priorities
         self.UnitQ[0][i] = 0
         self.update()
+
+        if target_unit in obs.observations["available_actions"]:
+            return target_unit
+        else :
+            return _NOOP
 
         return target_unit
 
@@ -242,7 +237,8 @@ class ResearchQueue:
 
     def dequeue(self):
         # check if in available actions before dequeuing
-        return self.ResearchQ.get_nowait()
+        # change to a list as well?
+        target_research = self.ResearchQ.get_nowait()
 
     def enqueue(self, order):
         self.ResearchQ.put_nowait(order)
