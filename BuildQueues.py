@@ -192,6 +192,8 @@ _RESEARCH_GROOVED_SPINES = actions.FUNCTIONS.Research_GroovedSpines_quick.id
 _RESEARCH_ZERG_CARAPACE_LVL1 = actions.FUNCTIONS.Research_ZergGroundArmorLevel1_quick.id
 _RESEARCH_ZERG_CARAPACE_LVL2 = actions.FUNCTIONS.Research_ZergGroundArmorLevel2_quick.id
 _RESEARCH_ZERG_CARAPACE_LVL3 = actions.FUNCTIONS.Research_ZergGroundArmorLevel3_quick.id
+_RESEARCH_CHITINOUS_PLATING = actions.FUNCTIONS.Research_ChitinousPlating_quick.id
+_RESEARCH_PNEUMATIZED_CARAPACE = actions.FUNCTIONS.Research_PneumatizedCarapace_quick.id
 
 
 
@@ -208,6 +210,8 @@ class ResearchQueue:
     # Zerg Carapace Level 2
     # Zerg Missile Attacks level 3
     # Zerg Carapace Level 3
+    # Chitinous Plating
+    # Pneumatized Carapace
     
 
     def _init_(self):
@@ -221,6 +225,10 @@ class ResearchQueue:
         self.ResearchQ.put(_RESEARCH_ZERG_MISSILE_LVL2)
         self.ResearchQ.put(_RESEARCH_ZERG_CARAPACE_LVL1)
         self.ResearchQ.put(_RESEARCH_ZERG_CARAPACE_LVL2)
+        self.ResearchQ.put(_RESEARCH_ZERG_MISSILE_LVL3)
+        self.ResearchQ.put(_RESEARCH_ZERG_CARAPACE_LVL3)
+        self.ResearchQ.put(_RESEARCH_CHITINOUS_PLATING)
+        self.ResearchQ.put(_RESEARCH_PNEUMATIZED_CARAPACE)
         
 
     def dequeue(self):
