@@ -165,11 +165,18 @@ class UnitQueue:
         max = 0
         target_unit = ''
 
+        maxindex = 0
+        
         for i in len(self.UnitQ):
             if max < self.UnitQ[i][0]:
                 max = self.UnitQ[i][0]
+                maxindex = i
                 target_unit = self.UnitQ[i][1]
 
+        #Set priority of target unit to 0, then update priorities
+        self.UnitQ[i][0] = 0
+        update()
+        
         return target_unit
 
     def update(self):
