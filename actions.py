@@ -12,7 +12,7 @@ from pysc2.lib import features
 
 import random
 
-from BuildQueues import Zerg, BuildingQueue, UnitQueue, ResearchQueue
+from BuildQueues import Zerg
 
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
 _PLAYER_SELF = 1
@@ -54,23 +54,36 @@ def build_building(obs):
         building_actions.append(actions.FunctionCall(_SELECT_POINT, [_NOT_QUEUED, target]))
     else:
         # Can't select a drone. A problem.
-        pass
 
-    hatch_x, hatch_y = (units == Zerg.Hatchery).nonzero()
+    hatc_x, hatc_y = (units == Zerg.Hatchery).nonzero()
 
-    if hatch_y.any():
-        target = [hatch_x.mean(), hatch_y.mean()]
-        building_actions.append(actions.FunctionCall(BuildingQueue.dequeue(), [_NOT_QUEUED, target]))
+    if hatc_y.any():
+        target = [hatc_x.mean(), hatc_y.mean()]
+        building_actions.append()
+
+
+
+
 
 
 def build_units(obs):
     """Build more units. Maybe separate into military and worker?"""
-
+    # Train next unit in military build order
+    
+    #Select hatchery (or lair/hive) with available larvae
+    
+    #Train the next unit in the military build order
 
 
 def build_worker(obs):
-    """Build a drone. Send it to the nearest available vespene/mineral."""
+    """Build workers"""
+    #Select hatchery with available larvae
+    # Build drone
 
+def get_materials(obs):
+    # Send drone to nearest unoccupied mineral/gas deposit
+    # Select drone
+    # move to nearest unoccupied mineral/gas deposit
 
 
 def research(obs):
@@ -92,12 +105,22 @@ def attack(obs):
     """General Attack Function."""
     # Have army attack enemy base/enemy army
     # If possible, keep roaches and ultralisks at the front of the army and hydralisks at the rear
+    
+    # Select all military units
+    
+    # Attack
+    
+    #Target enemy base
 
 
 def defend(obs):
     """Send units to defensive"""
     # Send army to base
     # Move defensive structures up in priority?
+    
+    #Select army
+    
+    #Move to base
 
 
 def patrol(obs):
