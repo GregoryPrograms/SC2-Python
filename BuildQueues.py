@@ -24,6 +24,8 @@ _BUILD_LAIR = actions.FUNCTIONS.Morph_Lair_quick.id  # the only quick function, 
 _BUILD_HYDRALISK_DEN = actions.FUNCTIONS.Build_HydraliskDen_screen.id
 _BUILD_SPORE_CRAWLER = actions.FUNCTIONS.Build_SporeCrawler_screen.id
 _BUILD_EVOLUTION_CHAMBER = actions.FUNCTIONS.Build_EvolutionChamber_screen.id
+_BUILD_HIVE = actions.FUNCTIONS.Morph_Hive_quick.id
+_BUILD_ULTRA_CAVERN = actions.FUNCTIONS.Build_UltraliskCavern_screen.id
 
 # Building Queue # Unit Queue (need list? to change the priorities)
 # tuples for buildings:
@@ -37,6 +39,8 @@ evo = (6, _BUILD_EVOLUTION_CHAMBER)
 hydra_den = (8, _BUILD_HYDRALISK_DEN)
 spore_crawler = (9, _BUILD_SPORE_CRAWLER)
 lair = (7, _BUILD_LAIR)
+hive = (10, _BUILD_HIVE)
+ultra_cavern = (11, _BUILD_ULTRA_CAVERN)
 
 
 class BuildingQueue:
@@ -60,7 +64,7 @@ class BuildingQueue:
     def _init_(self):
         # use priority queue? in case buildings are destroyed
         self.BuildQ = [hatchery, spawning_pool, spine_crawler, extractor, roach_warren, evo, lair, hydra_den,
-                       spore_crawler]
+                       spore_crawler, hive, ultra_cavern]
 
     def dequeue(self):
         # agent will handle the actually function call, we are just passing back the function id
