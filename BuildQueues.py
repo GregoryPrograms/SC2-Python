@@ -258,3 +258,81 @@ class ResearchQueue:
 
     def enqueue(self, order):
         self.ResearchQ.put_nowait(order)
+
+
+class Zerg():
+    """Zerg units."""
+    Baneling = 9
+    BanelingBurrowed = 115
+    BanelingCocoon = 8
+    BanelingNest = 96
+    BroodLord = 114
+    BroodLordCocoon = 113
+    Broodling = 289
+    BroodlingEscort = 143
+    Changeling = 12
+    ChangelingMarine = 15
+    ChangelingMarineShield = 14
+    ChangelingZealot = 13
+    ChangelingZergling = 17
+    ChangelingZerglingWings = 16
+    Corruptor = 112
+    CreepTumor = 87
+    CreepTumorBurrowed = 137
+    CreepTumorQueen = 138
+    Drone = 104
+    DroneBurrowed = 116
+    Cocoon = 103
+    EvolutionChamber = 90
+    Extractor = 88
+    GreaterSpire = 102
+    Hatchery = 86
+    Hive = 101
+    Hydralisk = 107
+    HydraliskBurrowed = 117
+    HydraliskDen = 91
+    InfestationPit = 94
+    InfestedTerran = 7
+    InfestedTerranBurrowed = 120
+    InfestedTerranCocoon = 150
+    Infestor = 111
+    InfestorBurrowed = 127
+    Lair = 100
+    Larva = 151
+    Locust = 489
+    LocustFlying = 693
+    Lurker = 502
+    LurkerBurrowed = 503
+    LurkerDen = 504
+    LurkerCocoon = 501
+    Mutalisk = 108
+    NydusCanal = 142
+    NydusNetwork = 95
+    Overlord = 106
+    OverlordTransport = 893
+    OverlordTransportCocoon = 892
+    Overseer = 129
+    OverseerCocoon = 128
+    OverseerOversightMode = 1912
+    Queen = 126
+    QueenBurrowed = 125
+    Ravager = 688
+    RavagerBurrowed = 690
+    RavagerCocoon = 687
+    Roach = 110
+    RoachBurrowed = 118
+    RoachWarren = 97
+    SpawningPool = 89
+    SpineCrawler = 98
+    SpineCrawlerUprooted = 139
+    Spire = 92
+    SporeCrawler = 99
+    SporeCrawlerUprooted = 140
+    SwarmHost = 494
+    SwarmHostBurrowed = 493
+    Ultralisk = 109
+    UltraliskBurrowed = 131
+    UltraliskCavern = 93
+    Viper = 499
+    Zergling = 105
+    ZerglingBurrowed = 119

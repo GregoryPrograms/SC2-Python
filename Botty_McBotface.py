@@ -41,6 +41,7 @@ smart_actions = [
 ]
 
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
+_PLAYER_SELF = 1
 _PLAYER_FRIENDLY = 1
 _PLAYER_NEUTRAL = 3  # beacon/minerals
 _PLAYER_HOSTILE = 4
@@ -50,6 +51,8 @@ _ATTACK_SCREEN = actions.FUNCTIONS.Attack_screen.id
 _SELECT_ARMY = actions.FUNCTIONS.select_army.id
 _NOT_QUEUED = [0]
 _SELECT_ALL = [0]
+
+_MAP_SIZE = 128
 
 
 class Botty(base_agent.BaseAgent):
@@ -63,6 +66,7 @@ class Botty(base_agent.BaseAgent):
         self.action_list = []
         self.prev_action = None
         self.prev_state = None
+        self.base = 'right'
 
     def step(self, obs):
         """
@@ -76,6 +80,10 @@ class Botty(base_agent.BaseAgent):
         :return: A function ID for SC2 to call.
         """
         super(Botty, self).step(obs)
+
+        # gives us info about where our base is. Left side or right side. Works for 2 base pos maps.
+        if not self.prev_state and not self.prev_action:
+            self.init_base(obs)
 
         if self.action_list:
             return self.action_list.pop()
@@ -97,6 +105,15 @@ class Botty(base_agent.BaseAgent):
         self.action_list = action_function()
         return self.action_list.pop()
 
+    def init_base(self, obs):
+        """method to set the location of the base."""
+        x, y = (obs.observation['minimap'][_PLAYER_RELATIVE] == _PLAYER_SELF).nonzero()
+
+        if y.any() and y.mean() <= _MAP_SIZE // 2:
+            self.base = 'left'
+        else:
+            self.base = 'right'
+
     def reward_and_learn(self):
         if self.prev_action and self.prev_state:
             # Update the reward, we going to need to give it to Brain/
@@ -104,6 +121,12 @@ class Botty(base_agent.BaseAgent):
 
             # Todo finish reward stuff
             self.strategy_manager.learn(self.prev_state, self.state, self.prev_action, reward)
+
+    def transform_location(self, x, x_distance, y, y_distance):
+        if self.base == 'right':
+            return [x - x_distance, y - y_distance]
+
+        return [x + x_distance, y + y_distance]
 
 
 # I FIGURED THIS PAGE WOULD BLOAT DUE TO BOT ANYWAYS SO I'VE MOVED ACTIONS INTO A SEPARATE FILE

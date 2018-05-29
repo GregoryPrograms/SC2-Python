@@ -8,29 +8,78 @@
 
 # Nothing
 from pysc2.lib import actions
+from pysc2.lib import features
+
+import random
+
+from BuildQueues import Zerg
+
+_PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
+_PLAYER_SELF = 1
+_PLAYER_FRIENDLY = 1
+_PLAYER_NEUTRAL = 3  # beacon/minerals
+_PLAYER_HOSTILE = 4
+_MOVE_SCREEN = actions.FUNCTIONS.Move_screen.id
+_ATTACK_SCREEN = actions.FUNCTIONS.Attack_screen.id
+_SELECT_ARMY = actions.FUNCTIONS.select_army.id
+_NOT_QUEUED = [0]
+_SELECT_ALL = [0]
+_NO_OP = actions.FUNCTIONS.no_op.id
+_SELECT_POINT = actions.FUNCTIONS.select_point.id
+_BUILD_SUPPLY_DEPOT = actions.FUNCTIONS.Build_SupplyDepot_screen.id
+_BUILD_BARRACKS = actions.FUNCTIONS.Build_Barracks_screen.id
+_ATTACK_MINIMAP = actions.FUNCTIONS.Attack_minimap.id
+_UNIT_TYPE = features.SCREEN_FEATURES.unit_type.index
+_PLAYER_ID = features.SCREEN_FEATURES.player_id.index
+
+_MAP_SIZE = 128
+
 
 def no_op(obs):
     """THIS IS THE NO OPERATION ACTION"""
     return [actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])]
 
+
 # Build actions
 def build_building(obs):
-    """Build next building in build order"""
+    """Build next building in build order.
+    Actions will be select drone. Build building. """
+    building_actions = []
+
+    units = obs.observation['screen'][_UNIT_TYPE]
+    drone_x, drone_y = (units == Zerg.Drone).nonzero()
+    if drone_y.any():
+        i = random.randint(0, len(drone_y) - 1)
+        target = [drone_x[i], drone_y[i]]
+        building_actions.append(actions.FunctionCall(_SELECT_POINT, [_NOT_QUEUED, target]))
+    else:
+        # Can't select a drone. A problem.
+
+    hatc_x, hatc_y = (units == Zerg.Hatchery).nonzero()
+
+    if hatc_y.any():
+        target = [hatc_x.mean(), hatc_y.mean()]
+        building_actions.append()
+
+
+
+
 
 
 def build_units(obs):
     """Build more units. Maybe separate into military and worker?"""
-    #Train next unit in military build order
+    # Train next unit in military build order
+
 
 def build_worker(obs):
     """Build workers"""
-    #Build drone
-    #Send drone to nearest unoccupied mineral/gas deposit
+    # Build drone
+    # Send drone to nearest unoccupied mineral/gas deposit
 
 
 def research(obs):
     """get upgrades going. Maybe abstract this into build?"""
-    #Research next upgrade in research build order
+    # Research next upgrade in research build order
 
 
 def cancel(obs):
@@ -45,14 +94,14 @@ def move_view(obs):
 # Unit Control
 def attack(obs):
     """General Attack Function."""
-    #Have army attack enemy base/enemy army
-    #If possible, keep roaches and ultralisks at the front of the army and hydralisks at the rear
+    # Have army attack enemy base/enemy army
+    # If possible, keep roaches and ultralisks at the front of the army and hydralisks at the rear
 
 
 def defend(obs):
     """Send units to defensive"""
-    #Send army to base
-    #Move defensive structures up in priority?
+    # Send army to base
+    # Move defensive structures up in priority?
 
 
 def patrol(obs):
