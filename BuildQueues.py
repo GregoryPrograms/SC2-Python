@@ -52,10 +52,10 @@ class BuildingQueue:
     # Hydralisk Den
     # Spore Crawler
     # find new base
-    
-    #Late game:
-    #Hive?
-    #Ultralisk cavern?
+
+    # Late game:
+    # Hive?
+    # Ultralisk cavern?
 
     def _init_(self):
         # use priority queue? in case buildings are destroyed
@@ -131,8 +131,8 @@ class UnitQueue:
     # zerglings for early game only
     # roaches only when roach warren achieved
     # interchange roaches and hydralisks depending on strategy
-    
-    #Late game ultralisks? (Basic strategy is to have a few ultralisks backed up by a large number of hydralisks)
+
+    # Late game ultralisks? (Basic strategy is to have a few ultralisks backed up by a large number of hydralisks)
 
     def _init_(self):
         """Set build order"""

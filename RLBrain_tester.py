@@ -21,7 +21,7 @@ class CartPoleProblem:
     NUM_BUCKET = [2, 1, 6, 3]
     new_agent = True
 
-    def __init__(self, num_episodes=200):
+    def __init__(self, num_episodes=500):
         self.episodes = num_episodes
         self.env = gym.make('CartPole-v0')
         self.brain = brain.RLBrain([0, 1])
@@ -63,7 +63,7 @@ class CartPoleProblem:
             i = 0
 
             while not done:
-                # self.env.render()
+                self.env.render()
                 if current_state not in self.brain.QTable.index:
                     self.brain.add_state(current_state)
                     action = self.brain.choose_action(current_state)

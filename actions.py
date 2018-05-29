@@ -7,10 +7,11 @@
 # Would allow much more dynamic actions I think.
 
 # Nothing
+from pysc2.lib import actions
+
 def no_op(obs):
     """THIS IS THE NO OPERATION ACTION"""
-    return  # Something not zero?
-
+    return [actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])]
 
 # Build actions
 def build_building(obs):

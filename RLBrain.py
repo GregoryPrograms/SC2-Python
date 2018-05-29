@@ -59,7 +59,9 @@ class RLBrain:
         print(self.QTable.shape)
 
     def read_from_file_states(self, filename):
+        pass
 
     def write_to_file_states(self,filename):
+        pass
 
  

@@ -23,7 +23,9 @@ from pysc2.lib import features
 
 import numpy as np
 
+import actions as our_actions
 from RLBrain import RLBrain
+from Learner import GameState
 
 smart_actions = [
     'no_op',
@@ -53,8 +55,12 @@ _SELECT_ALL = [0]
 class Botty(base_agent.BaseAgent):
     def __init__(self):
         super(Botty, self).__init__()
-
         self.strategy_manager = RLBrain(smart_actions)  # keeping default rates for now.
+        self.state = GameState()
+
+        # if we want to have predefined initialization actions, we can hard code values in here.
+        # to be implemented as a stack, because it doesn't matter.
+        self.action_list = []
         self.prev_action = None
         self.prev_state = None
 
@@ -64,11 +70,40 @@ class Botty(base_agent.BaseAgent):
         2. Allow brain to learn based prev action, state, & rewards
         3. Choose action based on current state.
         4. Update prev actions & state.
-        5. Do action
-        :param obs:
-        :return:
+        5. Do action. My current idea is to store many actions in an action list.
+           This will allow our abstracted actions to do a lot more per action.
+        :param obs: The observation of current step.
+        :return: A function ID for SC2 to call.
         """
         super(Botty, self).step(obs)
+
+        if self.action_list:
+            return self.action_list.pop()
+
+        self.state.update(obs)
+        self.reward_and_learn()
+
+        if self.state not in self.strategy_manager.QTable.index:
+            self.strategy_manager.add_state(self.state)
+            action = self.strategy_manager.choose_action(self.state)
+        else:
+            action = self.strategy_manager.choose_action(self.state)
+
+        self.prev_state, self.prev_action = self.state, action
+
+        # Gets the abstracted action functions out the actions.py file.
+        action_function = getattr(our_actions, action)
+
+        self.action_list = action_function()
+        return self.action_list.pop()
+
+    def reward_and_learn(self):
+        if self.prev_action and self.prev_state:
+            # Update the reward, we going to need to give it to Brain/
+            reward = 0
+
+            # Todo finish reward stuff
+            self.strategy_manager.learn(self.prev_state, self.state, self.prev_action, reward)
 
 
 # I FIGURED THIS PAGE WOULD BLOAT DUE TO BOT ANYWAYS SO I'VE MOVED ACTIONS INTO A SEPARATE FILE
