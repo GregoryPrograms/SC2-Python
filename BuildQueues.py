@@ -187,7 +187,12 @@ _RESEARCH_ZERG_MISSILE_WEAPONS = actions.FUNCTIONS.Research_ZergMissileWeapons_q
 # I'm assuming this is needed before missile levels can be achieved
 _RESEARCH_ZERG_MISSILE_LVL1 = actions.FUNCTIONS.Research_ZergMissileWeaponsLevel1_quick.id
 _RESEARCH_ZERG_MISSILE_LVL2 = actions.FUNCTIONS.Research_ZergMissileWeaponsLevel2_quick.id
+_RESEARCH_ZERG_MISSILE_LVL3 = actions.FUNCTIONS.Research_ZergMissileWeaponsLevel2_quick.id
 _RESEARCH_GROOVED_SPINES = actions.FUNCTIONS.Research_GroovedSpines_quick.id
+_RESEARCH_ZERG_CARAPACE_LVL1 = actions.FUNCTIONS.Research_ZergGroundArmorLevel1_quick.id
+_RESEARCH_ZERG_CARAPACE_LVL2 = actions.FUNCTIONS.Research_ZergGroundArmorLevel2_quick.id
+_RESEARCH_ZERG_CARAPACE_LVL3 = actions.FUNCTIONS.Research_ZergGroundArmorLevel3_quick.id
+
 
 
 # Research Queue
@@ -199,6 +204,11 @@ class ResearchQueue:
     # Zerg Missile Attacks level 1
     # Grooved Spines
     # Zerg Missile Attacks level 2
+    # Zerg Carapace Level 1
+    # Zerg Carapace Level 2
+    # Zerg Missile Attacks level 3
+    # Zerg Carapace Level 3
+    
 
     def _init_(self):
         self.ResearchQ = asyncio.Queue()
@@ -209,6 +219,9 @@ class ResearchQueue:
         self.ResearchQ.put(_RESEARCH_ZERG_MISSILE_LVL1)
         self.ResearchQ.put(_RESEARCH_GROOVED_SPINES)
         self.ResearchQ.put(_RESEARCH_ZERG_MISSILE_LVL2)
+        self.ResearchQ.put(_RESEARCH_ZERG_CARAPACE_LVL1)
+        self.ResearchQ.put(_RESEARCH_ZERG_CARAPACE_LVL2)
+        
 
     def dequeue(self):
         # check if in available actions before dequeuing
