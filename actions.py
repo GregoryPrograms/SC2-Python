@@ -74,7 +74,9 @@ def build_units(obs):
 def build_worker(obs):
     """Build workers"""
     # Build drone
-    # Send drone to nearest unoccupied mineral/gas deposit
+
+def collect_mineral(obs):
+    # Send unit to nearest unoccupied mineral/gas deposit
 
 
 def research(obs):
