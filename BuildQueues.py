@@ -110,6 +110,7 @@ _TRAIN_ROACH = actions.FUNCTIONS.Train_Roach_quick.id
 _TRAIN_HYDRALISK = actions.FUNCTIONS.Train_Hydralisk_quick.id
 _TRAIN_WORKER = actions.FUNCTIONS.Train_Drone_quick.id
 _TRAIN_OVERLORD = actions.FUNCTIONS.Train_Overlord_quick.id
+_TRAIN_ULTRALISK = actions.FUNCTIONS.Train_Ultralisk_quick.id
 
 # DO NOT USE TUPLES, THIS IS FOR MODELING PURPOSES ONLY
 queen = (0, _TRAIN_QUEEN)
@@ -118,6 +119,7 @@ roach = (0, _TRAIN_ROACH)
 hydra = (0, _TRAIN_HYDRALISK)
 worker = (0, _TRAIN_WORKER)
 overlord = (0, _TRAIN_OVERLORD)
+ultralisk = (0, _TRAIN_ULTRALISK)
 
 
 # Unit Queue (need list? to change the priorities)
@@ -146,7 +148,7 @@ class UnitQueue:
 
     def _init_(self):
         """Set build order"""
-        self.UnitQ = [queen, zergling, roach, hydra, worker, overlord]
+        self.UnitQ = [queen, zergling, roach, hydra, worker, overlord, ultralisk]
 
     def dequeue(self):
 
@@ -178,11 +180,13 @@ class UnitQueue:
         # roaches go up with warren built (warren)
         if have_roach_warren:
             self.UnitQ[2][0] += 2
-        # same for zergling and hydralisk (spawn pool, hydra den)
+        # same for zergling, hydralisk and ultralisk (spawn pool, hydra den, ultralisk cavern)
         if have_spawning_pool:
             self.UnitQ[1][0] += 1
         if have_hydra_den:
-            self.UnitQ[3][0] += 3
+            self.UnitQ[3][0] += 4
+        if have_ultra_cavern:
+            self.UnitQ[6][0] += 3
 
         # overlord max if need more supplies, otherwise lowest
         # if max supply - current supply < supply required for next unit:
