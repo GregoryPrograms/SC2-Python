@@ -69,14 +69,21 @@ def build_building(obs):
 def build_units(obs):
     """Build more units. Maybe separate into military and worker?"""
     # Train next unit in military build order
+    
+    #Select hatchery (or lair/hive) with available larvae
+    
+    #Train the next unit in the military build order
 
 
 def build_worker(obs):
     """Build workers"""
+    #Select hatchery with available larvae
     # Build drone
 
 def get_materials(obs):
     # Send drone to nearest unoccupied mineral/gas deposit
+    # Select drone
+    # move to nearest unoccupied mineral/gas deposit
 
 
 def research(obs):
@@ -98,12 +105,22 @@ def attack(obs):
     """General Attack Function."""
     # Have army attack enemy base/enemy army
     # If possible, keep roaches and ultralisks at the front of the army and hydralisks at the rear
+    
+    # Select all military units
+    
+    # Attack
+    
+    #Target enemy base
 
 
 def defend(obs):
     """Send units to defensive"""
     # Send army to base
     # Move defensive structures up in priority?
+    
+    #Select army
+    
+    #Move to base
 
 
 def patrol(obs):
