@@ -137,13 +137,9 @@ class UnitQueue:
 
         # early game: if we dequeue a zergling and we don't have roach warren
         # then keeping enqueuing zerglings
-
         # mid-game: roaches only when roach warren is present
-
         # hydralisks?
-
         # get max priority unit, update list
-
         # access list like a 2D array
         max = 0
         target_unit = ''
@@ -220,25 +216,30 @@ class ResearchQueue:
     # Pneumatized Carapace
 
     def _init_(self):
-        self.ResearchQ = asyncio.Queue()
-        self.ResearchQ.put(_RESEARCH_METABOLIC_BOOST)
-        self.ResearchQ.put(_RESEARCH_GLIAL)
-        self.ResearchQ.put(_RESEARCH_ZERG_MISSILE_WEAPONS)
-        self.ResearchQ.put(_RESEARCH_ZERG_MISSILE_WEAPONS)
-        self.ResearchQ.put(_RESEARCH_ZERG_MISSILE_LVL1)
-        self.ResearchQ.put(_RESEARCH_GROOVED_SPINES)
-        self.ResearchQ.put(_RESEARCH_ZERG_MISSILE_LVL2)
-        self.ResearchQ.put(_RESEARCH_ZERG_CARAPACE_LVL1)
-        self.ResearchQ.put(_RESEARCH_ZERG_CARAPACE_LVL2)
-        self.ResearchQ.put(_RESEARCH_ZERG_MISSILE_LVL3)
-        self.ResearchQ.put(_RESEARCH_ZERG_CARAPACE_LVL3)
-        self.ResearchQ.put(_RESEARCH_CHITINOUS_PLATING)
-        self.ResearchQ.put(_RESEARCH_PNEUMATIZED_CARAPACE)
+        self.ResearchQ = asyncio.Stack()
+        self.ResearchQ.append(_RESEARCH_PNEUMATIZED_CARAPACE)
+        self.ResearchQ.append(_RESEARCH_CHITINOUS_PLATING)
+        self.ResearchQ.append(_RESEARCH_ZERG_CARAPACE_LVL3)
+        self.ResearchQ.append(_RESEARCH_ZERG_MISSILE_LVL3)
+        self.ResearchQ.append(_RESEARCH_ZERG_CARAPACE_LVL2)
+        self.ResearchQ.append(_RESEARCH_ZERG_CARAPACE_LVL1)
+        self.ResearchQ.append(_RESEARCH_ZERG_MISSILE_LVL2)
+        self.ResearchQ.append(_RESEARCH_GROOVED_SPINES)
+        self.ResearchQ.append(_RESEARCH_ZERG_MISSILE_LVL1)
+        self.ResearchQ.append(_RESEARCH_ZERG_MISSILE_WEAPONS)
+        self.ResearchQ.append(_RESEARCH_GLIAL)
+        self.ResearchQ.append(_RESEARCH_METABOLIC_BOOST)
 
-    def dequeue(self):
+
+    def dequeue(self, obs):
         # check if in available actions before dequeuing
-        # change to a list as well?
-        target_research = self.ResearchQ.get_nowait()
+        # change to a list as well? or use a stack?
+        # pop, check for viability; if not, push it back on
+        target_research = self.ResearchQ.pop()
+        if target_research in obs.observations["available_actions"]:
+            return target_research
+        else :
+            return _NOOP
 
     def enqueue(self, order):
         self.ResearchQ.put_nowait(order)
