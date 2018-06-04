@@ -180,8 +180,8 @@ class UnitQueue:
             self.UnitQ[0][6] += 1
 
         # overlord max if need more supplies, otherwise lowest
-        if max supply - current supply < supply required for next unit:
-            self.BuildQ[0][5] = 5000
+        #if max supply - current supply < supply required for next unit:
+        #    self.BuildQ[0][5] = 5000
 
 
 # Research Macros
