@@ -32,6 +32,7 @@ smart_actions = [
     'no_op',
     'build_building',
     'build_units',
+    'build_workers',
     'research',
     'cancel',
     'move_view',
@@ -71,6 +72,7 @@ class Botty(base_agent.BaseAgent):
         self.building_queue = BuildingQueue()
         self.unit_queue = UnitQueue()
         self.research_queue = ResearchQueue()
+
     def step(self, obs):
         """
         1. reduce state.
@@ -105,7 +107,7 @@ class Botty(base_agent.BaseAgent):
         # Gets the abstracted action functions out the actions.py file.
         action_function = getattr(our_actions, action)
 
-        self.action_list = action_function()
+        self.action_list = self.get_action_list(action_function, action, obs)
         return self.action_list.pop()
 
     def init_base(self, obs):
@@ -130,6 +132,32 @@ class Botty(base_agent.BaseAgent):
             return [x - x_distance, y - y_distance]
 
         return [x + x_distance, y + y_distance]
+
+    def get_action_list(self, action_function, name, obs):
+        """ This function will set up the appropriate args for the various actions."""
+        if name == 'no_op':
+            return action_function()
+        elif name == 'build_building':
+            x, y = 0, 0  # TODO Where to put a building
+            return action_function(self.building_queue.dequeue(obs), x, y)
+        elif name == 'build_units':
+            return action_function(self.unit_queue.dequeue(obs))
+        elif name == 'research':
+            return action_function(self.research_queue.dequeue(obs))
+        elif name == 'cancel':
+            return action_function()  # TODO arg
+        elif name == 'move_view':
+            pass
+        elif name == 'attack':
+            pass
+        elif name == 'defend':
+            pass
+        elif name == 'patrol':
+            pass
+        elif name == 'return_to_base':
+            pass
+
+        return []
 
 
 # I FIGURED THIS PAGE WOULD BLOAT DUE TO BOT ANYWAYS SO I'VE MOVED ACTIONS INTO A SEPARATE FILE
