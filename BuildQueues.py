@@ -153,7 +153,7 @@ class UnitQueue:
                 target_unit = self.UnitQ[1][i]
 
         # Set priority of target unit to 0, then update priorities
-        self.UnitQ[0][i] = 0
+        self.UnitQ[0][maxindex] = 0
         self.update()
 
         if target_unit in obs.observations["available_actions"]:
@@ -180,8 +180,8 @@ class UnitQueue:
             self.UnitQ[0][6] += 1
 
         # overlord max if need more supplies, otherwise lowest
-        # if max supply - current supply < supply required for next unit:
-        # self.BuildQ[5][0] = very high
+        if max supply - current supply < supply required for next unit:
+            self.BuildQ[0][5] = 5000
 
 
 # Research Macros
