@@ -83,8 +83,9 @@ def build_worker(drone_func):
 
 def get_materials(obs):
     """Send drone to nearest unoccupied mineral/gas deposit, Select drone, move to nearest mineral/gas deposit"""
+    #Claimed by Greg
     pass
-
+  	
 
 def research(obs):
     """get upgrades going. Maybe abstract this into build?"""
