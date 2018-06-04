@@ -64,7 +64,6 @@ class Botty(base_agent.BaseAgent):
         self.state = GameState()
 
         # if we want to have predefined initialization actions, we can hard code values in here.
-        # to be implemented as a stack, because it doesn't matter.
         self.action_list = []
         self.prev_action = None
         self.prev_state = None

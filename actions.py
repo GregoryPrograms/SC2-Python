@@ -47,25 +47,23 @@ def build_building(obs, building, x, y):
     building_actions = []
 
     units = obs.observation['screen'][_UNIT_TYPE]
+    d_target = [0, 0]  # makybe put a better init value here
 
     # pycharm won't recognize numpy's overloaded == operator.
     drone_x, drone_y = (units == Zerg.Drone).nonzero()
     if drone_y.any():
         i = random.randint(0, len(drone_y) - 1)
-        target = [drone_x[i], drone_y[i]]
-        building_actions.append(actions.FunctionCall(_SELECT_POINT, [_NOT_QUEUED, target]))
+        d_target = [drone_x[i], drone_y[i]]
+
     else:
-        # Can't select a drone. A problem.
-        pass
+        return [actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])]
     # pycharm won't recognize numpy's overloaded == operator.
     hatch_x, hatch_y = (units == Zerg.Hatchery).nonzero()
 
     if hatch_y.any():
-        target = [hatch_x.mean() + x, hatch_y.mean() + y]
-        building_actions.append(actions.FunctionCall(building, [_NOT_QUEUED, target]))
-
-    # Turn it into a queue!
-    return building_actions.reverse()
+        h_target = [hatch_x.mean() + x, hatch_y.mean() + y]
+        return [actions.FunctionCall(building, [_NOT_QUEUED, h_target]),
+                actions.FunctionCall(_SELECT_POINT, [_NOT_QUEUED, d_target])]
 
 
 def build_units(unit):
@@ -83,9 +81,9 @@ def build_worker(drone_func):
 
 def get_materials(obs):
     """Send drone to nearest unoccupied mineral/gas deposit, Select drone, move to nearest mineral/gas deposit"""
-    #Claimed by Greg
+    # Claimed by Greg
     pass
-  	
+
 
 def research(obs):
     """get upgrades going. Maybe abstract this into build?"""
@@ -108,11 +106,11 @@ def attack(obs):
     # Have army attack enemy base/enemy army
     # If possible, keep roaches and ultralisks at the front of the army and hydralisks at the rear
 
-    # Select all military units
+    enemy_y, enemy_x = (obs.observation['minimap'][_PLAYER_RELATIVE] == _PLAYER_HOSTILE).nonzero()
+    x, y = enemy_x.mean(), enemy_y.mean()
 
-    # Attack
-
-    # Target enemy base
+    return [actions.FunctionCall(_ATTACK_MINIMAP, [_NOT_QUEUED, x, y]),
+            actions.FunctionCall(_SELECT_ARMY, [_NOT_QUEUED])]
 
 
 def defend(obs):
@@ -129,8 +127,9 @@ def patrol(obs):
     """Make it part of defend?"""
 
 
-def return_to_base(obs):
-    """Go HOME"""
+def return_to_base(obs, rally_x, rally_y):
+    """Move units to some rally_x & rally_y. This should be an offset from the hatchery."""
+    move_actions = [actions.FunctionCall(_SELECT_ARMY, [_NOT_QUEUED])]
 
 # Maybe these could be part of the other actions:
 
