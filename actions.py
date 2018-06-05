@@ -12,7 +12,7 @@ from pysc2.lib import features
 
 import random
 
-from BuildQueues import
+from BuildQueues import Zerg
 
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
 _PLAYER_SELF = 1
