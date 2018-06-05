@@ -29,6 +29,7 @@ _SELECT_POINT = actions.FUNCTIONS.select_point.id
 _BUILD_SUPPLY_DEPOT = actions.FUNCTIONS.Build_SupplyDepot_screen.id
 _BUILD_BARRACKS = actions.FUNCTIONS.Build_Barracks_screen.id
 _ATTACK_MINIMAP = actions.FUNCTIONS.Attack_minimap.id
+_RALLY_UNITS = actions.FUNCTIONS.Rally_Units_minimap.id
 _UNIT_TYPE = features.SCREEN_FEATURES.unit_type.index
 _PLAYER_ID = features.SCREEN_FEATURES.player_id.index
 
@@ -54,7 +55,6 @@ def build_building(obs, building, x, y):
     if drone_y.any():
         i = random.randint(0, len(drone_y) - 1)
         d_target = [drone_x[i], drone_y[i]]
-
     else:
         return [actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])]
     # pycharm won't recognize numpy's overloaded == operator.
@@ -64,6 +64,7 @@ def build_building(obs, building, x, y):
         h_target = [hatch_x.mean() + x, hatch_y.mean() + y]
         return [actions.FunctionCall(building, [_NOT_QUEUED, h_target]),
                 actions.FunctionCall(_SELECT_POINT, [_NOT_QUEUED, d_target])]
+    return [actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])]
 
 
 def build_units(unit):
@@ -106,13 +107,14 @@ def attack(obs):
     # Have army attack enemy base/enemy army
     # If possible, keep roaches and ultralisks at the front of the army and hydralisks at the rear
 
-    enemy_y, enemy_x = (obs.observation['minimap'][_PLAYER_RELATIVE] == _PLAYER_HOSTILE).nonzero()
-    x, y = enemy_x.mean(), enemy_y.mean()
+    enemy_y, enemy_x = (obs.observation['screen'][_PLAYER_RELATIVE] == _PLAYER_HOSTILE).nonzero()
+    if enemy_y.any():
+        x, y = enemy_x.mean(), enemy_y.mean()
 
-    return [actions.FunctionCall(_ATTACK_MINIMAP, [_NOT_QUEUED, x, y]),
-            actions.FunctionCall(_SELECT_ARMY, [_NOT_QUEUED])]
-
-
+        return [actions.FunctionCall(_ATTACK_MINIMAP, [_NOT_QUEUED, x, y]),
+                actions.FunctionCall(_SELECT_ARMY, [_NOT_QUEUED])]
+    else:
+        return [actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])]
 def defend(obs):
     """Send units to defensive"""
     # Send army to base
@@ -127,9 +129,10 @@ def patrol(obs):
     """Make it part of defend?"""
 
 
-def return_to_base(obs, rally_x, rally_y):
+def return_to_base(rally_x, rally_y):
     """Move units to some rally_x & rally_y. This should be an offset from the hatchery."""
-    move_actions = [actions.FunctionCall(_SELECT_ARMY, [_NOT_QUEUED])]
+    return [actions.FunctionCall(_SELECT_ARMY, [_NOT_QUEUED]),
+            actions.FunctionCall(_MOVE_SCREEN, [_NOT_QUEUED, rally_x, rally_y])]
 
 # Maybe these could be part of the other actions:
 

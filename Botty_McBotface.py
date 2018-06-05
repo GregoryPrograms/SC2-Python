@@ -103,7 +103,7 @@ class Botty(base_agent.BaseAgent):
 
         self.prev_state, self.prev_action = self.state, action
 
-        # Gets the abstracted action functions out the actions.py file.
+        # Gets the abstracted action functions out the actions.py (as our_actions) file.
         action_function = getattr(our_actions, action)
 
         self.action_list = self.get_action_list(action_function, action, obs)
@@ -141,6 +141,8 @@ class Botty(base_agent.BaseAgent):
             return action_function(self.building_queue.dequeue(obs), x, y)
         elif name == 'build_units':
             return action_function(self.unit_queue.dequeue(obs))
+        elif name == 'build_worker':
+            return action_function(actions.FUNCTIONS.Train_Drone_quick.id)
         elif name == 'research':
             return action_function(self.research_queue.dequeue(obs))
         elif name == 'cancel':
@@ -148,12 +150,13 @@ class Botty(base_agent.BaseAgent):
         elif name == 'move_view':
             pass
         elif name == 'attack':
-            pass
+            return action_function(obs)
         elif name == 'defend':
             pass
         elif name == 'patrol':
             pass
         elif name == 'return_to_base':
+            # Need to calc rally_x & rally_y
             pass
 
         return []
