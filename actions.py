@@ -12,7 +12,7 @@ from pysc2.lib import features
 
 import random
 
-from BuildQueues import Zerg
+from BuildQueues import
 
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
 _PLAYER_SELF = 1
@@ -98,12 +98,14 @@ def cancel(obs):
 
 # View control
 def move_view(obs):
-    """Move screen/ minimap to see more. This is the action that will fuck us."""
+    """Move screen/ minimap to see more."""
+
 
 
 # Unit Control
 def attack(obs):
     """General Attack Function."""
+
     # Have army attack enemy base/enemy army
     # If possible, keep roaches and ultralisks at the front of the army and hydralisks at the rear
 
@@ -125,9 +127,20 @@ def defend(obs):
 
     # Move to base
 
+def get_drone_location(drone):
+    """Gets the location of a single drone"""
+    return (drone == _PLAYER_SELF).nonzero()
+
+def get_rand_location(droneTarget):
+    """gets a location to send drone off to """
+    return [np.random.randint(0,128),np.random.randint(0,128)]
 
 def patrol(obs):
     """Make it part of defend?"""
+    view = obs.observation['screen'][_PLAYER_RELATIVE]
+    drone_x,drone_y = get_drone_location(view)
+    target = get_rand_location([drone_x,drone_y])
+    return actions.FunctionCall(_MOVE_SCREEN,[_NOT_QUEUED,target])
 
 
 def return_to_base(rally_x, rally_y):
