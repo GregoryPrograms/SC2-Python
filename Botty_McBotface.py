@@ -22,11 +22,13 @@ from pysc2.lib import actions
 from pysc2.lib import features
 
 import numpy as np
+import math
+import random
 
 import actions as our_actions
 from RLBrain import RLBrain
 from Learner import GameState
-from BuildQueues import BuildingQueue, UnitQueue, ResearchQueue
+from BuildQueues import BuildingQueue, UnitQueue, ResearchQueue, Zerg
 
 smart_actions = [
     'no_op',
@@ -42,11 +44,30 @@ smart_actions = [
     'return_to_base'
 ]
 
+# Put in offsets for where to store buildings. Extractor is a special case.
+building_offsets = {
+    '_BUILD_HATCHERY': [0, 0],
+    '_BUILD_SPAWNING_POOL': [],
+    '_BUILD_SPINE_CRAWLER': [],
+    '_BUILD_EXTRACTOR': [0, 0],
+    '_BUILD_ROACH_WARREN': [],
+    '_BUILD_LAIR': [],
+    '_BUILD_HYDRALISK_DEN': [],
+    '_BUILD_SPORE_CRAWLER': [],
+    '_BUILD_EVOLUTION_CHAMBER': [],
+    '_BUILD_HIVE': [],
+    '_BUILD_ULTRA_CAVERN': []
+}
+
+_BUILD_EXTRACTOR = actions.FUNCTIONS.Build_Extractor_screen_screen.id
+
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
 _PLAYER_SELF = 1
 _PLAYER_FRIENDLY = 1
 _PLAYER_NEUTRAL = 3  # beacon/minerals
 _PLAYER_HOSTILE = 4
+_NEUTRAL_VESPENE_GEYSER = 342
+_UNIT_TYPE = features.SCREEN_FEATURES.unit_type.index
 _NO_OP = actions.FUNCTIONS.no_op.id
 _MOVE_SCREEN = actions.FUNCTIONS.Move_screen.id
 _ATTACK_SCREEN = actions.FUNCTIONS.Attack_screen.id
@@ -55,6 +76,8 @@ _NOT_QUEUED = [0]
 _SELECT_ALL = [0]
 
 _MAP_SIZE = 128
+# Size will depend on screen size.
+_SIZE_VESPENE = 97
 
 
 class Botty(base_agent.BaseAgent):
@@ -137,12 +160,15 @@ class Botty(base_agent.BaseAgent):
         if name == 'no_op':
             return action_function()
         elif name == 'build_building':
-            x, y = 0, 0  # TODO Where to put a building
-            return action_function(self.building_queue.dequeue(obs), x, y)
+            building = self.building_queue.dequeue(obs)
+            target = self.get_building_target(obs, building)
+            return action_function(building, target)
         elif name == 'build_units':
             return action_function(self.unit_queue.dequeue(obs))
+
         elif name == 'build_worker':
             return action_function(actions.FUNCTIONS.Train_Drone_quick.id)
+
         elif name == 'research':
             return action_function(self.research_queue.dequeue(obs))
         elif name == 'cancel':
@@ -160,6 +186,23 @@ class Botty(base_agent.BaseAgent):
             pass
 
         return []
+
+    @staticmethod
+    def get_building_target(obs, building):
+        unit_type = obs.observation['screen'][_UNIT_TYPE]
+        if building == _BUILD_EXTRACTOR:
+            vespene_y, vespene_x = (unit_type == _NEUTRAL_VESPENE_GEYSER).nonzero()
+
+            # Two options. Use a classifier to group vespene coordinates,
+            # OR we can choose randomly and hope we don't get a unit.
+            # For now I will do the later.
+            i = random.randint(0, len(vespene_y) - 1)
+            return [vespene_x[i], vespene_y[i]]
+        else:
+            # Building may not pass into dict correctly as a key.
+            x_offset, y_offset = building_offsets[str(building)]
+            hatchery_x, hatchery_y = (unit_type == Zerg.Hatchery).nonzero()
+            return [hatchery_x.mean() + x_offset, hatchery_y.mean() + y_offset]
 
 
 # I FIGURED THIS PAGE WOULD BLOAT DUE TO BOT ANYWAYS SO I'VE MOVED ACTIONS INTO A SEPARATE FILE

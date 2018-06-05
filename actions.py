@@ -11,6 +11,7 @@ from pysc2.lib import actions
 from pysc2.lib import features
 
 import random
+import numpy as np
 
 from BuildQueues import Zerg
 
@@ -42,13 +43,11 @@ def no_op():
 
 
 # Build actions
-def build_building(obs, building, x_offset, y_offset):
+def build_building(obs, building, target):
     """Build next building in build order.
     Actions will be select drone. Build building. """
-    building_actions = []
 
     units = obs.observation['screen'][_UNIT_TYPE]
-    d_target = [0, 0]  # makybe put a better init value here
 
     # pycharm won't recognize numpy's overloaded == operator.
     drone_x, drone_y = (units == Zerg.Drone).nonzero()
@@ -57,12 +56,12 @@ def build_building(obs, building, x_offset, y_offset):
         d_target = [drone_x[i], drone_y[i]]
     else:
         return [actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])]
+
     # pycharm won't recognize numpy's overloaded == operator.
     hatch_x, hatch_y = (units == Zerg.Hatchery).nonzero()
 
     if hatch_y.any():
-        h_target = [hatch_x.mean() + x_offset, hatch_y.mean() + y_offset]
-        return [actions.FunctionCall(building, [_NOT_QUEUED, h_target]),
+        return [actions.FunctionCall(building, [_NOT_QUEUED, target]),
                 actions.FunctionCall(_SELECT_POINT, [_NOT_QUEUED, d_target])]
     return [actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])]
 
@@ -101,7 +100,6 @@ def move_view(obs):
     """Move screen/ minimap to see more."""
 
 
-
 # Unit Control
 def attack(obs):
     """General Attack Function."""
@@ -118,6 +116,8 @@ def attack(obs):
     else:
         return [actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])]
 
+
+# We are questioning how to make this action different from the attack action, without too complicated.
 def defend(obs):
     """Send units to defensive"""
     # Send army to base
@@ -127,26 +127,29 @@ def defend(obs):
 
     # Move to base
 
-def get_drone_location(drone):
-    """Gets the location of a single drone"""
-    return (drone == _PLAYER_SELF).nonzero()
-
-def get_rand_location(droneTarget):
-    """gets a location to send drone off to """
-    return [np.random.randint(0,128),np.random.randint(0,128)]
 
 def patrol(obs):
     """Make it part of defend?"""
     view = obs.observation['screen'][_PLAYER_RELATIVE]
-    drone_x,drone_y = get_drone_location(view)
-    target = get_rand_location([drone_x,drone_y])
-    return actions.FunctionCall(_MOVE_SCREEN,[_NOT_QUEUED,target])
+    drone_x, drone_y = get_drone_location(view)
+    target = get_rand_location([drone_x, drone_y])
+    return [actions.FunctionCall(_MOVE_SCREEN, [_NOT_QUEUED, target])]
 
 
 def return_to_base(rally_x, rally_y):
     """Move units to some rally_x & rally_y. This should be an offset from the hatchery."""
     return [actions.FunctionCall(_SELECT_ARMY, [_NOT_QUEUED]),
             actions.FunctionCall(_MOVE_SCREEN, [_NOT_QUEUED, rally_x, rally_y])]
+
+
+def get_drone_location(drone):
+    """Gets the location of a single drone"""
+    return (drone == _PLAYER_SELF).nonzero()
+
+
+def get_rand_location(drone_target):
+    """gets a location to send drone off to """
+    return [np.random.randint(0, 128), np.random.randint(0, 128)]
 
 # Maybe these could be part of the other actions:
 
