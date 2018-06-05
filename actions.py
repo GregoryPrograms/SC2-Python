@@ -42,7 +42,7 @@ def no_op():
 
 
 # Build actions
-def build_building(obs, building, x, y):
+def build_building(obs, building, x_offset, y_offset):
     """Build next building in build order.
     Actions will be select drone. Build building. """
     building_actions = []
@@ -61,7 +61,7 @@ def build_building(obs, building, x, y):
     hatch_x, hatch_y = (units == Zerg.Hatchery).nonzero()
 
     if hatch_y.any():
-        h_target = [hatch_x.mean() + x, hatch_y.mean() + y]
+        h_target = [hatch_x.mean() + x_offset, hatch_y.mean() + y_offset]
         return [actions.FunctionCall(building, [_NOT_QUEUED, h_target]),
                 actions.FunctionCall(_SELECT_POINT, [_NOT_QUEUED, d_target])]
     return [actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])]
@@ -115,6 +115,7 @@ def attack(obs):
                 actions.FunctionCall(_SELECT_ARMY, [_NOT_QUEUED])]
     else:
         return [actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])]
+
 def defend(obs):
     """Send units to defensive"""
     # Send army to base
