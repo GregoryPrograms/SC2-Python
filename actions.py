@@ -20,6 +20,7 @@ _PLAYER_SELF = 1
 _PLAYER_FRIENDLY = 1
 _PLAYER_NEUTRAL = 3  # beacon/minerals
 _PLAYER_HOSTILE = 4
+_MOVE_CAMERA = actions.FUNCTIONS.Move_camera.id
 _MOVE_SCREEN = actions.FUNCTIONS.Move_screen.id
 _ATTACK_SCREEN = actions.FUNCTIONS.Attack_screen.id
 _SELECT_ARMY = actions.FUNCTIONS.select_army.id
@@ -79,25 +80,16 @@ def build_worker(drone_func):
     return [actions.FunctionCall(drone_func, [_NOT_QUEUED])]
 
 
-def get_materials(obs):
-    """Send drone to nearest unoccupied mineral/gas deposit, Select drone, move to nearest mineral/gas deposit"""
-    # Claimed by Greg
-    pass
-
-
-def research(obs):
+def research(reasearch_func):
     """get upgrades going. Maybe abstract this into build?"""
     # Research next upgrade in research build order
-    pass
-
-
-def cancel(obs):
-    """Cancel build queue. To free up resources? May be to complicated of action for learner to consider."""
+    return [actions.FunctionCall(reasearch_func, [_NOT_QUEUED])]
 
 
 # View control
-def move_view(obs):
+def move_view(x, y):
     """Move screen/ minimap to see more."""
+    return [actions.FunctionCall(_MOVE_CAMERA, [x, y])]
 
 
 # Unit Control
@@ -114,19 +106,27 @@ def attack(obs):
         return [actions.FunctionCall(_ATTACK_MINIMAP, [_NOT_QUEUED, x, y]),
                 actions.FunctionCall(_SELECT_ARMY, [_NOT_QUEUED])]
     else:
-        return [actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])]
+        return [actions.FunctionCall(_NO_OP, [])]
 
 
 # We are questioning how to make this action different from the attack action, without too complicated.
-def defend(obs):
+def defend(x_defend, y_defend):
     """Send units to defensive"""
     # Send army to base
     # Move defensive structures up in priority?
-
     # Select army
-
     # Move to base
+    return [actions.FunctionCall(_ATTACK_MINIMAP, [_NOT_QUEUED, x_defend, y_defend]),
+            actions.FunctionCall(_SELECT_ARMY, [_NOT_QUEUED])]
 
+
+def return_to_base(rally_x, rally_y):
+    """Move units to some rally_x & rally_y. This should be an offset from the hatchery."""
+    return [actions.FunctionCall(_SELECT_ARMY, [_NOT_QUEUED]),
+            actions.FunctionCall(_MOVE_SCREEN, [_NOT_QUEUED, rally_x, rally_y])]
+
+
+# Actions that we considered to be added.
 
 def patrol(obs):
     """Make it part of defend?"""
@@ -134,12 +134,6 @@ def patrol(obs):
     drone_x, drone_y = get_drone_location(view)
     target = get_rand_location([drone_x, drone_y])
     return [actions.FunctionCall(_MOVE_SCREEN, [_NOT_QUEUED, target])]
-
-
-def return_to_base(rally_x, rally_y):
-    """Move units to some rally_x & rally_y. This should be an offset from the hatchery."""
-    return [actions.FunctionCall(_SELECT_ARMY, [_NOT_QUEUED]),
-            actions.FunctionCall(_MOVE_SCREEN, [_NOT_QUEUED, rally_x, rally_y])]
 
 
 def get_drone_location(drone):
@@ -151,6 +145,16 @@ def get_rand_location(drone_target):
     """gets a location to send drone off to """
     return [np.random.randint(0, 128), np.random.randint(0, 128)]
 
+
+def get_materials(obs):
+    """Send drone to nearest unoccupied mineral/gas deposit, Select drone, move to nearest mineral/gas deposit"""
+    # Claimed by Greg
+    pass
+
+
+def cancel(obs):
+    """Cancel build queue. To free up resources? May be to complicated of action for learner to consider."""
+    pass
 # Maybe these could be part of the other actions:
 
 # def spawn_larvae(obs):

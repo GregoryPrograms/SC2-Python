@@ -30,6 +30,25 @@ from RLBrain import RLBrain
 from Learner import GameState
 from BuildQueues import BuildingQueue, UnitQueue, ResearchQueue, Zerg
 
+_PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
+_PLAYER_SELF = 1
+_PLAYER_FRIENDLY = 1
+_PLAYER_NEUTRAL = 3  # beacon/minerals
+_PLAYER_HOSTILE = 4
+_NEUTRAL_VESPENE_GEYSER = 342
+_UNIT_TYPE = features.SCREEN_FEATURES.unit_type.index
+_NO_OP = actions.FUNCTIONS.no_op.id
+_MOVE_SCREEN = actions.FUNCTIONS.Move_screen.id
+_ATTACK_SCREEN = actions.FUNCTIONS.Attack_screen.id
+_SELECT_ARMY = actions.FUNCTIONS.select_army.id
+_BUILD_EXTRACTOR = actions.FUNCTIONS.Build_Extractor_screen_screen.id
+_NOT_QUEUED = [0]
+_SELECT_ALL = [0]
+
+_MAP_SIZE = 128
+# Size will depend on screen size.
+_SIZE_VESPENE = 97
+
 smart_actions = [
     'no_op',
     'build_building',
@@ -37,12 +56,18 @@ smart_actions = [
     'build_workers',
     'research',
     'cancel',
-    'move_view',
     'attack',
     'defend',
     'patrol',
     'return_to_base'
 ]
+
+# Want a Square * Square move view action space.
+_SQUARE = 8
+for move_view_x in range(_MAP_SIZE):
+    for move_view_y in range(_MAP_SIZE):
+        if move_view_x % _SQUARE == 0 and move_view_y % _SQUARE == 0:
+            smart_actions.append('move_view_' + str(move_view_x) + '_' + str(move_view_y))
 
 # Put in offsets for where to store buildings. Extractor is a special case.
 building_offsets = {
@@ -59,26 +84,6 @@ building_offsets = {
     '_BUILD_ULTRA_CAVERN': []
 }
 
-_BUILD_EXTRACTOR = actions.FUNCTIONS.Build_Extractor_screen_screen.id
-
-_PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
-_PLAYER_SELF = 1
-_PLAYER_FRIENDLY = 1
-_PLAYER_NEUTRAL = 3  # beacon/minerals
-_PLAYER_HOSTILE = 4
-_NEUTRAL_VESPENE_GEYSER = 342
-_UNIT_TYPE = features.SCREEN_FEATURES.unit_type.index
-_NO_OP = actions.FUNCTIONS.no_op.id
-_MOVE_SCREEN = actions.FUNCTIONS.Move_screen.id
-_ATTACK_SCREEN = actions.FUNCTIONS.Attack_screen.id
-_SELECT_ARMY = actions.FUNCTIONS.select_army.id
-_NOT_QUEUED = [0]
-_SELECT_ALL = [0]
-
-_MAP_SIZE = 128
-# Size will depend on screen size.
-_SIZE_VESPENE = 97
-
 
 class Botty(base_agent.BaseAgent):
     def __init__(self):
@@ -94,6 +99,15 @@ class Botty(base_agent.BaseAgent):
         self.building_queue = BuildingQueue()
         self.unit_queue = UnitQueue()
         self.research_queue = ResearchQueue()
+
+    def init_base(self, obs):
+        """method to set the location of the base."""
+        x, y = (obs.observation['minimap'][_PLAYER_RELATIVE] == _PLAYER_SELF).nonzero()
+
+        if y.any() and y.mean() <= _MAP_SIZE // 2:
+            self.base = 'left'
+        else:
+            self.base = 'right'
 
     def step(self, obs):
         """
@@ -127,19 +141,9 @@ class Botty(base_agent.BaseAgent):
         self.prev_state, self.prev_action = self.state, action
 
         # Gets the abstracted action functions out the actions.py (as our_actions) file.
-        action_function = getattr(our_actions, action)
 
-        self.action_list = self.get_action_list(action_function, action, obs)
+        self.action_list = self.get_action_list(action, obs)
         return self.action_list.pop()
-
-    def init_base(self, obs):
-        """method to set the location of the base."""
-        x, y = (obs.observation['minimap'][_PLAYER_RELATIVE] == _PLAYER_SELF).nonzero()
-
-        if y.any() and y.mean() <= _MAP_SIZE // 2:
-            self.base = 'left'
-        else:
-            self.base = 'right'
 
     def reward_and_learn(self):
         if self.prev_action and self.prev_state:
@@ -149,41 +153,37 @@ class Botty(base_agent.BaseAgent):
             # Todo finish reward stuff
             self.strategy_manager.learn(self.prev_state, self.state, self.prev_action, reward)
 
-    def transform_location(self, x, x_distance, y, y_distance):
-        if self.base == 'right':
-            return [x - x_distance, y - y_distance]
-
-        return [x + x_distance, y + y_distance]
-
-    def get_action_list(self, action_function, name, obs):
+    def get_action_list(self, action_str, obs):
         """ This function will set up the appropriate args for the various actions."""
-        if name == 'no_op':
+        if 'move_view' in action_str:
+            move_view_id, x, y = action_str.split('_')
+            action_function = getattr(our_actions, move_view_id)
+            return action_function(obs, x, y)
+
+        action_function = getattr(our_actions, action_str)
+
+        if action_str == 'no_op':
             return action_function()
-        elif name == 'build_building':
+        elif action_str == 'build_building':
             building = self.building_queue.dequeue(obs)
             target = self.get_building_target(obs, building)
             return action_function(building, target)
-        elif name == 'build_units':
+        elif action_str == 'build_units':
             return action_function(self.unit_queue.dequeue(obs))
-
-        elif name == 'build_worker':
+        elif action_str == 'build_worker':
             return action_function(actions.FUNCTIONS.Train_Drone_quick.id)
-
-        elif name == 'research':
+        elif action_str == 'research':
             return action_function(self.research_queue.dequeue(obs))
-        elif name == 'cancel':
-            return action_function()  # TODO arg
-        elif name == 'move_view':
-            pass
-        elif name == 'attack':
+        elif action_str == 'attack':
             return action_function(obs)
-        elif name == 'defend':
-            pass
-        elif name == 'patrol':
-            pass
-        elif name == 'return_to_base':
-            # Need to calc rally_x & rally_y
-            pass
+        elif action_str == 'defend':
+            unit_type = obs.observation['screen'][_UNIT_TYPE]
+            hatchery_x, hatchery_y = (unit_type == Zerg.Hatchery).nonzero()
+            return action_function(hatchery_x.mean() + 10, hatchery_y.mean() + 10)
+        elif action_str == 'return_to_base':
+            unit_type = obs.observation['screen'][_UNIT_TYPE]
+            hatchery_x, hatchery_y = (unit_type == Zerg.Hatchery).nonzero()
+            return action_function(hatchery_x + 10, hatchery_y + 10)
 
         return []
 
@@ -192,7 +192,6 @@ class Botty(base_agent.BaseAgent):
         unit_type = obs.observation['screen'][_UNIT_TYPE]
         if building == _BUILD_EXTRACTOR:
             vespene_y, vespene_x = (unit_type == _NEUTRAL_VESPENE_GEYSER).nonzero()
-
             # Two options. Use a classifier to group vespene coordinates,
             # OR we can choose randomly and hope we don't get a unit.
             # For now I will do the later.
@@ -204,9 +203,14 @@ class Botty(base_agent.BaseAgent):
             hatchery_x, hatchery_y = (unit_type == Zerg.Hatchery).nonzero()
             return [hatchery_x.mean() + x_offset, hatchery_y.mean() + y_offset]
 
+    def transform_location(self, x, x_distance, y, y_distance):
+        if self.base == 'right':
+            return [x - x_distance, y - y_distance]
+
+        return [x + x_distance, y + y_distance]
+
 
 # I FIGURED THIS PAGE WOULD BLOAT DUE TO BOT ANYWAYS SO I'VE MOVED ACTIONS INTO A SEPARATE FILE
-# THERE IS ALSO A FILE FOR TESTING ACTIONS. THIS WILL BE A COMPLETELY SEPARATE AGENT.
 
 
 class DefeatRoaches(base_agent.BaseAgent):
