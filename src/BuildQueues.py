@@ -22,7 +22,7 @@ have_ultra_cavern = False
 _BUILD_HATCHERY = actions.FUNCTIONS.Build_Hatchery_screen.id
 _BUILD_SPAWNING_POOL = actions.FUNCTIONS.Build_SpawningPool_screen.id
 _BUILD_SPINE_CRAWLER = actions.FUNCTIONS.Build_SpineCrawler_screen.id
-_BUILD_EXTRACTOR = actions.FUNCTIONS.Build_Extractor_screen_screen.id
+_BUILD_EXTRACTOR = actions.FUNCTIONS.Build_Extractor_screen.id
 _BUILD_ROACH_WARREN = actions.FUNCTIONS.Build_RoachWarren_screen.id
 _BUILD_LAIR = actions.FUNCTIONS.Morph_Lair_quick.id  # the only quick function, keep separate from queue?
 _BUILD_HYDRALISK_DEN = actions.FUNCTIONS.Build_HydraliskDen_screen.id
@@ -218,19 +218,10 @@ class ResearchQueue:
     # Pneumatized Carapace
 
     def _init_(self):
-        self.ResearchQ = asyncio.Stack()
-        self.ResearchQ.append(_RESEARCH_PNEUMATIZED_CARAPACE)
-        self.ResearchQ.append(_RESEARCH_CHITINOUS_PLATING)
-        self.ResearchQ.append(_RESEARCH_ZERG_CARAPACE_LVL3)
-        self.ResearchQ.append(_RESEARCH_ZERG_MISSILE_LVL3)
-        self.ResearchQ.append(_RESEARCH_ZERG_CARAPACE_LVL2)
-        self.ResearchQ.append(_RESEARCH_ZERG_CARAPACE_LVL1)
-        self.ResearchQ.append(_RESEARCH_ZERG_MISSILE_LVL2)
-        self.ResearchQ.append(_RESEARCH_GROOVED_SPINES)
-        self.ResearchQ.append(_RESEARCH_ZERG_MISSILE_LVL1)
-        self.ResearchQ.append(_RESEARCH_ZERG_MISSILE_WEAPONS)
-        self.ResearchQ.append(_RESEARCH_GLIAL)
-        self.ResearchQ.append(_RESEARCH_METABOLIC_BOOST)
+        self.ResearchQ = [_RESEARCH_PNEUMATIZED_CARAPACE, _RESEARCH_CHITINOUS_PLATING, _RESEARCH_ZERG_CARAPACE_LVL3,
+                          _RESEARCH_ZERG_MISSILE_LVL3, _RESEARCH_ZERG_CARAPACE_LVL2, _RESEARCH_ZERG_CARAPACE_LVL3,
+                          _RESEARCH_GROOVED_SPINES, _RESEARCH_ZERG_MISSILE_LVL1, _RESEARCH_ZERG_MISSILE_WEAPONS,
+                          _RESEARCH_GLIAL, _RESEARCH_METABOLIC_BOOST]
 
     def dequeue(self, obs):
         # check if in available actions before dequeuing
@@ -243,7 +234,7 @@ class ResearchQueue:
             return _NOOP
 
     def enqueue(self, order):
-        self.ResearchQ.put_nowait(order)
+        self.ResearchQ.append(order)
 
 
 class Zerg():

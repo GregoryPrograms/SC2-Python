@@ -25,10 +25,10 @@ import numpy as np
 import math
 import random
 
-import actions as our_actions
-from RLBrain import RLBrain
-from Learner import GameState
-from BuildQueues import BuildingQueue, UnitQueue, ResearchQueue, Zerg
+import src.actions as our_actions
+from src.RLBrain import RLBrain
+from src.Learner import GameState
+from src.BuildQueues import BuildingQueue, UnitQueue, ResearchQueue, Zerg
 
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
 _PLAYER_SELF = 1
@@ -41,7 +41,7 @@ _NO_OP = actions.FUNCTIONS.no_op.id
 _MOVE_SCREEN = actions.FUNCTIONS.Move_screen.id
 _ATTACK_SCREEN = actions.FUNCTIONS.Attack_screen.id
 _SELECT_ARMY = actions.FUNCTIONS.select_army.id
-_BUILD_EXTRACTOR = actions.FUNCTIONS.Build_Extractor_screen_screen.id
+_BUILD_EXTRACTOR = actions.FUNCTIONS.Build_Extractor_screen.id
 _NOT_QUEUED = [0]
 _SELECT_ALL = [0]
 
@@ -63,11 +63,11 @@ smart_actions = [
 ]
 
 # Want a Square * Square move view action space.
-_SQUARE = 8
-for move_view_x in range(_MAP_SIZE):
-    for move_view_y in range(_MAP_SIZE):
+_SQUARE = 64 / 8
+for move_view_x in range(64):
+    for move_view_y in range(64):
         if move_view_x % _SQUARE == 0 and move_view_y % _SQUARE == 0:
-            smart_actions.append('move_view_' + str(move_view_x) + '_' + str(move_view_y))
+            smart_actions.append('moveview_' + str(move_view_x) + '_' + str(move_view_y))
 
 # Put in offsets for where to store buildings. Extractor is a special case.
 building_offsets = {
@@ -130,8 +130,13 @@ class Botty(base_agent.BaseAgent):
         if not self.prev_state and not self.prev_action:
             self.init_base(obs)
 
-        if self.action_list():
-            return self.action_list.pop()
+        if self.action_list:
+            turn_action = self.action_list.pop()
+
+            if turn_action in obs.observation['available_actions']:
+                return turn_action
+            else:
+                return actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])
 
         self.state.update(obs)
         self.reward_and_learn(obs)
@@ -147,7 +152,12 @@ class Botty(base_agent.BaseAgent):
         # Gets the abstracted action functions out the actions.py (as our_actions) file.
 
         self.action_list = self.get_action_list(action, obs)
-        return self.action_list.pop()
+        turn_action = self.action_list.pop()
+
+        if turn_action in obs.observation['available_actions']:
+            return turn_action
+        else:
+            return actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])
 
     def reward_and_learn(self, obs):
         if self.prev_action and self.prev_state:
@@ -177,10 +187,10 @@ class Botty(base_agent.BaseAgent):
 
     def get_action_list(self, action_str, obs):
         """ This function will set up the appropriate args for the various actions."""
-        if 'move_view' in action_str:
-            move_view_id, x, y = action_str.split('_')
-            action_function = getattr(our_actions, move_view_id)
-            return action_function(obs, x, y)
+        if 'moveview' in action_str:
+            funcall, x, y = action_str.split('_')
+            action_function = getattr(our_actions, funcall)
+            return action_function(int(x), int(y))
 
         action_function = getattr(our_actions, action_str)
 

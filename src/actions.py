@@ -13,14 +13,14 @@ from pysc2.lib import features
 import random
 import numpy as np
 
-from BuildQueues import Zerg
+from src.BuildQueues import Zerg
 
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
 _PLAYER_SELF = 1
 _PLAYER_FRIENDLY = 1
 _PLAYER_NEUTRAL = 3  # beacon/minerals
 _PLAYER_HOSTILE = 4
-_MOVE_CAMERA = actions.FUNCTIONS.Move_camera.id
+_MOVE_CAMERA = actions.FUNCTIONS.move_camera.id
 _MOVE_SCREEN = actions.FUNCTIONS.Move_screen.id
 _ATTACK_SCREEN = actions.FUNCTIONS.Attack_screen.id
 _SELECT_ARMY = actions.FUNCTIONS.select_army.id
@@ -87,9 +87,9 @@ def research(reasearch_func):
 
 
 # View control
-def move_view(x, y):
+def moveview(x, y):
     """Move screen/ minimap to see more."""
-    return [actions.FunctionCall(_MOVE_CAMERA, [x, y])]
+    return [actions.FunctionCall(_MOVE_CAMERA, [(x, y)])]
 
 
 # Unit Control
