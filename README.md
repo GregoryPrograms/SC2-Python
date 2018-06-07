@@ -37,13 +37,13 @@ $ git clone https://github.com/GregoryPrograms/SC2-Python.git
 
 ## Bot Overview
 
-### Botty_McBotface.py
+### [Botty_McBotface.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/Botty_McBotface.py)
 
-### BuildQueues.py
+### [RLBrain.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/RLBrain.py)
 
-### RLBrain.py
+### [Actions.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/actions.py)
 
-### Actions.py
+### [BuildQueues.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/BuildQueues.py)
 
 
-### Written by us, made better by you
+## Written by us, made better by you
