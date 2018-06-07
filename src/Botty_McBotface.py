@@ -95,6 +95,10 @@ class Botty(base_agent.BaseAgent):
         self.action_list = []
         self.prev_action = None
         self.prev_state = None
+        self.prev_killed_units = 0
+        self.prev_value_units = 0
+        self.prev_mineral_rate = 0
+        self.prev_vespene_rate = 0
         self.base = 'right'
         self.building_queue = BuildingQueue()
         self.unit_queue = UnitQueue()
@@ -130,7 +134,7 @@ class Botty(base_agent.BaseAgent):
             return self.action_list.pop()
 
         self.state.update(obs)
-        self.reward_and_learn()
+        self.reward_and_learn(obs)
 
         if self.state not in self.strategy_manager.QTable.index:
             self.strategy_manager.add_state(self.state)
@@ -145,10 +149,28 @@ class Botty(base_agent.BaseAgent):
         self.action_list = self.get_action_list(action, obs)
         return self.action_list.pop()
 
-    def reward_and_learn(self):
+    def reward_and_learn(self, obs):
         if self.prev_action and self.prev_state:
             # Update the reward, we going to need to give it to Brain/
+            killed_units = obs.observation['score_cumulative'][5]
+            value_units = obs.observation['player'][4]
+            mineral_rate = obs.observation['score_cumulative'][9]
+            vespene_rate = obs.observation['score_cumulative'][9]
+
             reward = 0
+            if killed_units > self.prev_killed_units:
+                reward += 0.25
+            if value_units > self.prev_value_units:
+                reward += 0.5
+            if mineral_rate > self.prev_mineral_rate:
+                reward += -.1
+            if vespene_rate > self.prev_vespene_rate:
+                reward += 0.15
+
+            self.prev_killed_units = killed_units
+            self.prev_value_units = vespene_rate
+            self.prev_mineral_rate = mineral_rate
+            self.prev_vespene_rate = vespene_rate
 
             # Todo finish reward stuff
             self.strategy_manager.learn(self.prev_state, self.state, self.prev_action, reward)
