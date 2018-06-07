@@ -22,6 +22,7 @@ have_lair = False
 have_hive = False
 have_ultra_cavern = False
 overlord_counter = 0
+num_extractors = 0
 
 # Building Macros
 _BUILD_HATCHERY = actions.FUNCTIONS.Build_Hatchery_screen.id
@@ -62,7 +63,7 @@ class BuildingQueue:
         self.BuildQ = [[0 for x in range(11)] for y in range(2)]
         # self.BuildQ[0] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
         # reverse? (above)
-        self.BuildQ[0] = [20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10]
+        self.BuildQ[0] = [20, 19, 18, 17, 16, 14, 13, 12, 11, 10, 9]
         # we need several extractors, how to make sure this happens?
         self.BuildQ[1] = [_BUILD_HATCHERY, _BUILD_SPAWNING_POOL, _BUILD_SPINE_CRAWLER, _BUILD_EXTRACTOR,
                           _BUILD_ROACH_WARREN,
@@ -84,6 +85,7 @@ class BuildingQueue:
         global have_roach_warren
         global have_ultra_cavern
         global have_hatchery
+        global num_extractors
 
         my_max = 0
         target_build = ''
@@ -120,8 +122,15 @@ class BuildingQueue:
         if _BUILD_ULTRA_CAVERN == target_build:
             have_ultra_cavern = True
             self.BuildQ[0][10] = 0
+        
+        #Special case: need 2 of these, second one after Evo chamber
         if _BUILD_EXTRACTOR == target_build:
-            self.BuildQ[0][3] = 0
+            numextractors += 1
+            if numextractors == 1:
+                self.BuildQ[0][3] -= 2
+            else if numextractors > 1:
+                self.BuildQ[0][3] = 0
+                          
         if _BUILD_SPINE_CRAWLER == target_build:
             self.BuildQ[0][2] = 0
         if _BUILD_SPORE_CRAWLER == target_build:
@@ -160,10 +169,12 @@ class BuildingQueue:
             self.BuildQ[0][9] += 1
         if not have_ultra_cavern:
             self.BuildQ[0][10] += 1
+         
+        #For extractor, increase if have less than 2
+        if numextractors < 2:
+            self.BuildQ[0][3] += 1
 
         #Update extractor, spine crawler and spore crawler every time, up to a limit
-        if self.BuildQ[0][3] < 20:
-            self.BuildQ[0][3] += 2
         if self.BuildQ[0][2] < 15:
             self.BuildQ[0][2] += 1
         if self.BuildQ[0][8] < 15:
