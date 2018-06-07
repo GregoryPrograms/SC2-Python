@@ -82,16 +82,16 @@ _BUILD_ULTRA_CAVERN = actions.FUNCTIONS.Build_UltraliskCavern_screen.id
 
 building_offsets = {
     _BUILD_HATCHERY: [0, 0],
-    _BUILD_SPAWNING_POOL: [20, 0],
-    _BUILD_SPINE_CRAWLER: [10, 10],
+    _BUILD_SPAWNING_POOL: [0, 5],
+    _BUILD_SPINE_CRAWLER: [6, 0],
     _BUILD_EXTRACTOR: [0, 0],
-    _BUILD_ROACH_WARREN: [0, 20],
-    _BUILD_LAIR: [0, 0],
-    _BUILD_HYDRALISK_DEN: [20, 20],
-    _BUILD_SPORE_CRAWLER: [40, 0],
-    _BUILD_EVOLUTION_CHAMBER: [40, 0],
-    _BUILD_HIVE: [40, 20],
-    _BUILD_ULTRA_CAVERN: [40, 40]
+    _BUILD_ROACH_WARREN: [-4, 1],
+    _BUILD_LAIR: [-3, -4],
+    _BUILD_HYDRALISK_DEN: [7, -8],
+    _BUILD_SPORE_CRAWLER: [6, -4],
+    _BUILD_EVOLUTION_CHAMBER: [-4, 3],
+    _BUILD_HIVE: [-3, -9],
+    _BUILD_ULTRA_CAVERN: [3, -9]
 }
 
 
