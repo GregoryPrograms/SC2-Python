@@ -68,18 +68,30 @@ for move_view_x in range(64):
             smart_actions.append('moveview_' + str(move_view_x) + '_' + str(move_view_y))
 
 # Put in offsets for where to store buildings. Extractor is a special case.
+_BUILD_HATCHERY = actions.FUNCTIONS.Build_Hatchery_screen.id
+_BUILD_SPAWNING_POOL = actions.FUNCTIONS.Build_SpawningPool_screen.id
+_BUILD_SPINE_CRAWLER = actions.FUNCTIONS.Build_SpineCrawler_screen.id
+_BUILD_EXTRACTOR = actions.FUNCTIONS.Build_Extractor_screen.id
+_BUILD_ROACH_WARREN = actions.FUNCTIONS.Build_RoachWarren_screen.id
+_BUILD_LAIR = actions.FUNCTIONS.Morph_Lair_quick.id  # the only quick function, keep separate from queue?
+_BUILD_HYDRALISK_DEN = actions.FUNCTIONS.Build_HydraliskDen_screen.id
+_BUILD_SPORE_CRAWLER = actions.FUNCTIONS.Build_SporeCrawler_screen.id
+_BUILD_EVOLUTION_CHAMBER = actions.FUNCTIONS.Build_EvolutionChamber_screen.id
+_BUILD_HIVE = actions.FUNCTIONS.Morph_Hive_quick.id
+_BUILD_ULTRA_CAVERN = actions.FUNCTIONS.Build_UltraliskCavern_screen.id
+
 building_offsets = {
-    '_BUILD_HATCHERY': [0, 0],
-    '_BUILD_SPAWNING_POOL': [],
-    '_BUILD_SPINE_CRAWLER': [],
-    '_BUILD_EXTRACTOR': [0, 0],
-    '_BUILD_ROACH_WARREN': [],
-    '_BUILD_LAIR': [],
-    '_BUILD_HYDRALISK_DEN': [],
-    '_BUILD_SPORE_CRAWLER': [],
-    '_BUILD_EVOLUTION_CHAMBER': [],
-    '_BUILD_HIVE': [],
-    '_BUILD_ULTRA_CAVERN': []
+    _BUILD_HATCHERY: [0, 0],
+    _BUILD_SPAWNING_POOL: [20, 0],
+    _BUILD_SPINE_CRAWLER: [10, 10],
+    _BUILD_EXTRACTOR: [0, 0],
+    _BUILD_ROACH_WARREN: [0, 20],
+    _BUILD_LAIR: [0, 0],
+    _BUILD_HYDRALISK_DEN: [20, 20],
+    _BUILD_SPORE_CRAWLER: [40, 0],
+    _BUILD_EVOLUTION_CHAMBER: [40, 0],
+    _BUILD_HIVE: [40, 20],
+    _BUILD_ULTRA_CAVERN: [40, 40]
 }
 
 
@@ -197,7 +209,7 @@ class Botty(base_agent.BaseAgent):
         elif action_str == 'build_building':
             building = self.building_queue.dequeue(obs)
             target = self.get_building_target(obs, building)
-            return action_function(building, target)
+            return action_function(obs, building, target)
         elif action_str == 'build_units':
             return action_function(self.unit_queue.dequeue(obs))
         elif action_str == 'build_worker':
@@ -229,7 +241,7 @@ class Botty(base_agent.BaseAgent):
             return [vespene_x[i], vespene_y[i]]
         else:
             # Building may not pass into dict correctly as a key.
-            x_offset, y_offset = building_offsets[str(building)]
+            x_offset, y_offset = building_offsets[building]
             hatchery_x, hatchery_y = (unit_type == Zerg.Hatchery).nonzero()
             return [hatchery_x.mean() + x_offset, hatchery_y.mean() + y_offset]
 

@@ -11,7 +11,7 @@ _UNIT_TYPE = features.SCREEN_FEATURES.unit_type.index
 _NOOP = actions.FUNCTIONS.no_op.id
 
 # Global Tracking vars
-num_bases = 1 #how to keep track of?
+num_bases = 1  # how to keep track of?
 num_queens = 0
 have_hatchery = False
 have_roach_warren = False
@@ -93,38 +93,34 @@ class BuildingQueue:
                 my_max = self.BuildQ[0][i]
                 target_build = self.BuildQ[1][i]
 
-        self.update(self, obs)
-        # if target_build not an available action, then return NO_OP
+        self.update(obs)
         # reset priority once built
-        if target_build in obs.observation["available_actions"]:
-            if _BUILD_HATCHERY == target_build:
-                have_hatchery = True
-                self.BuildQ[0][0] = 0
-                num_bases += 1
-            if _BUILD_SPAWNING_POOL == target_build:
-                have_spawning_pool = True
-                self.BuildQ[0][1] = 0
-            if  _BUILD_ROACH_WARREN == target_build:
-                have_roach_warren = True
-                self.BuildQ[0][4] = 0
-            if _BUILD_EVOLUTION_CHAMBER == target_build:
-                have_evo = True
-                self.BuildQ[0][5] = 0
-            if _BUILD_LAIR == target_build:
-                have_lair = True
-                self.BuildQ[0][6] = 0
-            if _BUILD_HYDRALISK_DEN == target_build:
-                have_hydra_den = True
-                self.BuildQ[0][7] = 0
-            if _BUILD_HIVE == target_build:
-                have_hive = True
-                self.BuildQ[0][9] = 0
-            if _BUILD_ULTRA_CAVERN == target_build:
-                have_ultra_cavern = True
-                self.BuildQ[0][10] = 0
-            return target_build
-        else:
-            return _NOOP
+        if _BUILD_HATCHERY == target_build:
+            have_hatchery = True
+            self.BuildQ[0][0] = 0
+            num_bases += 1
+        if _BUILD_SPAWNING_POOL == target_build:
+            have_spawning_pool = True
+            self.BuildQ[0][1] = 0
+        if _BUILD_ROACH_WARREN == target_build:
+            have_roach_warren = True
+            self.BuildQ[0][4] = 0
+        if _BUILD_EVOLUTION_CHAMBER == target_build:
+            have_evo = True
+            self.BuildQ[0][5] = 0
+        if _BUILD_LAIR == target_build:
+            have_lair = True
+            self.BuildQ[0][6] = 0
+        if _BUILD_HYDRALISK_DEN == target_build:
+            have_hydra_den = True
+            self.BuildQ[0][7] = 0
+        if _BUILD_HIVE == target_build:
+            have_hive = True
+            self.BuildQ[0][9] = 0
+        if _BUILD_ULTRA_CAVERN == target_build:
+            have_ultra_cavern = True
+            self.BuildQ[0][10] = 0
+        return target_build
 
     # Update: if a building does not exist, then push it up in priority
     # ***needs reconfiguring, a more intuitive numbering system***
@@ -169,13 +165,13 @@ class BuildingQueue:
             have_hatchery = False
 
         unit_type = obs.observation["screen"][_UNIT_TYPE]
-        unit_y, unit_x = (unit_type == 89).nonzero() # spawning pool
-        if not unit_y.any(): # if it doesn't exist
+        unit_y, unit_x = (unit_type == 89).nonzero()  # spawning pool
+        if not unit_y.any():  # if it doesn't exist
             have_spawning_pool = False
 
         unit_type = obs.observation["screen"][_UNIT_TYPE]
-        unit_y, unit_x = (unit_type == 97).nonzero() # roach warren
-        if not unit_y.any(): # if it doesn't exist
+        unit_y, unit_x = (unit_type == 97).nonzero()  # roach warren
+        if not unit_y.any():  # if it doesn't exist
             have_roach_warren = False
 
         unit_type = obs.observation["screen"][_UNIT_TYPE]
@@ -202,6 +198,7 @@ class BuildingQueue:
         unit_y, unit_x = (unit_type == 109).nonzero()  # ultra
         if not unit_y.any():  # if it doesn't exist
             have_ultra_cavern = False
+
 
 # Unit Macros
 _TRAIN_QUEEN = actions.FUNCTIONS.Train_Queen_quick.id
@@ -264,11 +261,11 @@ class UnitQueue:
 
         # Set priority of target unit to 0, then update priorities
         self.UnitQ[0][maxindex] = 0
-        self.update(self, obs)
+        self.update(obs)
 
         if target_unit in obs.observation["available_actions"]:
             if _TRAIN_QUEEN == target_unit:
-                num_queens += 1 # why is this throwing an error?
+                num_queens += 1  # why is this throwing an error?
             overlord_counter += 1
             return target_unit
         else:
@@ -350,11 +347,9 @@ class ResearchQueue:
 
     def dequeue(self, obs):
         # pop, check for viability; if not, push it back on
-        target_research = self.ResearchQ.pop()
-        if target_research in obs.observation['available_actions']:
-            return target_research
+        if self.ResearchQ[-1] in obs.observation['available_actions']:
+            return self.ResearchQ.pop()
         else:
-            self.ResearchQ.push(target_research)
             return _NOOP
 
     # do we even need this?
