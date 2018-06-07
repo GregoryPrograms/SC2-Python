@@ -63,6 +63,7 @@ class BuildingQueue:
         self.BuildQ = [[0 for x in range(11)] for y in range(2)]
         # self.BuildQ[0] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
         # reverse? (above)
+        self.queuelimits = [20, 19, 18, 17, 16, 14, 13, 12, 11, 10, 9]
         self.BuildQ[0] = [20, 19, 18, 17, 16, 14, 13, 12, 11, 10, 9]
         # we need several extractors, how to make sure this happens?
         self.BuildQ[1] = [_BUILD_HATCHERY, _BUILD_SPAWNING_POOL, _BUILD_SPINE_CRAWLER, _BUILD_EXTRACTOR,
@@ -127,7 +128,7 @@ class BuildingQueue:
         if _BUILD_EXTRACTOR == target_build:
             numextractors += 1
             if numextractors == 1:
-                self.BuildQ[0][3] -= 2
+                self.BuildQ[0][3] = 15
             else if numextractors > 1:
                 self.BuildQ[0][3] = 0
                           
@@ -153,31 +154,35 @@ class BuildingQueue:
         # if a building does not exist, and we have the prereqs for it
         # what about extractor, spine crawler, spore crawler?
         # what about expanding beyond one base?
-        if not have_hatchery:
+        if not have_hatchery and self.BuildQ[0][0] < self.queuelimits[0]:
             self.BuildQ[0][0] += 1
-        if not have_spawning_pool:
+        if not have_spawning_pool and self.BuildQ[0][1] < self.queuelimits[1]:
             self.BuildQ[0][1] += 1
-        if not have_roach_warren:
+        if not have_roach_warren and self.BuildQ[0][4] < self.queuelimits[4]:
             self.BuildQ[0][4] += 1
-        if not have_evo:
+        if not have_evo and self.BuildQ[0][5] < self.queuelimits[5]:
             self.BuildQ[0][5] += 1
-        if not have_lair:
+        if not have_lair and self.BuildQ[0][6] < self.queuelimits[6]:
             self.BuildQ[0][6] += 1
-        if not have_hydra_den:
+        if not have_hydra_den and self.BuildQ[0][7] < self.queuelimits[7]:
             self.BuildQ[0][7] += 1
-        if not have_hive:
+        if not have_hive and self.BuildQ[0][9] < self.queuelimits[9]:
             self.BuildQ[0][9] += 1
-        if not have_ultra_cavern:
+        if not have_ultra_cavern and self.BuildQ[0][10] < self.queuelimits[10]:
             self.BuildQ[0][10] += 1
          
         #For extractor, increase if have less than 2
-        if numextractors < 2:
+        if numextractors < 1  and self.BuildQ[0][3] < self.queuelimits[3]:
             self.BuildQ[0][3] += 1
+        #If have 1 extractor, limit becomes 15
+        else if numextractors < 2 and self.BuildQ[0][3] < self.queuelimits[3]:
+            self.buildQ[0][3] += 1
+        
 
-        #Update extractor, spine crawler and spore crawler every time, up to a limit
-        if self.BuildQ[0][2] < 15:
+        #Update spine crawler and spore crawler every time, up to a limit
+        if self.BuildQ[0][2] < self.queuelimits[2]:
             self.BuildQ[0][2] += 1
-        if self.BuildQ[0][8] < 15:
+        if self.BuildQ[0][8] < self.queuelimits[8]:
             self.BuildQ[0][8] += 1
 
         # check for building existence
@@ -223,6 +228,11 @@ class BuildingQueue:
         unit_y, unit_x = (unit_type == 109).nonzero()  # ultra
         if not unit_y.any():  # if it doesn't exist
             have_ultra_cavern = False
+            
+        unit_type = obs.observation["screen"][_UNIT_TYPE]
+        unit_y, unit_x = (unit_type == 88).nonzero()  # ultra
+        if not unit_y.any():  # if it doesn't exist
+            numextractors = 0
 
 
 # Unit Macros
