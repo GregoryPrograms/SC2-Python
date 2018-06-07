@@ -51,7 +51,7 @@ class CartPoleProblem:
 
     def run(self):
         if not self.new_agent:
-            self.brain.read_from_file('cart_pole.txt')
+            self.brain.read_from_file_QT('cart_pole.txt')
         score_list = []
         solved = 0
         print(self.brain.QTable.to_string())
@@ -95,11 +95,10 @@ class CartPoleProblem:
 
             if solved > 100:
                 print("Have a Working Agent!")
-                self.brain.write_to_file('cart_pole.txt')
+                self.brain.write_to_file_QT('cart_pole.txt')
                 break
             # solved += 1
         print("Ran {} episodes, solved: {}".format(1, self.solved))
-
 
 
 if __name__ == "__main__":

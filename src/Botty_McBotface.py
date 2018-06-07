@@ -130,7 +130,7 @@ class Botty(base_agent.BaseAgent):
         if not self.prev_state and not self.prev_action:
             self.init_base(obs)
 
-        if self.action_list:
+        if self.action_list():
             return self.action_list.pop()
 
         self.state.update(obs)

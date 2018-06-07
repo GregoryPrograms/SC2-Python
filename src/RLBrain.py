@@ -9,7 +9,7 @@ class RLBrain:
 
     def __init__(self, reduced_actions=None, decay_rate=0.1):
         """The init method for the brain.
-        actions is a list of acitons detailed in botty_mcbotface.py
+        actions is a list of actions detailed in Botty_McBotface.py
         I am implementing the QTable as a pandas DataFrame. This is to easily index our Q-table with strings.
         """
         self.actions = reduced_actions  # list of actions
@@ -61,6 +61,5 @@ class RLBrain:
     def read_from_file_states(self, filename):
         pass
 
-    def write_to_file_states(self,filename):
+    def write_to_file_states(self, filename):
         pass
-

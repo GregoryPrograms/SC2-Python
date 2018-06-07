@@ -31,6 +31,7 @@ _BUILD_EVOLUTION_CHAMBER = actions.FUNCTIONS.Build_EvolutionChamber_screen.id
 _BUILD_HIVE = actions.FUNCTIONS.Morph_Hive_quick.id
 _BUILD_ULTRA_CAVERN = actions.FUNCTIONS.Build_UltraliskCavern_screen.id
 
+
 class BuildingQueue:
     # Build order:
     # Hatchery:
@@ -73,7 +74,7 @@ class BuildingQueue:
         # if target_build not an available action, then return NO_OP
         if target_build in obs.observations["available_actions"]:
             return target_build
-        else :
+        else:
             return _NOOP
 
     def update(self):
@@ -103,6 +104,7 @@ _TRAIN_HYDRALISK = actions.FUNCTIONS.Train_Hydralisk_quick.id
 _TRAIN_WORKER = actions.FUNCTIONS.Train_Drone_quick.id
 _TRAIN_OVERLORD = actions.FUNCTIONS.Train_Overlord_quick.id
 _TRAIN_ULTRALISK = actions.FUNCTIONS.Train_Ultralisk_quick.id
+
 
 class UnitQueue:
     # Military Build order:
@@ -158,7 +160,7 @@ class UnitQueue:
 
         if target_unit in obs.observations["available_actions"]:
             return target_unit
-        else :
+        else:
             return _NOOP
 
         return target_unit
@@ -180,7 +182,7 @@ class UnitQueue:
             self.UnitQ[0][6] += 1
 
         # overlord max if need more supplies, otherwise lowest
-        #if max supply - current supply < supply required for next unit:
+        # if max supply - current supply < supply required for next unit:
         #    self.BuildQ[0][5] = 5000
 
 
@@ -230,7 +232,6 @@ class ResearchQueue:
         self.ResearchQ.append(_RESEARCH_GLIAL)
         self.ResearchQ.append(_RESEARCH_METABOLIC_BOOST)
 
-
     def dequeue(self, obs):
         # check if in available actions before dequeuing
         # change to a list as well? or use a stack?
@@ -238,7 +239,7 @@ class ResearchQueue:
         target_research = self.ResearchQ.pop()
         if target_research in obs.observations["available_actions"]:
             return target_research
-        else :
+        else:
             return _NOOP
 
     def enqueue(self, order):
