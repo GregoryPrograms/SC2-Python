@@ -21,6 +21,7 @@ have_evo = False
 have_lair = False
 have_hive = False
 have_ultra_cavern = False
+overlord_counter = 0
 
 # Building Macros
 _BUILD_HATCHERY = actions.FUNCTIONS.Build_Hatchery_screen.id
@@ -73,6 +74,7 @@ class BuildingQueue:
     # everything else just need one of
     # Dequeue: finds the max priority in the list, and returns the associated build, if available
     def dequeue(self, obs):
+        global num_bases
         global have_roach_warren
         global have_spawning_pool
         global have_hydra_den
@@ -91,12 +93,14 @@ class BuildingQueue:
                 my_max = self.BuildQ[0][i]
                 target_build = self.BuildQ[1][i]
 
+        self.update(self, obs)
         # if target_build not an available action, then return NO_OP
         # reset priority once built
         if target_build in obs.observation["available_actions"]:
             if _BUILD_HATCHERY == target_build:
                 have_hatchery = True
                 self.BuildQ[0][0] = 0
+                num_bases += 1
             if _BUILD_SPAWNING_POOL == target_build:
                 have_spawning_pool = True
                 self.BuildQ[0][1] = 0
@@ -136,31 +140,31 @@ class BuildingQueue:
         global have_hatchery
 
         # if a building does not exist, and we have the prereqs for it
-        # add additional truth conditions? like not have_spawning_pool and have_hatchery
         # what about extractor, spine crawler, spore crawler?
         # what about expanding beyond one base?
         if not have_hatchery:
-            self.BuildQ[0][0] += 2
+            self.BuildQ[0][0] += 1
         if not have_spawning_pool:
-            self.BuildQ[0][1] += 2
+            self.BuildQ[0][1] += 1
         if not have_roach_warren:
-            self.BuildQ[0][4] += 2
+            self.BuildQ[0][4] += 1
         if not have_evo:
-            self.BuildQ[0][5] += 2
+            self.BuildQ[0][5] += 1
         if not have_lair:
-            self.BuildQ[0][6] += 2
+            self.BuildQ[0][6] += 1
         if not have_hydra_den:
-            self.BuildQ[0][7] += 2
+            self.BuildQ[0][7] += 1
         if not have_hive:
-            self.BuildQ[0][9] += 2
+            self.BuildQ[0][9] += 1
         if not have_ultra_cavern:
-            self.BuildQ[0][10] += 2
+            self.BuildQ[0][10] += 1
 
         # check for building existence
         # change these to "minimap"?
         # extractor, other buildings?
         unit_type = obs.observation["screen"][_UNIT_TYPE]
         unit_y, unit_x = (unit_type == 86).nonzero()  # hatchery
+        # how to count number of hatcheries?
         if not unit_y.any():  # if it doesn't exist
             have_hatchery = False
 
@@ -239,7 +243,8 @@ class UnitQueue:
                          _TRAIN_WORKER, _TRAIN_OVERLORD, _TRAIN_ULTRALISK]
 
     def dequeue(self, obs):
-
+        global num_queens
+        global overlord_counter
         # early game: if we dequeue a zergling and we don't have roach warren
         # then keeping enqueuing zerglings
         # mid-game: roaches only when roach warren is present
@@ -259,16 +264,29 @@ class UnitQueue:
 
         # Set priority of target unit to 0, then update priorities
         self.UnitQ[0][maxindex] = 0
-        self.update()
+        self.update(self, obs)
 
         if target_unit in obs.observation["available_actions"]:
             if _TRAIN_QUEEN == target_unit:
                 num_queens += 1 # why is this throwing an error?
+            overlord_counter += 1
             return target_unit
         else:
             return _NOOP
 
-    def update(self):
+    def update(self, obs):
+        global num_queens
+        global num_bases
+        global overlord_counter
+        global have_roach_warren
+        global have_spawning_pool
+        global have_hydra_den
+        global have_evo
+        global have_lair
+        global have_hive
+        global have_roach_warren
+        global have_ultra_cavern
+        global have_hatchery
         # need to optimize so one unit does not outpace another
         # queen for every base (running total of num bases)
         if num_bases > num_queens:
@@ -283,10 +301,14 @@ class UnitQueue:
             self.UnitQ[0][3] += 4
         if have_ultra_cavern:
             self.UnitQ[0][6] += 1
+        if overlord_counter > 8:
+            overlord_counter = 0
+            self.UnitQ[0][5] = 100
 
         # overlord max if need more supplies, otherwise lowest
         # if max supply - current supply < supply required for next unit:
         #    self.BuildQ[0][5] = 5000
+        # simpler approach: prioritize after building a certain number of units (see above)
 
 
 # Research Macros
@@ -327,15 +349,15 @@ class ResearchQueue:
                           _RESEARCH_GLIAL, _RESEARCH_METABOLIC_BOOST]
 
     def dequeue(self, obs):
-        # check if in available actions before dequeuing
-        # change to a list as well? or use a stack?
         # pop, check for viability; if not, push it back on
         target_research = self.ResearchQ.pop()
         if target_research in obs.observation['available_actions']:
             return target_research
         else:
+            self.ResearchQ.push(target_research)
             return _NOOP
 
+    # do we even need this?
     def enqueue(self, order):
         self.ResearchQ.append(order)
 
