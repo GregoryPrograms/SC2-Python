@@ -17,6 +17,7 @@ have_evo = False
 have_lair = False
 have_hive = False
 have_ultra_cavern = False
+# how to check if buildings are destroyed?
 
 # Building Macros
 _BUILD_HATCHERY = actions.FUNCTIONS.Build_Hatchery_screen.id
@@ -45,24 +46,30 @@ class BuildingQueue:
     # Hydralisk Den
     # Spore Crawler
     # find new base
-
     # Late game:
     # Hive?
     # Ultralisk cavern?
 
+    ## Data structure is two lists:
+    # the first list indicates the priority level of the corresponding structures
+    # the higher the priority, the more quickly it will be built
     def __init__(self):
-        # use priority queue? in case buildings are destroyed
         self.BuildQ = [[0 for x in range(11)] for y in range(2)]
-        self.BuildQ[0] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        #self.BuildQ[0] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        # reverse? (above)
+        self.BuildQ[0] = [100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 90]
+        # we need several extractors, how to make sure this happens?
         self.BuildQ[1] = [_BUILD_HATCHERY, _BUILD_SPAWNING_POOL, _BUILD_SPINE_CRAWLER, _BUILD_EXTRACTOR,
                           _BUILD_ROACH_WARREN,
                           _BUILD_EVOLUTION_CHAMBER, _BUILD_LAIR, _BUILD_HYDRALISK_DEN,
                           _BUILD_SPORE_CRAWLER, _BUILD_HIVE, _BUILD_ULTRA_CAVERN]
 
+    ## agent will handle the actually function call, we are just passing back the function id
+    # repeated: hatchery, spine_crawler, spore crawler, extractor
+    # everything else just need one of
+    ## Dequeue: finds the max priority in the list, and returns the associated build, if available
     def dequeue(self, obs):
-        # agent will handle the actually function call, we are just passing back the function id
-        # repeated: hatchery, spine_crawler, spore crawler, extractor
-        # everything else just need one of
+
         my_max = 0
         target_build = ''
 
@@ -91,23 +98,24 @@ class BuildingQueue:
         else:
             return _NOOP
 
+    ## Update: if a building does not exist, then push it up in priority
+    # ***needs reconfiguring, a more intuitive numbering system***
     def update(self):
-        # if a building does not exist, then push it up in priority
-        # needs reconfiguring, a more intuitive numbering system
+
         if not have_spawning_pool:
-            self.BuildQ[0][1] = 7
+            self.BuildQ[0][1] += 2
         if not have_roach_warren:
-            self.BuildQ[0][4] = 6
+            self.BuildQ[0][4] += 2
         if not have_evo:
-            self.BuildQ[0][5] = 5
+            self.BuildQ[0][5] += 2
         if not have_lair:
-            self.BuildQ[0][6] = 4
+            self.BuildQ[0][6] += 2
         if not have_hydra_den:
-            self.BuildQ[0][7] = 3
+            self.BuildQ[0][7] += 2
         if not have_hive:
-            self.BuildQ[0][9] = 2
+            self.BuildQ[0][9] += 2
         if not have_ultra_cavern:
-            self.BuildQ[0][10] = 1
+            self.BuildQ[0][10] += 2
 
 
 # Unit Macros
