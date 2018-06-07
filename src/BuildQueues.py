@@ -4,12 +4,16 @@ from pysc2.agents import base_agent
 from pysc2.lib import actions
 from pysc2.lib import features
 
+# Features
+_UNIT_TYPE = features.SCREEN_FEATURES.unit_type.index
+
 # Misc. Actions
 _NOOP = actions.FUNCTIONS.no_op.id
 
 # Global Tracking vars
 num_bases = 1 #how to keep track of?
 num_queens = 0
+have_hatchery = False
 have_roach_warren = False
 have_spawning_pool = False
 have_hydra_den = False
@@ -17,7 +21,6 @@ have_evo = False
 have_lair = False
 have_hive = False
 have_ultra_cavern = False
-# how to check if buildings are destroyed?
 
 # Building Macros
 _BUILD_HATCHERY = actions.FUNCTIONS.Build_Hatchery_screen.id
@@ -34,6 +37,7 @@ _BUILD_ULTRA_CAVERN = actions.FUNCTIONS.Build_UltraliskCavern_screen.id
 
 
 class BuildingQueue:
+
     # Build order:
     # Hatchery:
     # Spawning Pool
@@ -50,12 +54,12 @@ class BuildingQueue:
     # Hive?
     # Ultralisk cavern?
 
-    ## Data structure is two lists:
+    # Data structure is two lists:
     # the first list indicates the priority level of the corresponding structures
     # the higher the priority, the more quickly it will be built
     def __init__(self):
         self.BuildQ = [[0 for x in range(11)] for y in range(2)]
-        #self.BuildQ[0] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        # self.BuildQ[0] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
         # reverse? (above)
         self.BuildQ[0] = [100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 90]
         # we need several extractors, how to make sure this happens?
@@ -64,11 +68,20 @@ class BuildingQueue:
                           _BUILD_EVOLUTION_CHAMBER, _BUILD_LAIR, _BUILD_HYDRALISK_DEN,
                           _BUILD_SPORE_CRAWLER, _BUILD_HIVE, _BUILD_ULTRA_CAVERN]
 
-    ## agent will handle the actually function call, we are just passing back the function id
+    # agent will handle the actually function call, we are just passing back the function id
     # repeated: hatchery, spine_crawler, spore crawler, extractor
     # everything else just need one of
-    ## Dequeue: finds the max priority in the list, and returns the associated build, if available
+    # Dequeue: finds the max priority in the list, and returns the associated build, if available
     def dequeue(self, obs):
+        global have_roach_warren
+        global have_spawning_pool
+        global have_hydra_den
+        global have_evo
+        global have_lair
+        global have_hive
+        global have_roach_warren
+        global have_ultra_cavern
+        global have_hatchery
 
         my_max = 0
         target_build = ''
@@ -79,29 +92,55 @@ class BuildingQueue:
                 target_build = self.BuildQ[1][i]
 
         # if target_build not an available action, then return NO_OP
+        # reset priority once built
         if target_build in obs.observation["available_actions"]:
+            if _BUILD_HATCHERY == target_build:
+                have_hatchery = True
+                self.BuildQ[0][0] = 0
             if _BUILD_SPAWNING_POOL == target_build:
                 have_spawning_pool = True
-            if  _BUILD_ROACH_WARREN == target_build
+                self.BuildQ[0][1] = 0
+            if  _BUILD_ROACH_WARREN == target_build:
                 have_roach_warren = True
-            if _BUILD_HYDRALISK_DEN == target_build:
-                have_hydra_den = True
+                self.BuildQ[0][4] = 0
             if _BUILD_EVOLUTION_CHAMBER == target_build:
                 have_evo = True
+                self.BuildQ[0][5] = 0
             if _BUILD_LAIR == target_build:
                 have_lair = True
+                self.BuildQ[0][6] = 0
+            if _BUILD_HYDRALISK_DEN == target_build:
+                have_hydra_den = True
+                self.BuildQ[0][7] = 0
             if _BUILD_HIVE == target_build:
                 have_hive = True
+                self.BuildQ[0][9] = 0
             if _BUILD_ULTRA_CAVERN == target_build:
                 have_ultra_cavern = True
+                self.BuildQ[0][10] = 0
             return target_build
         else:
             return _NOOP
 
-    ## Update: if a building does not exist, then push it up in priority
+    # Update: if a building does not exist, then push it up in priority
     # ***needs reconfiguring, a more intuitive numbering system***
-    def update(self):
+    def update(self, obs):
+        global have_roach_warren
+        global have_spawning_pool
+        global have_hydra_den
+        global have_evo
+        global have_lair
+        global have_hive
+        global have_roach_warren
+        global have_ultra_cavern
+        global have_hatchery
 
+        # if a building does not exist, and we have the prereqs for it
+        # add additional truth conditions? like not have_spawning_pool and have_hatchery
+        # what about extractor, spine crawler, spore crawler?
+        # what about expanding beyond one base?
+        if not have_hatchery:
+            self.BuildQ[0][0] += 2
         if not have_spawning_pool:
             self.BuildQ[0][1] += 2
         if not have_roach_warren:
@@ -117,6 +156,48 @@ class BuildingQueue:
         if not have_ultra_cavern:
             self.BuildQ[0][10] += 2
 
+        # check for building existence
+        # change these to "minimap"?
+        # extractor, other buildings?
+        unit_type = obs.observation["screen"][_UNIT_TYPE]
+        unit_y, unit_x = (unit_type == 86).nonzero()  # hatchery
+        if not unit_y.any():  # if it doesn't exist
+            have_hatchery = False
+
+        unit_type = obs.observation["screen"][_UNIT_TYPE]
+        unit_y, unit_x = (unit_type == 89).nonzero() # spawning pool
+        if not unit_y.any(): # if it doesn't exist
+            have_spawning_pool = False
+
+        unit_type = obs.observation["screen"][_UNIT_TYPE]
+        unit_y, unit_x = (unit_type == 97).nonzero() # roach warren
+        if not unit_y.any(): # if it doesn't exist
+            have_roach_warren = False
+
+        unit_type = obs.observation["screen"][_UNIT_TYPE]
+        unit_y, unit_x = (unit_type == 90).nonzero()  # evo
+        if not unit_y.any():  # if it doesn't exist
+            have_evo = False
+
+        unit_type = obs.observation["screen"][_UNIT_TYPE]
+        unit_y, unit_x = (unit_type == 100).nonzero()  # lair
+        if not unit_y.any():  # if it doesn't exist
+            have_lair = False
+
+        unit_type = obs.observation["screen"][_UNIT_TYPE]
+        unit_y, unit_x = (unit_type == 91).nonzero()  # hydra den
+        if not unit_y.any():  # if it doesn't exist
+            have_hydra_den = False
+
+        unit_type = obs.observation["screen"][_UNIT_TYPE]
+        unit_y, unit_x = (unit_type == 101).nonzero()  # hive
+        if not unit_y.any():  # if it doesn't exist
+            have_hive = False
+
+        unit_type = obs.observation["screen"][_UNIT_TYPE]
+        unit_y, unit_x = (unit_type == 109).nonzero()  # ultra
+        if not unit_y.any():  # if it doesn't exist
+            have_ultra_cavern = False
 
 # Unit Macros
 _TRAIN_QUEEN = actions.FUNCTIONS.Train_Queen_quick.id
@@ -182,7 +263,7 @@ class UnitQueue:
 
         if target_unit in obs.observation["available_actions"]:
             if _TRAIN_QUEEN == target_unit:
-                num_queens += 1
+                num_queens += 1 # why is this throwing an error?
             return target_unit
         else:
             return _NOOP
