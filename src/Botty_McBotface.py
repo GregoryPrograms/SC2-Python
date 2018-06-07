@@ -49,6 +49,7 @@ _MAP_SIZE = 128
 # Size will depend on screen size.
 _SIZE_VESPENE = 97
 
+#List of actions that we pass to the AI, reduces state by minimizing # of actions
 smart_actions = [
     'no_op',
     'build_building',
@@ -60,6 +61,7 @@ smart_actions = [
     'return_to_base'
 ]
 
+#Map is reduced to squares, equal to size of screen. AI can switch between squares to view different parts of the map.
 # Want a Square * Square move view action space.
 _SQUARE = 64 / 8
 for move_view_x in range(64):
@@ -94,8 +96,12 @@ building_offsets = {
     _BUILD_ULTRA_CAVERN: [3, -9]
 }
 
-
+# class Botty
+# 
+#  Our 'main()'. Controls what information is passed to and from the AI.
 class Botty(base_agent.BaseAgent):
+
+    # Constructor, initializes the AI, passes it the actions and gamestate. 
     def __init__(self):
         super(Botty, self).__init__()
         self.strategy_manager = RLBrain(smart_actions)  # keeping default rates for now.
@@ -114,6 +120,10 @@ class Botty(base_agent.BaseAgent):
         self.unit_queue = UnitQueue()
         self.research_queue = ResearchQueue()
 
+    # init_base(self,obs)
+    # @param self The object pointer calling the function
+    # @param obs The observation maps
+    # Sets the location of the base for use by the AI.
     def init_base(self, obs):
         """method to set the location of the base."""
         x, y = (obs.observation['minimap'][_PLAYER_RELATIVE] == _PLAYER_SELF).nonzero()
@@ -169,6 +179,11 @@ class Botty(base_agent.BaseAgent):
         else:
             return actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])
 
+    # reward_and_learn(self,obs)
+    # @param self The object pointer calling the function
+    # @param obs The observation map.
+    # Takes information about the current game state, creates a 'reward'
+    # based on how good the current state is, and passes the reward to Brain.
     def reward_and_learn(self, obs):
         if self.prev_action and self.prev_state:
             # Update the reward, we going to need to give it to Brain/
@@ -195,6 +210,11 @@ class Botty(base_agent.BaseAgent):
             # Todo finish reward stuff
             self.strategy_manager.learn(self.prev_state, self.state, self.prev_action, reward)
 
+    # get_action_list(self, action_str, obs)
+    # @param self The object pointer calling the function
+    # @param action_str A string containing one of the actions from those available to the AI.
+    # @obs The observation maps
+    # Takes in actions, and if the action is one that needs specific parameters, it passes those to it.
     def get_action_list(self, action_str, obs):
         """ This function will set up the appropriate args for the various actions."""
         if 'moveview' in action_str:
@@ -229,6 +249,12 @@ class Botty(base_agent.BaseAgent):
 
         return [actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])]
 
+    # get_building(obs,building)
+    # @param obs The observation maps
+    # @param building A macro used to refer to specific buildings.
+    # Whenever we build a building, we call this function. If it is a 
+    # building with special requirements, we fullfill those. 
+    # We also use offset to make sure the building does not overlap with any other buildings.
     @staticmethod
     def get_building_target(obs, building):
         unit_type = obs.observation['screen'][_UNIT_TYPE]
@@ -245,6 +271,14 @@ class Botty(base_agent.BaseAgent):
             hatchery_x, hatchery_y = (unit_type == Zerg.Hatchery).nonzero()
             return [hatchery_x.mean() + x_offset, hatchery_y.mean() + y_offset]
 
+    # transform_location(self, x, x_distance, y, y_distance)
+    # @param self The object pointer calling the function
+    # @param x The initial x
+    # @param x_distance The distance between the initial and final x
+    # @param y The initial y
+    # @param y_distance The distance between the initial and final y
+    # Called in order to move a set of coordinates by some distance, depending
+    # on whether the base is on the right or left side of the map. 
     def transform_location(self, x, x_distance, y, y_distance):
         if self.base == 'right':
             return [x - x_distance, y - y_distance]
@@ -253,7 +287,6 @@ class Botty(base_agent.BaseAgent):
 
 
 # I FIGURED THIS PAGE WOULD BLOAT DUE TO BOT ANYWAYS SO I'VE MOVED ACTIONS INTO A SEPARATE FILE
-
 
 class DefeatRoaches(base_agent.BaseAgent):
     """An agent specifically for solving the DefeatRoaches map."""

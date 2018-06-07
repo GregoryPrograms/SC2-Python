@@ -23,7 +23,6 @@ _MAP_SIZE = 128
 #  and shares it with the RL bot.
 class GameState:
     # creep
-    # player_relative
     # unit_type
     # selected
     # unit_density
@@ -72,6 +71,3 @@ class GameState:
                 self.minerals, self.vespene, self.availFood, self.armyCount, self.larvaCount]
 
 
-def point_val(self):
-    # a = self.unit_type.iteritems[]
-    pass
