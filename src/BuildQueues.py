@@ -230,7 +230,7 @@ class BuildingQueue:
             have_ultra_cavern = False
             
         unit_type = obs.observation["screen"][_UNIT_TYPE]
-        unit_y, unit_x = (unit_type == 88).nonzero()  # ultra
+        unit_y, unit_x = (unit_type == 88).nonzero()  # extractor
         if not unit_y.any():  # if it doesn't exist
             numextractors = 0
 
