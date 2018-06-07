@@ -146,9 +146,9 @@ def get_rand_location(drone_target):
     return [np.random.randint(0, 128), np.random.randint(0, 128)]
 
 
+#Done by the bot by default
 def get_materials(obs):
     """Send drone to nearest unoccupied mineral/gas deposit, Select drone, move to nearest mineral/gas deposit"""
-    # Claimed by Greg
     pass
 
 
