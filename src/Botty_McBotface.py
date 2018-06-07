@@ -53,12 +53,10 @@ smart_actions = [
     'no_op',
     'build_building',
     'build_units',
-    'build_workers',
+    'build_worker',
     'research',
-    'cancel',
     'attack',
     'defend',
-    'patrol',
     'return_to_base'
 ]
 
@@ -217,7 +215,7 @@ class Botty(base_agent.BaseAgent):
             hatchery_x, hatchery_y = (unit_type == Zerg.Hatchery).nonzero()
             return action_function(hatchery_x + 10, hatchery_y + 10)
 
-        return []
+        return [actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])]
 
     @staticmethod
     def get_building_target(obs, building):

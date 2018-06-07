@@ -50,7 +50,7 @@ class BuildingQueue:
     # Hive?
     # Ultralisk cavern?
 
-    def _init_(self):
+    def __init__(self):
         # use priority queue? in case buildings are destroyed
         self.BuildQ = [[0 for x in range(11)] for y in range(2)]
         self.BuildQ[0] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
@@ -63,16 +63,16 @@ class BuildingQueue:
         # agent will handle the actually function call, we are just passing back the function id
         # repeated: hatchery, spine_crawler, spore crawler, extractor
         # everything else just need one of
-        max = 0
+        my_max = 0
         target_build = ''
 
-        for i in len(self.BuildQ):
-            if max < self.BuildQ[0][i]:
-                max = self.BuildQ[0][i]
+        for i in range(len(self.BuildQ[0])):
+            if my_max < self.BuildQ[0][i]:
+                my_max = self.BuildQ[0][i]
                 target_build = self.BuildQ[1][i]
 
         # if target_build not an available action, then return NO_OP
-        if target_build in obs.observations["available_actions"]:
+        if target_build in obs.observation["available_actions"]:
             return target_build
         else:
             return _NOOP
@@ -128,7 +128,7 @@ class UnitQueue:
 
     # Late game ultralisks? (Basic strategy is to have a few ultralisks backed up by a large number of hydralisks)
 
-    def _init_(self):
+    def __init__(self):
         """Set build order"""
         self.UnitQ = [[0 for x in range(7)] for y in range(2)]
         self.UnitQ[0] = [0, 0, 0, 0, 0, 0, 0]
@@ -143,14 +143,14 @@ class UnitQueue:
         # hydralisks?
         # get max priority unit, update list
         # access list like a 2D array
-        max = 0
+        my_max = 0
         target_unit = ''
 
         maxindex = 0
 
-        for i in len(self.UnitQ):
-            if max < self.UnitQ[0][i]:
-                max = self.UnitQ[0][i]
+        for i in range(len(self.UnitQ[0])):
+            if my_max < self.UnitQ[0][i]:
+                my_max = self.UnitQ[0][i]
                 maxindex = i
                 target_unit = self.UnitQ[1][i]
 
@@ -158,12 +158,10 @@ class UnitQueue:
         self.UnitQ[0][maxindex] = 0
         self.update()
 
-        if target_unit in obs.observations["available_actions"]:
+        if target_unit in obs.observation["available_actions"]:
             return target_unit
         else:
             return _NOOP
-
-        return target_unit
 
     def update(self):
         # need to optimize so one unit does not outpace another
@@ -217,7 +215,7 @@ class ResearchQueue:
     # Chitinous Plating
     # Pneumatized Carapace
 
-    def _init_(self):
+    def __init__(self):
         self.ResearchQ = [_RESEARCH_PNEUMATIZED_CARAPACE, _RESEARCH_CHITINOUS_PLATING, _RESEARCH_ZERG_CARAPACE_LVL3,
                           _RESEARCH_ZERG_MISSILE_LVL3, _RESEARCH_ZERG_CARAPACE_LVL2, _RESEARCH_ZERG_CARAPACE_LVL3,
                           _RESEARCH_GROOVED_SPINES, _RESEARCH_ZERG_MISSILE_LVL1, _RESEARCH_ZERG_MISSILE_WEAPONS,
@@ -228,7 +226,7 @@ class ResearchQueue:
         # change to a list as well? or use a stack?
         # pop, check for viability; if not, push it back on
         target_research = self.ResearchQ.pop()
-        if target_research in obs.observations["available_actions"]:
+        if target_research in obs.observation['available_actions']:
             return target_research
         else:
             return _NOOP
