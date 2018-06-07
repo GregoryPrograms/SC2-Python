@@ -27,29 +27,13 @@ Install PySC2
 #### Follow the procedure laid out in Deepmind's documentation to run PySC2
 https://github.com/deepmind/pysc2
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+#### Clone our repository
 
 ```
-Give an example
+$ git clone https://github.com/GregoryPrograms/SC2-Python.git
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+#### Once Everything is downloaded, you can run our bot
 
 ## Built With
 
