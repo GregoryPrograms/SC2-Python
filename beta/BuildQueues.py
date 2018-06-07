@@ -273,6 +273,8 @@ class UnitQueue:
         self.UnitQ[0] = [0, 0, 0, 0, 0, 0, 0]
         self.UnitQ[1] = [_TRAIN_QUEEN, _TRAIN_ZERGLING, _TRAIN_ROACH, _TRAIN_HYDRALISK,
                          _TRAIN_WORKER, _TRAIN_OVERLORD, _TRAIN_ULTRALISK]
+        #Supply required for each unit
+        self.supply = [2, 1, 2, 2, 1, 0, 6]
 
     def dequeue(self, obs):
         global num_queens
@@ -333,14 +335,23 @@ class UnitQueue:
             self.UnitQ[0][3] += 4
         if have_ultra_cavern:
             self.UnitQ[0][6] += 1
-        if overlord_counter > 8:
-            overlord_counter = 0
-            self.UnitQ[0][5] = 100
 
         # overlord max if need more supplies, otherwise lowest
-        # if max supply - current supply < supply required for next unit:
-        #    self.BuildQ[0][5] = 5000
-        # simpler approach: prioritize after building a certain number of units (see above)
+        maxsupply = obs.observation['player'][4]
+        currentsupply = obs.observation['player'][3]
+        
+        #Find supply needed for next unit (to see if overlord is needed)
+        
+        #Find next unit
+        for i in range(len(self.UnitQ[0])):
+            if my_max < self.UnitQ[0][i]:
+                my_max = self.UnitQ[0][i]
+                maxindex = i
+        
+        #Get supply
+        supplyRequired = self.supply[i]
+        if (maxsupply - currentsupply) < supplyRequired:
+            self.BuildQ[0][5] = 5000
 
 
 # Research Macros
