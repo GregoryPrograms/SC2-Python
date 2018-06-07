@@ -60,6 +60,7 @@ class BuildingQueue:
     # the first list indicates the priority level of the corresponding structures
     # the higher the priority, the more quickly it will be built
     def __init__(self):
+        self.num_extractors = 0
         self.BuildQ = [[0 for x in range(11)] for y in range(2)]
         # self.BuildQ[0] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
         # reverse? (above)
@@ -125,10 +126,10 @@ class BuildingQueue:
         
         #Special case: need 2 of these, second one after Evo chamber
         if _BUILD_EXTRACTOR == target_build:
-            numextractors += 1
+            self.num_extractors += 1
             if numextractors == 1:
                 self.BuildQ[0][3] -= 2
-            else if numextractors > 1:
+            elif self.num_extractors > 1:
                 self.BuildQ[0][3] = 0
                           
         if _BUILD_SPINE_CRAWLER == target_build:
@@ -174,7 +175,7 @@ class BuildingQueue:
         if numextractors < 2:
             self.BuildQ[0][3] += 1
 
-        #Update extractor, spine crawler and spore crawler every time, up to a limit
+        # Update extractor, spine crawler and spore crawler every time, up to a limit
         if self.BuildQ[0][2] < 15:
             self.BuildQ[0][2] += 1
         if self.BuildQ[0][8] < 15:
