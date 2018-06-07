@@ -8,7 +8,7 @@ from pysc2.lib import features
 _NOOP = actions.FUNCTIONS.no_op.id
 
 # Global Tracking vars
-num_bases = 1
+num_bases = 1 #how to keep track of?
 num_queens = 0
 have_roach_warren = False
 have_spawning_pool = False
@@ -73,6 +73,20 @@ class BuildingQueue:
 
         # if target_build not an available action, then return NO_OP
         if target_build in obs.observation["available_actions"]:
+            if _BUILD_SPAWNING_POOL == target_build:
+                have_spawning_pool = True
+            if  _BUILD_ROACH_WARREN == target_build
+                have_roach_warren = True
+            if _BUILD_HYDRALISK_DEN == target_build:
+                have_hydra_den = True
+            if _BUILD_EVOLUTION_CHAMBER == target_build:
+                have_evo = True
+            if _BUILD_LAIR == target_build:
+                have_lair = True
+            if _BUILD_HIVE == target_build:
+                have_hive = True
+            if _BUILD_ULTRA_CAVERN == target_build:
+                have_ultra_cavern = True
             return target_build
         else:
             return _NOOP
@@ -159,6 +173,8 @@ class UnitQueue:
         self.update()
 
         if target_unit in obs.observation["available_actions"]:
+            if _TRAIN_QUEEN == target_unit:
+                num_queens += 1
             return target_unit
         else:
             return _NOOP
