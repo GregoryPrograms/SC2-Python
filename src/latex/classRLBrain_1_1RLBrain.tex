@@ -16,9 +16,8 @@ def \hyperlink{classRLBrain_1_1RLBrain_af39e6aad4cc89b805c6cb09877db1e09}{add\+\
 \begin{DoxyCompactList}\small\item\em Gets a new state + reward. \end{DoxyCompactList}\item 
 def \hyperlink{classRLBrain_1_1RLBrain_a2cdec6a8eb09e6bb0f5c24251659ed56}{explore} (self, t)
 \begin{DoxyCompactList}\small\item\em Finds the rate at which random states are chosen. \end{DoxyCompactList}\item 
-def {\bfseries learning} (self, t)\hypertarget{classRLBrain_1_1RLBrain_a5cd8667073eafe18d7e9a42cda61606d}{}\label{classRLBrain_1_1RLBrain_a5cd8667073eafe18d7e9a42cda61606d}
-
-\item 
+def \hyperlink{classRLBrain_1_1RLBrain_a5cd8667073eafe18d7e9a42cda61606d}{learning} (self, t)
+\begin{DoxyCompactList}\small\item\em Finds the rate at which the RL bot learns. \end{DoxyCompactList}\item 
 def \hyperlink{classRLBrain_1_1RLBrain_acfa575d5f9331948ca20f9ccbf408886}{learn} (self, state, next\+\_\+state, action, reward)
 \begin{DoxyCompactList}\small\item\em Learns the value of a state transition, stores it in q-\/table. \end{DoxyCompactList}\item 
 def \hyperlink{classRLBrain_1_1RLBrain_a32246b81b1fef3ea2ae090b234c3b4f3}{read\+\_\+from\+\_\+file\+\_\+\+QT} (self, filename)
@@ -192,6 +191,25 @@ Learns the value of a state transition, stores it in q-\/table.
 \hline
 {\em reward} & Reward for the action. \begin{DoxyVerb}This method will use the given information to update the q-table.\end{DoxyVerb}
  \\
+\hline
+\end{DoxyParams}
+\index{R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}!learning@{learning}}
+\index{learning@{learning}!R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}}
+\subsubsection[{\texorpdfstring{learning(self, t)}{learning(self, t)}}]{\setlength{\rightskip}{0pt plus 5cm}def R\+L\+Brain.\+R\+L\+Brain.\+learning (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{classRLBrain_1_1RLBrain_a5cd8667073eafe18d7e9a42cda61606d}{}\label{classRLBrain_1_1RLBrain_a5cd8667073eafe18d7e9a42cda61606d}
+
+
+Finds the rate at which the RL bot learns. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Object pointer calling the function. \\
+\hline
+{\em t} & Number of states explored so far. \\
 \hline
 \end{DoxyParams}
 \index{R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}!read\+\_\+from\+\_\+file\+\_\+\+QT@{read\+\_\+from\+\_\+file\+\_\+\+QT}}

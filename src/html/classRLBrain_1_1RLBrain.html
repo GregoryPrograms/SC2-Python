@@ -113,8 +113,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2cdec6a8eb09e6bb0f5c24251659ed56"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRLBrain_1_1RLBrain.html#a2cdec6a8eb09e6bb0f5c24251659ed56">explore</a> (self, t)</td></tr>
 <tr class="memdesc:a2cdec6a8eb09e6bb0f5c24251659ed56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the rate at which random states are chosen.  <a href="#a2cdec6a8eb09e6bb0f5c24251659ed56">More...</a><br /></td></tr>
 <tr class="separator:a2cdec6a8eb09e6bb0f5c24251659ed56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cd8667073eafe18d7e9a42cda61606d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5cd8667073eafe18d7e9a42cda61606d"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>learning</b> (self, t)</td></tr>
+<tr class="memitem:a5cd8667073eafe18d7e9a42cda61606d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRLBrain_1_1RLBrain.html#a5cd8667073eafe18d7e9a42cda61606d">learning</a> (self, t)</td></tr>
+<tr class="memdesc:a5cd8667073eafe18d7e9a42cda61606d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the rate at which the RL bot learns.  <a href="#a5cd8667073eafe18d7e9a42cda61606d">More...</a><br /></td></tr>
 <tr class="separator:a5cd8667073eafe18d7e9a42cda61606d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfa575d5f9331948ca20f9ccbf408886"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRLBrain_1_1RLBrain.html#acfa575d5f9331948ca20f9ccbf408886">learn</a> (self, state, next_state, action, reward)</td></tr>
 <tr class="memdesc:acfa575d5f9331948ca20f9ccbf408886"><td class="mdescLeft">&#160;</td><td class="mdescRight">Learns the value of a state transition, stores it in q-table.  <a href="#acfa575d5f9331948ca20f9ccbf408886">More...</a><br /></td></tr>
@@ -384,6 +384,41 @@ I am implementing the QTable as a pandas DataFrame. This is to easily index our 
     <tr><td class="paramname">next_state</td><td>Second of the two states in the state transition being learned. </td></tr>
     <tr><td class="paramname">action</td><td>Action that was taken that transitioned between the two states. </td></tr>
     <tr><td class="paramname">reward</td><td>Reward for the action. <pre class="fragment">This method will use the given information to update the q-table.</pre> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5cd8667073eafe18d7e9a42cda61606d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def RLBrain.RLBrain.learning </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds the rate at which the RL bot learns. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Object pointer calling the function. </td></tr>
+    <tr><td class="paramname">t</td><td>Number of states explored so far. </td></tr>
   </table>
   </dd>
 </dl>
