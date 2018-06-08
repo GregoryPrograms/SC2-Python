@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['unitqueue',['UnitQueue',['../classBuildQueues_1_1UnitQueue.html',1,'BuildQueues']]],
   ['update',['update',['../classBuildQueues_1_1BuildingQueue.html#a80abaeb74b2e85535810a03950cc1018',1,'BuildQueues.BuildingQueue.update()'],['../classBuildQueues_1_1UnitQueue.html#a1c049d56542cc875d447d080ffe1156a',1,'BuildQueues.UnitQueue.update()']]]
 ];

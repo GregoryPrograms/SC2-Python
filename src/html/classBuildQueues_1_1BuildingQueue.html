@@ -94,17 +94,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">BuildQueues.BuildingQueue Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Holds a priority queue of the building order.  
+ <a href="classBuildQueues_1_1BuildingQueue.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8008ce704e249c97c5b01b62804d801f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8008ce704e249c97c5b01b62804d801f"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b> (self)</td></tr>
+<tr class="memitem:a8008ce704e249c97c5b01b62804d801f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBuildQueues_1_1BuildingQueue.html#a8008ce704e249c97c5b01b62804d801f">__init__</a> (self)</td></tr>
+<tr class="memdesc:a8008ce704e249c97c5b01b62804d801f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor:- Initializes the queue in the order we want our things built.  <a href="#a8008ce704e249c97c5b01b62804d801f">More...</a><br /></td></tr>
 <tr class="separator:a8008ce704e249c97c5b01b62804d801f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52d960e806a6ed6eef1cc5765bb2d71e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a52d960e806a6ed6eef1cc5765bb2d71e"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>dequeue</b> (self, obs)</td></tr>
+<tr class="memitem:a52d960e806a6ed6eef1cc5765bb2d71e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBuildQueues_1_1BuildingQueue.html#a52d960e806a6ed6eef1cc5765bb2d71e">dequeue</a> (self, obs)</td></tr>
+<tr class="memdesc:a52d960e806a6ed6eef1cc5765bb2d71e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes the highest 'value' (thing that needs to be built first) item From the queue, returns the build command for it.  <a href="#a52d960e806a6ed6eef1cc5765bb2d71e">More...</a><br /></td></tr>
 <tr class="separator:a52d960e806a6ed6eef1cc5765bb2d71e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80abaeb74b2e85535810a03950cc1018"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a80abaeb74b2e85535810a03950cc1018"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (self, obs)</td></tr>
+<tr class="memitem:a80abaeb74b2e85535810a03950cc1018"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBuildQueues_1_1BuildingQueue.html#a80abaeb74b2e85535810a03950cc1018">update</a> (self, obs)</td></tr>
+<tr class="memdesc:a80abaeb74b2e85535810a03950cc1018"><td class="mdescLeft">&#160;</td><td class="mdescRight">'Updates' the queue.  <a href="#a80abaeb74b2e85535810a03950cc1018">More...</a><br /></td></tr>
 <tr class="separator:a80abaeb74b2e85535810a03950cc1018"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -116,6 +119,99 @@ Public Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>queuelimits</b></td></tr>
 <tr class="separator:a4fbbb181b46cc93ec8ab40110691ce9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Holds a priority queue of the building order. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a8008ce704e249c97c5b01b62804d801f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def BuildQueues.BuildingQueue.__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor:- Initializes the queue in the order we want our things built. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a52d960e806a6ed6eef1cc5765bb2d71e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def BuildQueues.BuildingQueue.dequeue </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>obs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Takes the highest 'value' (thing that needs to be built first) item From the queue, returns the build command for it. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Object pointer calling the function. </td></tr>
+    <tr><td class="paramname">obs</td><td>The observation feature maps. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The dequeue'd object. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a80abaeb74b2e85535810a03950cc1018"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def BuildQueues.BuildingQueue.update </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>obs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>'Updates' the queue. </p>
+<p>If a building is found to have been destroyed, it is re-added to the queue. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Object pointer calling the function. </td></tr>
+    <tr><td class="paramname">obs</td><td>The observation feature maps. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>BuildQueues.py</li>
 </ul>

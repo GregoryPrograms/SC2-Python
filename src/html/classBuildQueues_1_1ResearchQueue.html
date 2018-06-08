@@ -94,14 +94,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">BuildQueues.ResearchQueue Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Holds the queue for what research to do.  
+ <a href="classBuildQueues_1_1ResearchQueue.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad67c60d85072de34bc3ad9076b377bc7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad67c60d85072de34bc3ad9076b377bc7"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b> (self)</td></tr>
+<tr class="memitem:ad67c60d85072de34bc3ad9076b377bc7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBuildQueues_1_1ResearchQueue.html#ad67c60d85072de34bc3ad9076b377bc7">__init__</a> (self)</td></tr>
+<tr class="memdesc:ad67c60d85072de34bc3ad9076b377bc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor:- Initializes the constructor queue.  <a href="#ad67c60d85072de34bc3ad9076b377bc7">More...</a><br /></td></tr>
 <tr class="separator:ad67c60d85072de34bc3ad9076b377bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1929cc39d97f4ed8f59b6d6955b3765"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac1929cc39d97f4ed8f59b6d6955b3765"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>dequeue</b> (self, obs)</td></tr>
+<tr class="memitem:ac1929cc39d97f4ed8f59b6d6955b3765"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBuildQueues_1_1ResearchQueue.html#ac1929cc39d97f4ed8f59b6d6955b3765">dequeue</a> (self, obs)</td></tr>
+<tr class="memdesc:ac1929cc39d97f4ed8f59b6d6955b3765"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the highest 'priority' research from the queue, returning the command to start the research.  <a href="#ac1929cc39d97f4ed8f59b6d6955b3765">More...</a><br /></td></tr>
 <tr class="separator:ac1929cc39d97f4ed8f59b6d6955b3765"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af19964b54839fc541ab4201f11d1aedd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af19964b54839fc541ab4201f11d1aedd"></a>
 def&#160;</td><td class="memItemRight" valign="bottom"><b>enqueue</b> (self, order)</td></tr>
@@ -113,6 +116,64 @@ Public Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>ResearchQ</b></td></tr>
 <tr class="separator:a4bba8914e159a171e3b18d19c3db632c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Holds the queue for what research to do. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="ad67c60d85072de34bc3ad9076b377bc7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def BuildQueues.ResearchQueue.__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor:- Initializes the constructor queue. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ac1929cc39d97f4ed8f59b6d6955b3765"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def BuildQueues.ResearchQueue.dequeue </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>obs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes the highest 'priority' research from the queue, returning the command to start the research. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer calling the function. </td></tr>
+    <tr><td class="paramname">obs</td><td>The observation feature maps. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The item dequeue'd. </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>BuildQueues.py</li>
 </ul>

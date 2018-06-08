@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['step',['step',['../classBotty__McBotface_1_1Botty.html#a6ad2ce98b25c627204c31f37d26d40dc',1,'Botty_McBotface::Botty']]]
+  ['reward_5fand_5flearn',['reward_and_learn',['../classBotty__McBotface_1_1Botty.html#aaf8459960013f8b5e21e0928d7031026',1,'Botty_McBotface::Botty']]]
 ];

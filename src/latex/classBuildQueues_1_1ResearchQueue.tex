@@ -1,14 +1,17 @@
 \hypertarget{classBuildQueues_1_1ResearchQueue}{}\section{Build\+Queues.\+Research\+Queue Class Reference}
 \label{classBuildQueues_1_1ResearchQueue}\index{Build\+Queues.\+Research\+Queue@{Build\+Queues.\+Research\+Queue}}
+
+
+Holds the queue for what research to do.  
+
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-def {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self)\hypertarget{classBuildQueues_1_1ResearchQueue_ad67c60d85072de34bc3ad9076b377bc7}{}\label{classBuildQueues_1_1ResearchQueue_ad67c60d85072de34bc3ad9076b377bc7}
-
-\item 
-def {\bfseries dequeue} (self, obs)\hypertarget{classBuildQueues_1_1ResearchQueue_ac1929cc39d97f4ed8f59b6d6955b3765}{}\label{classBuildQueues_1_1ResearchQueue_ac1929cc39d97f4ed8f59b6d6955b3765}
-
-\item 
+def \hyperlink{classBuildQueues_1_1ResearchQueue_ad67c60d85072de34bc3ad9076b377bc7}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self)
+\begin{DoxyCompactList}\small\item\em Constructor\+:-\/ Initializes the constructor queue. \end{DoxyCompactList}\item 
+def \hyperlink{classBuildQueues_1_1ResearchQueue_ac1929cc39d97f4ed8f59b6d6955b3765}{dequeue} (self, obs)
+\begin{DoxyCompactList}\small\item\em Removes the highest \textquotesingle{}priority\textquotesingle{} research from the queue, returning the command to start the research. \end{DoxyCompactList}\item 
 def {\bfseries enqueue} (self, order)\hypertarget{classBuildQueues_1_1ResearchQueue_af19964b54839fc541ab4201f11d1aedd}{}\label{classBuildQueues_1_1ResearchQueue_af19964b54839fc541ab4201f11d1aedd}
 
 \end{DoxyCompactItemize}
@@ -18,6 +21,48 @@ def {\bfseries enqueue} (self, order)\hypertarget{classBuildQueues_1_1ResearchQu
 {\bfseries ResearchQ}\hypertarget{classBuildQueues_1_1ResearchQueue_a4bba8914e159a171e3b18d19c3db632c}{}\label{classBuildQueues_1_1ResearchQueue_a4bba8914e159a171e3b18d19c3db632c}
 
 \end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Holds the queue for what research to do. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Build\+Queues\+::\+Research\+Queue@{Build\+Queues\+::\+Research\+Queue}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Build\+Queues\+::\+Research\+Queue@{Build\+Queues\+::\+Research\+Queue}}
+\subsubsection[{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+(self)}{__init__(self)}}]{\setlength{\rightskip}{0pt plus 5cm}def Build\+Queues.\+Research\+Queue.\+\_\+\+\_\+init\+\_\+\+\_\+ (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}\hypertarget{classBuildQueues_1_1ResearchQueue_ad67c60d85072de34bc3ad9076b377bc7}{}\label{classBuildQueues_1_1ResearchQueue_ad67c60d85072de34bc3ad9076b377bc7}
+
+
+Constructor\+:-\/ Initializes the constructor queue. 
+
+
+
+\subsection{Member Function Documentation}
+\index{Build\+Queues\+::\+Research\+Queue@{Build\+Queues\+::\+Research\+Queue}!dequeue@{dequeue}}
+\index{dequeue@{dequeue}!Build\+Queues\+::\+Research\+Queue@{Build\+Queues\+::\+Research\+Queue}}
+\subsubsection[{\texorpdfstring{dequeue(self, obs)}{dequeue(self, obs)}}]{\setlength{\rightskip}{0pt plus 5cm}def Build\+Queues.\+Research\+Queue.\+dequeue (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{obs}
+\end{DoxyParamCaption}
+)}\hypertarget{classBuildQueues_1_1ResearchQueue_ac1929cc39d97f4ed8f59b6d6955b3765}{}\label{classBuildQueues_1_1ResearchQueue_ac1929cc39d97f4ed8f59b6d6955b3765}
+
+
+Removes the highest \textquotesingle{}priority\textquotesingle{} research from the queue, returning the command to start the research. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & The object pointer calling the function. \\
+\hline
+{\em obs} & The observation feature maps. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The item dequeue\textquotesingle{}d. 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
