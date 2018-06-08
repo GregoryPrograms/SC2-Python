@@ -243,7 +243,7 @@ def return_to_base(rally_x, rally_y):
 ```Python
 class BuildingQueue:
 ```
-Implemented using two lists. The first list indicates the priority level of the corresponding structure. The higher the priority, the more quickly it will be built.<br />
+Implemented using two lists. The first list indicates the priority level of the corresponding structure. The higher the priority, the more quickly it will be built. Some buildings need to be built several times, and buildings must be reconstructed after destruction, so the building queue also updates the priority of each building depending on the situation, i.e. the existence or lack thereof of certain buildings.<br />
 Build Order:<br />
  - 1. Hatchery<br />
  - 2. Spawning Pool<br />
@@ -261,7 +261,7 @@ Build Order:<br />
 ```Python
 class UnitQueue:
 ```
-Uses a similar method as the building queue but for units. The priority of each unit is updated each time a unit is dequeued to account for factors such as the availability of the units and the availability of supply (if supply isn't available, the overlord's priority is set very high to ensure it will be the next unit trained). The strategy is for the army to consist entirely of zerglings at the beginning of the game (immediately after the spawning pool is built), transitioning into an army of roaches once the roach warren is built, to an army of roaches and hydralisks in the middle of the game once the hydralisk den is built, and finally adding some ultralisks in the later stages of the game after the ultralisk cavern is built. Queens are trained every time a new base is constructed and overlords are trained whenever they are necessary (when there is less supply available than needed). <br />
+Uses a similar method as the building queue but for military units (workers are not included in this queue as they are part of a separate action that specifically trains workers). The priority of each unit is updated each time a unit is dequeued to account for factors such as the availability of the units and the availability of supply (if supply isn't available, the overlord's priority is set very high to ensure it will be the next unit trained). The strategy is for the army to consist entirely of zerglings at the beginning of the game (immediately after the spawning pool is built), transitioning into an army of roaches once the roach warren is built, to an army of roaches and hydralisks in the middle of the game once the hydralisk den is built, and finally adding some ultralisks in the later stages of the game after the ultralisk cavern is built. Queens are trained every time a new base is constructed and overlords are trained whenever they are necessary (when there is less supply available than needed). <br />
 Military Build order:<br />
  - 1. Queen (every time a new base is built)<br />
  - 2. Zerglings<br />
@@ -274,7 +274,7 @@ Military Build order:<br />
 ```Python
 class ResearchQueue:
 ```
-Implemented using a stack instead of a priority queue for ease of checking availability and pushing<br />
+Implemented using a stack instead of a priority queue for ease of checking availability and pushing. As each upgrade only needs to be researched once, a simple stack is adequate for the task of determining the next upgrade to research. <br />
 Order:<br />
  - 1. Metabolic Boost<br />
  - 2. Glial reconstitution<br />
