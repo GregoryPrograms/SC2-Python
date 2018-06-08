@@ -96,12 +96,13 @@ building_offsets = {
     _BUILD_ULTRA_CAVERN: [3, -9]
 }
 
-# class Botty
-# 
-#  Our 'main()'. Controls what information is passed to and from the AI.
+## Our 'main'.
+# Controls what information is passed to and from the AI.
+#
 class Botty(base_agent.BaseAgent):
 
-    # Constructor, initializes the AI, passes it the actions and gamestate. 
+    ##Constructor :- 
+    #Initializes the RL brain and the game state
     def __init__(self):
         super(Botty, self).__init__()
         self.strategy_manager = RLBrain(smart_actions)  # keeping default rates for now.
@@ -120,12 +121,12 @@ class Botty(base_agent.BaseAgent):
         self.unit_queue = UnitQueue()
         self.research_queue = ResearchQueue()
 
-    # init_base(self,obs)
-    # @param self The object pointer calling the function
-    # @param obs The observation maps
-    # Sets the location of the base for use by the AI.
     def init_base(self, obs):
-        """method to set the location of the base."""
+    """!
+      @param self The object pointer calling the function
+      @param obs The observation maps
+      Sets the location of the base for use by the AI. 
+    """
         x, y = (obs.observation['minimap'][_PLAYER_RELATIVE] == _PLAYER_SELF).nonzero()
 
         if y.any() and y.mean() <= _MAP_SIZE // 2:
