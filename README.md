@@ -117,7 +117,7 @@ def __init__(self, reduced_actions=None, decay_rate=0.1):
         self.decay_rate = decay_rate
         self.rand_rate = self.explore(0)
 ```
-
+#### Methods
 ```Python
 #This method chooses which action to do and returns that action
 def choose_action(self, state):
@@ -135,6 +135,51 @@ def learning(self, t):
 def learn(self, state, next_state, action, reward):
 ```
 ### [Actions.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/actions.py)
+#### Actions that are used by our bot
+```Python
+
+#no operational action
+def no_op():
+
+# @param obs: The observation map
+# @param building: The building being built
+# @param target: The location that the building is being built at
+#builds the next building determined by the build order
+def build_building(obs, building, target):
+
+# @param unit: The unit being built
+# Takes a unit from the build queue and builds that unit.
+def build_units(unit):
+
+# @param drone_func Function to build a drone from available larvae.
+# Makes a new drone.
+def build_worker(drone_func):
+
+
+# research
+# @param research_func Function to start researching
+# Starts research on the next thing in the research queue.
+def research(research_func):
+
+# View control
+
+# chooses x and y location to move to. Allows bot to see more
+def moveview(x, y):
+
+# @param obs The observation maps
+# Looks for enemies, and attacks them.
+def attack(obs):
+
+# check to see if enemy units are too close. As such, this function is a simpler version of attack.
+def defend(x_defend, y_defend):
+
+# return_to_base(rally_x,rally_y)
+# @param rally_x x location for the units to move to.
+# @param rally_y y location for the units to move to.
+# Takes in some point on the map, and moves army to that point. 
+# Meant to be used to move army to base, but can be used to move army anywhere.
+def return_to_base(rally_x, rally_y):
+```
 
 ### [BuildQueues.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/BuildQueues.py)
 
