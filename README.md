@@ -243,7 +243,7 @@ def return_to_base(rally_x, rally_y):
 ```Python
 class BuildingQueue:
 ```
-Implemented using two lists. The first list indicates the priority level of the corresponding structure. The higher the priority, the more quickly it will be built.<br />
+Implemented using two lists. The first list indicates the priority level of the corresponding structure. The higher the priority, the more quickly it will be built. Some buildings need to be built several times, and buildings must be reconstructed after destruction, so the building queue also updates the priority of each building depending on the situation, i.e. the existence or lack thereof of certain buildings.<br />
 Build Order:<br />
  - 1. Hatchery<br />
  - 2. Spawning Pool<br />
@@ -274,7 +274,7 @@ Military Build order:<br />
 ```Python
 class ResearchQueue:
 ```
-Implemented using a stack instead of a priority queue for ease of checking availability and pushing<br />
+Implemented using a stack instead of a priority queue for ease of checking availability and pushing. As each upgrade only needs to be researched once, a simple stack is adequate for the task of determining the next upgrade to research. <br />
 Order:<br />
  - 1. Metabolic Boost<br />
  - 2. Glial reconstitution<br />
