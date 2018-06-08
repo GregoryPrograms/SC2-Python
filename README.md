@@ -180,6 +180,51 @@ def return_to_base(rally_x, rally_y):
 ```
 
 ### [BuildQueues.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/BuildQueues.py)
+```Python
+class BuildingQueue:
+```
+Implemented using two lists. The first list indicates the priority level of the corresponding structure. The higher the priority, the more quickly it will be built.
+Build Order:
+    1. Hatchery:
+    2. Spawning Pool
+    3. Spine crawler
+    4. Extractor
+    5. Roach Warren
+    6. Evolution Chamber
+    7. Extractor 
+    8. Lair
+    9. Hydralisk Den
+    10. Spore Crawler
+    11. Hive
+    12. Ultralisk cavern
+    
+```Python
+class UnitQueue:
+```
+Uses same method as building queue but for units.
+Military Build order:
+    1. Queen (every time a new base is built)
+    2. Zerglings
+    3. Roaches
+    4. Hydralisks
+    5. Overlord (only when supply is low i.e. max supply - current supply < supply required for next unit)
+    
 
+```Python
+class ResearchQueue:
+```
+Implemented using a stack instead of a priority queue for ease of checking availability and pushing
+Order:
+    1. Metabolic Boost
+    2. Glial reconstitution
+    3. Zerg Missile Attacks level 1
+    4. Grooved Spines
+    5. Zerg Missile Attacks level 2
+    6. Zerg Carapace Level 1
+    7. Zerg Carapace Level 2
+    8. Zerg Missile Attacks level 3
+    9. Zerg Carapace Level 3
+    10. Chitinous Plating
+    11. Pneumatized Carapace
 
 ## Written by us, made better by you
