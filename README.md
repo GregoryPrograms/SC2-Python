@@ -5,6 +5,33 @@ Team project to implement a full AI for Starcraft II, utilizing reinforcement le
 PySC2 : https://github.com/deepmind/pysc2<br />
 Project Report : https://docs.google.com/document/d/1YQh0klm4oo-cFp7O4mQ0cFkNpNQ-A1dFLH_04aUbi9g/<br />
 
+### Group Members
+[Michael Field](https://github.com/mfield4)
+[Gregory Dost](https://github.com/GregoryPrograms)
+[Christopher De Castro](https://github.com/FuzionLLF)
+[Wesley Loo](https://github.com/whloo-rebel-scum)
+[Emil Aliyev](https://github.com/EmilAliyev)
+
+### Problem and Contribution Statement
+  Starcraft II is an RTS that provides serious issues for AI development. With effectively infinite possible map positions, 56 different units (all with health values, energy, possible actions, costs, etc.), 60 different possible buildings (also all with health values, outputs or inputs, costs), as well as several other factors affecting game state, finding the absolute best move from any game state to the next has a very high complexity. However to compete with a human player any Starcraft II AI would need to be capable of taking actions in real time, requiring the AI to make quick decisions about gamestate. 
+This creates a conundrum for Starcraft II AI creators, who need to produce an AI that can compute impossibly complex game states in lightning fast times. As a result of this, AI researchers have a much harder time creating functional and useful AI for Starcraft II than for grid based games such as chess or Go. However, creating an AI that could capably play Starcraft could greatly impact the capabilities of AI to solve real world problems, where complex decisions need to be made in real time.  For example, systems such as fully autonomous cars would greatly benefit from an AI capable of solving problems of similar complexity to those in Starcraft (such as how to most safely avoid a collision with little warning time). 
+One common approach is to abstract the data being worked with. In other words, the data sent to the AI is carefully vetted, to reduce the complexity of the current state. Information that is less useful or difficult to fully compute is either completely disregarded by the AI, or simplified in some manner. For example, there are essentially infinite possible locations of units in the Starcraft II map. However, if one was to generalize location by dividing the map into a grid and reporting the location of a unit as being a grid position based on their center of mass, the amount of locations could be reduced to something computable. This approach also benefits learning algorithms, as by reducing the state space they need to search it becomes easier to gather data about the correct path of actions. However, possibly valuable information can be lost through data abstraction, and the AI’s capability of interacting with the environment is limited. To optimize abstraction, one must be careful to abstract data in a way that the minimum possible amount of valuable information is lost, for the greatest performance increase. 
+Almost all game AI have some layer of abstraction by nature, whether purposeful or not; For example, AlphaGo does not pre-profile an opponent based on the opponent’s preferred play style. This is an inherent part of every system - there will be some unknown or unprocessable factors, and as there is no method available to the AI to gather data on these factors or recognize their existence, they are abstracted. This system mirrors human intelligence, where people commonly have to make decisions with several unknown factors. When a Starcraft II player makes a decision, they do not know or fully comprehend the exact details of the game state -- If one unit was moved one pixel to the left, it is unlikely they would read the game state differently, and in general the optimal decision to take would be the same. 
+Currently several different AI approaches are taken utilizing abstraction.  For instance,  Starcraft tournament bots are usually implemented using rules based expert systems. In this case  bot creators have decided to forgo a Machine Learning approach and rely solely on rules they can create in an effort to reduce the complexity of the bot as well as getting it to work. However, in terms of creating a bot for this project, an expert system would require in depth game knowledge that our team does not possess. 
+For this reason,  we decided to use reinforcement learning to research the effects of abstraction on a system to try to create a functional AI for Starcraft II. We will use reinforcement learning to train our bot via minigames, with the goal of creating a bot that manages to play starcraft II. This goal will allow us to address the issue of researching abstraction, as we will need to choose a good model for the information to send to the AI. As well, this will allow us to gather knowledge about how all of the different areas of game AI work, more so than any other approach. With a reinforcement learning bot, it is possible for us to create a functional full bot as a five person team with no prior experience within the time allowed. This allows us to gather information about many areas of AI we would otherwise have to forego -- such as path planning, machine learning, etc.   
+We will be implementing a Q-Learning algorithm as the brain for this bot. This particular algorithm does not require environmental context and is implemented with a nice and simple array, making it very easy to get started. Other RL algorithms may give me more control on predicting future outcomes as well as state and action space, but the price would be a lot of technical debt. 
+To do all of this we decided to use PySC2. As a language python is obvious for a project of this scale and timeframe. We need to be able to quickly implement our ideas and get to testing sooner rather than later. While we could use the SC2 C++ api, implementing large programs in C++ can be a pain, even if some of us are more comfortable in it. C++ also doesn’t have the advantage of easy training and testing that PySC2 allows us. 
+
+### Design and Technical Approach 
+Reinforcement learning (RL) is the primary technique by which we will be designing our StarCraft II bot. This will be accomplished by  utilizing DeepMind’s pysc2, the Python component of the StarCraft II Learning Environment, which provides an interface for RL agents to interact with StarCraft II.  The primary focus of our RL agent will be in the Q-Learning RL technique, which relies on mapping state space to action space in a simple array. By abstracting vital gameplay phases and tasks into reduced search spaces, we can experiment with a variety of different mini-games to help our AI learn to play the game. 
+Reducing the state space for the RL agent itself will be a for an AI technique. We need to make intelligent decisions about what in the state in important and what is not. To start, instead of considering continuous info about unit position, we can abstract units onto a grid. To take that even further, instead of worrying about individual unit position, it may be smarter to think about total unit position and unit numbers instead. We can make similar assumptions about enemy movement as well, all with the goal of removing state space as much as possible.
+Once state is reduced, the RL algorithm can decide what action to do. Because the Q-Learning technique relies on both state and action space, reducing the action space as much as possible it also advantageous. Abstracting actions to a much smaller set of actions allows us to remove much of the context around an action. Without context actions become simple and concise, which heavily reduces action space. The penalty in the technique is of course that we much add the context back in at a later point. For our bot actions will mainly be implemented via expert rules based systems. This allows the easiest and quickest way to issue commands. 
+Successfully creating our bot will ultimately be about making the correct decisions in the cutoff points in abstraction. If we reduce state too much we may end up with meaningless assumptions. And if we reduce action space too much we may put too much work in the wrong place. This is all about juggling levels of abstraction in various algorithms, with the end goal of creating a functional bot in SC2. To train our bot we will be pitting the bot against ingame AI and eventually real players on the headless SC2. This will speed up training and allow more testing on the best ways to train our bot.
+	It follows that we have chosen Python as the primary language to use to code our AI. Python and PySC2 allows us to keep everything under the same hood. Because we are working with a problem that is ultimately unsolved, working with a language that won’t bog us down is a huge selling point. 
+In order to maintain a uniform workflow, all members of the group will use the PyCharm IDE (student edition). For many of us not used to python outside of a scripting setting, the IDE will hopefully keep our build system straight and force everybody to adhere to good style and coding standards. We will also use Pylint, a separate code analysis and QA package for Python, which follows PEP 8, the Python style guide. Primary means of communication will be through a private Discord server.
+
+
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -134,6 +161,29 @@ def learning(self, t):
 #This uses given information to update the q-table
 def learn(self, state, next_state, action, reward):
 ```
+
+### [Learner.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/Learner.py)
+#####  Represent the current state of the game. Takes necessary information from the SC2 API, and shares it with the RL bot.
+```Python
+class GameState:
+```
+#### Constructor, initializes the returned list.
+```Python
+    def __init__(self, obs=None):
+        self.minerals = None
+        self.vespene = None
+        self.availFood = None
+        self.armyCount = 0
+        self.larvaCount = 0
+```
+
+#### returns current state of the game
+```Python
+    # @param self The object pointer
+    # @param obs The observation maps
+    def update(self, obs):
+```
+
 ### [Actions.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/actions.py)
 #### Actions that are used by our bot
 ```Python
@@ -183,48 +233,48 @@ def return_to_base(rally_x, rally_y):
 ```Python
 class BuildingQueue:
 ```
-Implemented using two lists. The first list indicates the priority level of the corresponding structure. The higher the priority, the more quickly it will be built.
-Build Order:
-    1. Hatchery:
-    2. Spawning Pool
-    3. Spine crawler
-    4. Extractor
-    5. Roach Warren
-    6. Evolution Chamber
-    7. Extractor 
-    8. Lair
-    9. Hydralisk Den
-    10. Spore Crawler
-    11. Hive
-    12. Ultralisk cavern
+Implemented using two lists. The first list indicates the priority level of the corresponding structure. The higher the priority, the more quickly it will be built.<br />
+Build Order:<br />
+    1. Hatchery<br />
+    2. Spawning Pool<br />
+    3. Spine crawler<br />
+    4. Extractor<br />
+    5. Roach Warren<br />
+    6. Evolution Chamber<br />
+    7. Extractor <br />
+    8. Lair<br />
+    9. Hydralisk Den<br />
+    10. Spore Crawler<br />
+    11. Hive<br />
+    12. Ultralisk cavern<br />
     
 ```Python
 class UnitQueue:
 ```
-Uses same method as building queue but for units.
-Military Build order:
-    1. Queen (every time a new base is built)
-    2. Zerglings
-    3. Roaches
-    4. Hydralisks
-    5. Overlord (only when supply is low i.e. max supply - current supply < supply required for next unit)
+Uses same method as building queue but for units.<br />
+Military Build order:<br />
+    1. Queen (every time a new base is built)<br />
+    2. Zerglings<br />
+    3. Roaches<br />
+    4. Hydralisks<br />
+    5. Overlord (only when supply is low i.e. max supply - current supply < supply required for next unit)<br />
     
 
 ```Python
 class ResearchQueue:
 ```
-Implemented using a stack instead of a priority queue for ease of checking availability and pushing
-Order:
-    1. Metabolic Boost
-    2. Glial reconstitution
-    3. Zerg Missile Attacks level 1
-    4. Grooved Spines
-    5. Zerg Missile Attacks level 2
-    6. Zerg Carapace Level 1
-    7. Zerg Carapace Level 2
-    8. Zerg Missile Attacks level 3
-    9. Zerg Carapace Level 3
-    10. Chitinous Plating
-    11. Pneumatized Carapace
+Implemented using a stack instead of a priority queue for ease of checking availability and pushing<br />
+Order:<br />
+    1. Metabolic Boost<br />
+    2. Glial reconstitution<br />
+    3. Zerg Missile Attacks level 1<br />
+    4. Grooved Spines<br />
+    5. Zerg Missile Attacks level 2<br />
+    6. Zerg Carapace Level 1<br />
+    7. Zerg Carapace Level 2<br />
+    8. Zerg Missile Attacks level 3<br />
+    9. Zerg Carapace Level 3<br />
+    10. Chitinous Plating<br />
+    11. Pneumatized Carapace<br />
 
 ## Written by us, made better by you
