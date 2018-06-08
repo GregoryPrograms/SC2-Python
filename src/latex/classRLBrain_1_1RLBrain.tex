@@ -1,0 +1,116 @@
+\hypertarget{classRLBrain_1_1RLBrain}{}\section{R\+L\+Brain.\+R\+L\+Brain Class Reference}
+\label{classRLBrain_1_1RLBrain}\index{R\+L\+Brain.\+R\+L\+Brain@{R\+L\+Brain.\+R\+L\+Brain}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classRLBrain_1_1RLBrain_a40f979542aaadb4826a1b6ab8cb76fa9}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, reduced\+\_\+actions=None, decay\+\_\+rate=0.\+1)
+\item 
+def \hyperlink{classRLBrain_1_1RLBrain_a64d74e364a6d9fb49b888363dbd9f922}{choose\+\_\+action} (self, state)
+\item 
+def \hyperlink{classRLBrain_1_1RLBrain_af39e6aad4cc89b805c6cb09877db1e09}{add\+\_\+state} (self, state)
+\item 
+def {\bfseries explore} (self, t)\hypertarget{classRLBrain_1_1RLBrain_a2cdec6a8eb09e6bb0f5c24251659ed56}{}\label{classRLBrain_1_1RLBrain_a2cdec6a8eb09e6bb0f5c24251659ed56}
+
+\item 
+def {\bfseries learning} (self, t)\hypertarget{classRLBrain_1_1RLBrain_a5cd8667073eafe18d7e9a42cda61606d}{}\label{classRLBrain_1_1RLBrain_a5cd8667073eafe18d7e9a42cda61606d}
+
+\item 
+def \hyperlink{classRLBrain_1_1RLBrain_acfa575d5f9331948ca20f9ccbf408886}{learn} (self, state, next\+\_\+state, action, reward)
+\item 
+def {\bfseries read\+\_\+from\+\_\+file\+\_\+\+QT} (self, filename)\hypertarget{classRLBrain_1_1RLBrain_a32246b81b1fef3ea2ae090b234c3b4f3}{}\label{classRLBrain_1_1RLBrain_a32246b81b1fef3ea2ae090b234c3b4f3}
+
+\item 
+def {\bfseries write\+\_\+to\+\_\+file\+\_\+\+QT} (self, filename)\hypertarget{classRLBrain_1_1RLBrain_a250a60c697c0748a12ac58eebaee6f7d}{}\label{classRLBrain_1_1RLBrain_a250a60c697c0748a12ac58eebaee6f7d}
+
+\item 
+def {\bfseries get\+\_\+size} (self)\hypertarget{classRLBrain_1_1RLBrain_a007381445651792bf63a1d7b80c4a7f2}{}\label{classRLBrain_1_1RLBrain_a007381445651792bf63a1d7b80c4a7f2}
+
+\item 
+def {\bfseries read\+\_\+from\+\_\+file\+\_\+states} (self, filename)\hypertarget{classRLBrain_1_1RLBrain_a58ffb2733e58bba78ad1bdc47a7566cb}{}\label{classRLBrain_1_1RLBrain_a58ffb2733e58bba78ad1bdc47a7566cb}
+
+\item 
+def {\bfseries write\+\_\+to\+\_\+file\+\_\+states} (self, filename)\hypertarget{classRLBrain_1_1RLBrain_a0a32317798997801933b51fa11e8678b}{}\label{classRLBrain_1_1RLBrain_a0a32317798997801933b51fa11e8678b}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries actions}\hypertarget{classRLBrain_1_1RLBrain_afc5c3a7ca8959b8d9ae117f26ea6e3ce}{}\label{classRLBrain_1_1RLBrain_afc5c3a7ca8959b8d9ae117f26ea6e3ce}
+
+\item 
+{\bfseries Q\+Table}\hypertarget{classRLBrain_1_1RLBrain_a18b4f2777afa563eaa6989ab468e3192}{}\label{classRLBrain_1_1RLBrain_a18b4f2777afa563eaa6989ab468e3192}
+
+\item 
+{\bfseries learn\+\_\+rate}\hypertarget{classRLBrain_1_1RLBrain_a3b51c43b4123b2ba0dc6a5cfd300ebf3}{}\label{classRLBrain_1_1RLBrain_a3b51c43b4123b2ba0dc6a5cfd300ebf3}
+
+\item 
+{\bfseries decay\+\_\+rate}\hypertarget{classRLBrain_1_1RLBrain_abdfad2d282526a0e6211b17033b6c1ae}{}\label{classRLBrain_1_1RLBrain_abdfad2d282526a0e6211b17033b6c1ae}
+
+\item 
+{\bfseries rand\+\_\+rate}\hypertarget{classRLBrain_1_1RLBrain_aadeb48dfa9615e1fcad87e34f2aeb5c3}{}\label{classRLBrain_1_1RLBrain_aadeb48dfa9615e1fcad87e34f2aeb5c3}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float {\bfseries M\+I\+N\+\_\+\+E\+XP} = 0.\+01\hypertarget{classRLBrain_1_1RLBrain_a7a6679dda556a95a74c96a2b509b0a31}{}\label{classRLBrain_1_1RLBrain_a7a6679dda556a95a74c96a2b509b0a31}
+
+\item 
+float {\bfseries M\+I\+N\+\_\+\+L\+E\+A\+RN} = 0.\+1\hypertarget{classRLBrain_1_1RLBrain_a122ac433b266b7b98100f554851e14e6}{}\label{classRLBrain_1_1RLBrain_a122ac433b266b7b98100f554851e14e6}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}}
+\subsubsection[{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+(self, reduced\+\_\+actions=\+None, decay\+\_\+rate=0.\+1)}{__init__(self, reduced_actions=None, decay_rate=0.1)}}]{\setlength{\rightskip}{0pt plus 5cm}def R\+L\+Brain.\+R\+L\+Brain.\+\_\+\+\_\+init\+\_\+\+\_\+ (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{reduced\+\_\+actions = {\ttfamily None}, }
+\item[{}]{decay\+\_\+rate = {\ttfamily 0.1}}
+\end{DoxyParamCaption}
+)}\hypertarget{classRLBrain_1_1RLBrain_a40f979542aaadb4826a1b6ab8cb76fa9}{}\label{classRLBrain_1_1RLBrain_a40f979542aaadb4826a1b6ab8cb76fa9}
+\begin{DoxyVerb}The init method for the brain.
+actions is a list of actions detailed in Botty_McBotface.py
+I am implementing the QTable as a pandas DataFrame. This is to easily index our Q-table with strings.
+\end{DoxyVerb}
+ 
+
+\subsection{Member Function Documentation}
+\index{R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}!add\+\_\+state@{add\+\_\+state}}
+\index{add\+\_\+state@{add\+\_\+state}!R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}}
+\subsubsection[{\texorpdfstring{add\+\_\+state(self, state)}{add_state(self, state)}}]{\setlength{\rightskip}{0pt plus 5cm}def R\+L\+Brain.\+R\+L\+Brain.\+add\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{state}
+\end{DoxyParamCaption}
+)}\hypertarget{classRLBrain_1_1RLBrain_af39e6aad4cc89b805c6cb09877db1e09}{}\label{classRLBrain_1_1RLBrain_af39e6aad4cc89b805c6cb09877db1e09}
+\begin{DoxyVerb}This method gets new state and reward from the environment \end{DoxyVerb}
+ \index{R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}!choose\+\_\+action@{choose\+\_\+action}}
+\index{choose\+\_\+action@{choose\+\_\+action}!R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}}
+\subsubsection[{\texorpdfstring{choose\+\_\+action(self, state)}{choose_action(self, state)}}]{\setlength{\rightskip}{0pt plus 5cm}def R\+L\+Brain.\+R\+L\+Brain.\+choose\+\_\+action (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{state}
+\end{DoxyParamCaption}
+)}\hypertarget{classRLBrain_1_1RLBrain_a64d74e364a6d9fb49b888363dbd9f922}{}\label{classRLBrain_1_1RLBrain_a64d74e364a6d9fb49b888363dbd9f922}
+\begin{DoxyVerb}This method chooses which action to do. This method assume check for new states first.
+:returns an action.\end{DoxyVerb}
+ \index{R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}!learn@{learn}}
+\index{learn@{learn}!R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}}
+\subsubsection[{\texorpdfstring{learn(self, state, next\+\_\+state, action, reward)}{learn(self, state, next_state, action, reward)}}]{\setlength{\rightskip}{0pt plus 5cm}def R\+L\+Brain.\+R\+L\+Brain.\+learn (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{state, }
+\item[{}]{next\+\_\+state, }
+\item[{}]{action, }
+\item[{}]{reward}
+\end{DoxyParamCaption}
+)}\hypertarget{classRLBrain_1_1RLBrain_acfa575d5f9331948ca20f9ccbf408886}{}\label{classRLBrain_1_1RLBrain_acfa575d5f9331948ca20f9ccbf408886}
+\begin{DoxyVerb}This method will use the given information to update the q-table.\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+R\+L\+Brain.\+py\end{DoxyCompactItemize}
