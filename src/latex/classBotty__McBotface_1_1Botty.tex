@@ -33,20 +33,17 @@ def \hyperlink{classBotty__McBotface_1_1Botty_a979fe38b2208653ab5195c7115e978c4}
 \begin{DoxyCompactList}\small\item\em Sets the location of the base for use by the AI. \end{DoxyCompactList}\item 
 def \hyperlink{classBotty__McBotface_1_1Botty_a6ad2ce98b25c627204c31f37d26d40dc}{step} (self, obs)
 \item 
-def {\bfseries reward\+\_\+and\+\_\+learn} (self, obs)\hypertarget{classBotty__McBotface_1_1Botty_aaf8459960013f8b5e21e0928d7031026}{}\label{classBotty__McBotface_1_1Botty_aaf8459960013f8b5e21e0928d7031026}
-
-\item 
+def \hyperlink{classBotty__McBotface_1_1Botty_aaf8459960013f8b5e21e0928d7031026}{reward\+\_\+and\+\_\+learn} (self, obs)
+\begin{DoxyCompactList}\small\item\em Takes information about the current game state, creates a \textquotesingle{}reward\textquotesingle{} based on how good the current state is, and passes the reward to Brain. \end{DoxyCompactList}\item 
 def \hyperlink{classBotty__McBotface_1_1Botty_a230761c2312622094689a0950b1851a9}{get\+\_\+action\+\_\+list} (self, action\+\_\+str, obs)
-\item 
-def {\bfseries transform\+\_\+location} (self, x, x\+\_\+distance, y, y\+\_\+distance)\hypertarget{classBotty__McBotface_1_1Botty_a0d6257b0994cb62993fd6346f77d97dc}{}\label{classBotty__McBotface_1_1Botty_a0d6257b0994cb62993fd6346f77d97dc}
-
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Takes in actions, and if the action is one that needs specific parameters, it passes those to it. \end{DoxyCompactList}\item 
+def \hyperlink{classBotty__McBotface_1_1Botty_a0d6257b0994cb62993fd6346f77d97dc}{transform\+\_\+location} (self, x, x\+\_\+distance, y, y\+\_\+distance)
+\begin{DoxyCompactList}\small\item\em Called in order to move a set of coordinates by some distance, depending on whether the base is on the right or left side of the map. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-def {\bfseries get\+\_\+building\+\_\+target} (obs, building)\hypertarget{classBotty__McBotface_1_1Botty_a729cd86d54aa83a7f01a458d03fde940}{}\label{classBotty__McBotface_1_1Botty_a729cd86d54aa83a7f01a458d03fde940}
-
-\end{DoxyCompactItemize}
+def \hyperlink{classBotty__McBotface_1_1Botty_a729cd86d54aa83a7f01a458d03fde940}{get\+\_\+building\+\_\+target} (obs, building)
+\begin{DoxyCompactList}\small\item\em Whenever we build a building, we call this function. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -106,8 +103,41 @@ Controls what information is passed to and from the AI.
 \item[{}]{obs}
 \end{DoxyParamCaption}
 )}\hypertarget{classBotty__McBotface_1_1Botty_a230761c2312622094689a0950b1851a9}{}\label{classBotty__McBotface_1_1Botty_a230761c2312622094689a0950b1851a9}
-\begin{DoxyVerb}This function will set up the appropriate args for the various actions.\end{DoxyVerb}
- \index{Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}!init\+\_\+base@{init\+\_\+base}}
+
+
+Takes in actions, and if the action is one that needs specific parameters, it passes those to it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & The object pointer calling the function \\
+\hline
+{\em action\+\_\+str} & A string containing one of the actions from those available to the AI.  The observation maps \begin{DoxyVerb}This function will set up the appropriate args for the various actions.\end{DoxyVerb}
+ \\
+\hline
+\end{DoxyParams}
+\index{Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}!get\+\_\+building\+\_\+target@{get\+\_\+building\+\_\+target}}
+\index{get\+\_\+building\+\_\+target@{get\+\_\+building\+\_\+target}!Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}}
+\subsubsection[{\texorpdfstring{get\+\_\+building\+\_\+target(obs, building)}{get_building_target(obs, building)}}]{\setlength{\rightskip}{0pt plus 5cm}def Botty\+\_\+\+Mc\+Botface.\+Botty.\+get\+\_\+building\+\_\+target (
+\begin{DoxyParamCaption}
+\item[{}]{obs, }
+\item[{}]{building}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{classBotty__McBotface_1_1Botty_a729cd86d54aa83a7f01a458d03fde940}{}\label{classBotty__McBotface_1_1Botty_a729cd86d54aa83a7f01a458d03fde940}
+
+
+Whenever we build a building, we call this function. 
+
+If it is a building with special requirements, we fullfill those. We also use offset to make sure the building does not overlap with any other buildings. 
+\begin{DoxyParams}{Parameters}
+{\em obs} & The observation maps \\
+\hline
+{\em building} & A macro used to refer to specific buildings. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The location where we are building. 
+\end{DoxyReturn}
+\index{Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}!init\+\_\+base@{init\+\_\+base}}
 \index{init\+\_\+base@{init\+\_\+base}!Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}}
 \subsubsection[{\texorpdfstring{init\+\_\+base(self, obs)}{init_base(self, obs)}}]{\setlength{\rightskip}{0pt plus 5cm}def Botty\+\_\+\+Mc\+Botface.\+Botty.\+init\+\_\+base (
 \begin{DoxyParamCaption}
@@ -124,6 +154,25 @@ Sets the location of the base for use by the AI.
 {\em self} & The object pointer calling the function \\
 \hline
 {\em obs} & The observation maps \\
+\hline
+\end{DoxyParams}
+\index{Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}!reward\+\_\+and\+\_\+learn@{reward\+\_\+and\+\_\+learn}}
+\index{reward\+\_\+and\+\_\+learn@{reward\+\_\+and\+\_\+learn}!Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}}
+\subsubsection[{\texorpdfstring{reward\+\_\+and\+\_\+learn(self, obs)}{reward_and_learn(self, obs)}}]{\setlength{\rightskip}{0pt plus 5cm}def Botty\+\_\+\+Mc\+Botface.\+Botty.\+reward\+\_\+and\+\_\+learn (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{obs}
+\end{DoxyParamCaption}
+)}\hypertarget{classBotty__McBotface_1_1Botty_aaf8459960013f8b5e21e0928d7031026}{}\label{classBotty__McBotface_1_1Botty_aaf8459960013f8b5e21e0928d7031026}
+
+
+Takes information about the current game state, creates a \textquotesingle{}reward\textquotesingle{} based on how good the current state is, and passes the reward to Brain. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & The object pointer calling the function \\
+\hline
+{\em obs} & The observation map. \\
 \hline
 \end{DoxyParams}
 \index{Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}!step@{step}}
@@ -153,7 +202,38 @@ A function ID for S\+C2 to call.
 \end{DoxyReturn}
 
 \end{DoxyEnumerate}
-\end{DoxyEnumerate}
+\end{DoxyEnumerate}\index{Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}!transform\+\_\+location@{transform\+\_\+location}}
+\index{transform\+\_\+location@{transform\+\_\+location}!Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}}
+\subsubsection[{\texorpdfstring{transform\+\_\+location(self, x, x\+\_\+distance, y, y\+\_\+distance)}{transform_location(self, x, x_distance, y, y_distance)}}]{\setlength{\rightskip}{0pt plus 5cm}def Botty\+\_\+\+Mc\+Botface.\+Botty.\+transform\+\_\+location (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{x, }
+\item[{}]{x\+\_\+distance, }
+\item[{}]{y, }
+\item[{}]{y\+\_\+distance}
+\end{DoxyParamCaption}
+)}\hypertarget{classBotty__McBotface_1_1Botty_a0d6257b0994cb62993fd6346f77d97dc}{}\label{classBotty__McBotface_1_1Botty_a0d6257b0994cb62993fd6346f77d97dc}
+
+
+Called in order to move a set of coordinates by some distance, depending on whether the base is on the right or left side of the map. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & The object pointer calling the function \\
+\hline
+{\em x} & The initial x \\
+\hline
+{\em x\+\_\+distance} & The distance between the initial and final x \\
+\hline
+{\em y} & The initial y \\
+\hline
+{\em y\+\_\+distance} & The distance between the initial and final y \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The transformed x and y. 
+\end{DoxyReturn}
+
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

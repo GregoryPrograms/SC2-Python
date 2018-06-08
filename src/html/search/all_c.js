@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['zerg',['Zerg',['../classBuildQueues_1_1Zerg.html',1,'BuildQueues']]]
+  ['unitqueue',['UnitQueue',['../classBuildQueues_1_1UnitQueue.html',1,'BuildQueues']]]
 ];

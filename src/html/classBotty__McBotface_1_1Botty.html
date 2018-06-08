@@ -120,19 +120,20 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <tr class="separator:a979fe38b2208653ab5195c7115e978c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ad2ce98b25c627204c31f37d26d40dc"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBotty__McBotface_1_1Botty.html#a6ad2ce98b25c627204c31f37d26d40dc">step</a> (self, obs)</td></tr>
 <tr class="separator:a6ad2ce98b25c627204c31f37d26d40dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf8459960013f8b5e21e0928d7031026"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf8459960013f8b5e21e0928d7031026"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>reward_and_learn</b> (self, obs)</td></tr>
+<tr class="memitem:aaf8459960013f8b5e21e0928d7031026"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBotty__McBotface_1_1Botty.html#aaf8459960013f8b5e21e0928d7031026">reward_and_learn</a> (self, obs)</td></tr>
+<tr class="memdesc:aaf8459960013f8b5e21e0928d7031026"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes information about the current game state, creates a 'reward' based on how good the current state is, and passes the reward to Brain.  <a href="#aaf8459960013f8b5e21e0928d7031026">More...</a><br /></td></tr>
 <tr class="separator:aaf8459960013f8b5e21e0928d7031026"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a230761c2312622094689a0950b1851a9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBotty__McBotface_1_1Botty.html#a230761c2312622094689a0950b1851a9">get_action_list</a> (self, action_str, obs)</td></tr>
+<tr class="memdesc:a230761c2312622094689a0950b1851a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes in actions, and if the action is one that needs specific parameters, it passes those to it.  <a href="#a230761c2312622094689a0950b1851a9">More...</a><br /></td></tr>
 <tr class="separator:a230761c2312622094689a0950b1851a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d6257b0994cb62993fd6346f77d97dc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0d6257b0994cb62993fd6346f77d97dc"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>transform_location</b> (self, x, x_distance, y, y_distance)</td></tr>
+<tr class="memitem:a0d6257b0994cb62993fd6346f77d97dc"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBotty__McBotface_1_1Botty.html#a0d6257b0994cb62993fd6346f77d97dc">transform_location</a> (self, x, x_distance, y, y_distance)</td></tr>
+<tr class="memdesc:a0d6257b0994cb62993fd6346f77d97dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called in order to move a set of coordinates by some distance, depending on whether the base is on the right or left side of the map.  <a href="#a0d6257b0994cb62993fd6346f77d97dc">More...</a><br /></td></tr>
 <tr class="separator:a0d6257b0994cb62993fd6346f77d97dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a729cd86d54aa83a7f01a458d03fde940"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a729cd86d54aa83a7f01a458d03fde940"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_building_target</b> (obs, building)</td></tr>
+<tr class="memitem:a729cd86d54aa83a7f01a458d03fde940"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBotty__McBotface_1_1Botty.html#a729cd86d54aa83a7f01a458d03fde940">get_building_target</a> (obs, building)</td></tr>
+<tr class="memdesc:a729cd86d54aa83a7f01a458d03fde940"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whenever we build a building, we call this function.  <a href="#a729cd86d54aa83a7f01a458d03fde940">More...</a><br /></td></tr>
 <tr class="separator:a729cd86d54aa83a7f01a458d03fde940"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -210,7 +211,60 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">This function will set up the appropriate args for the various actions.</pre> 
+
+<p>Takes in actions, and if the action is one that needs specific parameters, it passes those to it. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer calling the function </td></tr>
+    <tr><td class="paramname">action_str</td><td>A string containing one of the actions from those available to the AI.  The observation maps <pre class="fragment">This function will set up the appropriate args for the various actions.</pre> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a729cd86d54aa83a7f01a458d03fde940"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def Botty_McBotface.Botty.get_building_target </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>obs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>building</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Whenever we build a building, we call this function. </p>
+<p>If it is a building with special requirements, we fullfill those. We also use offset to make sure the building does not overlap with any other buildings. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obs</td><td>The observation maps </td></tr>
+    <tr><td class="paramname">building</td><td>A macro used to refer to specific buildings. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The location where we are building. </dd></dl>
+
 </div>
 </div>
 <a class="anchor" id="a979fe38b2208653ab5195c7115e978c4"></a>
@@ -242,6 +296,41 @@ Public Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">self</td><td>The object pointer calling the function </td></tr>
     <tr><td class="paramname">obs</td><td>The observation maps </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aaf8459960013f8b5e21e0928d7031026"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def Botty_McBotface.Botty.reward_and_learn </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>obs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Takes information about the current game state, creates a 'reward' based on how good the current state is, and passes the reward to Brain. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer calling the function </td></tr>
+    <tr><td class="paramname">obs</td><td>The observation map. </td></tr>
   </table>
   </dd>
 </dl>
@@ -288,6 +377,63 @@ Public Attributes</h2></td></tr>
 </ol>
 </li>
 </ol>
+
+</div>
+</div>
+<a class="anchor" id="a0d6257b0994cb62993fd6346f77d97dc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def Botty_McBotface.Botty.transform_location </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>x_distance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>y_distance</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Called in order to move a set of coordinates by some distance, depending on whether the base is on the right or left side of the map. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer calling the function </td></tr>
+    <tr><td class="paramname">x</td><td>The initial x </td></tr>
+    <tr><td class="paramname">x_distance</td><td>The distance between the initial and final x </td></tr>
+    <tr><td class="paramname">y</td><td>The initial y </td></tr>
+    <tr><td class="paramname">y_distance</td><td>The distance between the initial and final y </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The transformed x and y. </dd></dl>
 
 </div>
 </div>
