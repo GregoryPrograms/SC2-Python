@@ -29,9 +29,8 @@ Collaboration diagram for Botty\+\_\+\+Mc\+Botface.\+Botty\+:\nopagebreak
 def \hyperlink{classBotty__McBotface_1_1Botty_a2b20c5c22329f5a75ef3c343e630a4c1}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self)\hypertarget{classBotty__McBotface_1_1Botty_a2b20c5c22329f5a75ef3c343e630a4c1}{}\label{classBotty__McBotface_1_1Botty_a2b20c5c22329f5a75ef3c343e630a4c1}
 
 \begin{DoxyCompactList}\small\item\em Constructor \+:-\/ Initializes the RL brain and the game state. \end{DoxyCompactList}\item 
-def {\bfseries init\+\_\+base} (self, obs)\hypertarget{classBotty__McBotface_1_1Botty_a979fe38b2208653ab5195c7115e978c4}{}\label{classBotty__McBotface_1_1Botty_a979fe38b2208653ab5195c7115e978c4}
-
-\item 
+def \hyperlink{classBotty__McBotface_1_1Botty_a979fe38b2208653ab5195c7115e978c4}{init\+\_\+base} (self, obs)
+\begin{DoxyCompactList}\small\item\em Sets the location of the base for use by the AI. \end{DoxyCompactList}\item 
 def \hyperlink{classBotty__McBotface_1_1Botty_a6ad2ce98b25c627204c31f37d26d40dc}{step} (self, obs)
 \item 
 def {\bfseries reward\+\_\+and\+\_\+learn} (self, obs)\hypertarget{classBotty__McBotface_1_1Botty_aaf8459960013f8b5e21e0928d7031026}{}\label{classBotty__McBotface_1_1Botty_aaf8459960013f8b5e21e0928d7031026}
@@ -39,7 +38,7 @@ def {\bfseries reward\+\_\+and\+\_\+learn} (self, obs)\hypertarget{classBotty__M
 \item 
 def \hyperlink{classBotty__McBotface_1_1Botty_a230761c2312622094689a0950b1851a9}{get\+\_\+action\+\_\+list} (self, action\+\_\+str, obs)
 \item 
-def {\bfseries transform\+\_\+location} (self, \hyperlink{classBotty__McBotface_1_1Botty_ab149b8002cbcdcce9eee529f42c07d0f}{x}, x\+\_\+distance, y, y\+\_\+distance)\hypertarget{classBotty__McBotface_1_1Botty_a0d6257b0994cb62993fd6346f77d97dc}{}\label{classBotty__McBotface_1_1Botty_a0d6257b0994cb62993fd6346f77d97dc}
+def {\bfseries transform\+\_\+location} (self, x, x\+\_\+distance, y, y\+\_\+distance)\hypertarget{classBotty__McBotface_1_1Botty_a0d6257b0994cb62993fd6346f77d97dc}{}\label{classBotty__McBotface_1_1Botty_a0d6257b0994cb62993fd6346f77d97dc}
 
 \end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
@@ -78,6 +77,9 @@ def {\bfseries get\+\_\+building\+\_\+target} (obs, building)\hypertarget{classB
 {\bfseries prev\+\_\+vespene\+\_\+rate}\hypertarget{classBotty__McBotface_1_1Botty_ac669c87f030744306053c42ed7e348de}{}\label{classBotty__McBotface_1_1Botty_ac669c87f030744306053c42ed7e348de}
 
 \item 
+{\bfseries base}\hypertarget{classBotty__McBotface_1_1Botty_ae6bf573769cd18b1f477b6a8d1c540e2}{}\label{classBotty__McBotface_1_1Botty_ae6bf573769cd18b1f477b6a8d1c540e2}
+
+\item 
 {\bfseries building\+\_\+queue}\hypertarget{classBotty__McBotface_1_1Botty_aa7624e043a553c46f7aa6861b363cd1d}{}\label{classBotty__McBotface_1_1Botty_aa7624e043a553c46f7aa6861b363cd1d}
 
 \item 
@@ -85,17 +87,6 @@ def {\bfseries get\+\_\+building\+\_\+target} (obs, building)\hypertarget{classB
 
 \item 
 {\bfseries research\+\_\+queue}\hypertarget{classBotty__McBotface_1_1Botty_a02e5db2505cb8532ab677cd0300cbf16}{}\label{classBotty__McBotface_1_1Botty_a02e5db2505cb8532ab677cd0300cbf16}
-
-\end{DoxyCompactItemize}
-\subsection*{Static Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\hyperlink{classBotty__McBotface_1_1Botty_ab149b8002cbcdcce9eee529f42c07d0f}{x}
-\item 
-{\bfseries y}\hypertarget{classBotty__McBotface_1_1Botty_a1081ab7c3fe8c113ae258db3352e90c4}{}\label{classBotty__McBotface_1_1Botty_a1081ab7c3fe8c113ae258db3352e90c4}
-
-\item 
-{\bfseries base}\hypertarget{classBotty__McBotface_1_1Botty_ae6bf573769cd18b1f477b6a8d1c540e2}{}\label{classBotty__McBotface_1_1Botty_ae6bf573769cd18b1f477b6a8d1c540e2}
 
 \end{DoxyCompactItemize}
 
@@ -116,7 +107,26 @@ Controls what information is passed to and from the AI.
 \end{DoxyParamCaption}
 )}\hypertarget{classBotty__McBotface_1_1Botty_a230761c2312622094689a0950b1851a9}{}\label{classBotty__McBotface_1_1Botty_a230761c2312622094689a0950b1851a9}
 \begin{DoxyVerb}This function will set up the appropriate args for the various actions.\end{DoxyVerb}
- \index{Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}!step@{step}}
+ \index{Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}!init\+\_\+base@{init\+\_\+base}}
+\index{init\+\_\+base@{init\+\_\+base}!Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}}
+\subsubsection[{\texorpdfstring{init\+\_\+base(self, obs)}{init_base(self, obs)}}]{\setlength{\rightskip}{0pt plus 5cm}def Botty\+\_\+\+Mc\+Botface.\+Botty.\+init\+\_\+base (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{obs}
+\end{DoxyParamCaption}
+)}\hypertarget{classBotty__McBotface_1_1Botty_a979fe38b2208653ab5195c7115e978c4}{}\label{classBotty__McBotface_1_1Botty_a979fe38b2208653ab5195c7115e978c4}
+
+
+Sets the location of the base for use by the AI. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & The object pointer calling the function \\
+\hline
+{\em obs} & The observation maps \\
+\hline
+\end{DoxyParams}
+\index{Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}!step@{step}}
 \index{step@{step}!Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}}
 \subsubsection[{\texorpdfstring{step(self, obs)}{step(self, obs)}}]{\setlength{\rightskip}{0pt plus 5cm}def Botty\+\_\+\+Mc\+Botface.\+Botty.\+step (
 \begin{DoxyParamCaption}
@@ -124,29 +134,26 @@ Controls what information is passed to and from the AI.
 \item[{}]{obs}
 \end{DoxyParamCaption}
 )}\hypertarget{classBotty__McBotface_1_1Botty_a6ad2ce98b25c627204c31f37d26d40dc}{}\label{classBotty__McBotface_1_1Botty_a6ad2ce98b25c627204c31f37d26d40dc}
-\begin{DoxyVerb}1. reduce state.
-2. Allow brain to learn based prev action, state, & rewards
-3. Choose action based on current state.
-4. Update prev actions & state.
-5. Do action. My current idea is to store many actions in an action list.
-   This will allow our abstracted actions to do a lot more per action.
-:param obs: The observation of current step.
-:return: A function ID for SC2 to call.
-\end{DoxyVerb}
- 
 
-\subsection{Member Data Documentation}
-\index{Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}!x@{x}}
-\index{x@{x}!Botty\+\_\+\+Mc\+Botface\+::\+Botty@{Botty\+\_\+\+Mc\+Botface\+::\+Botty}}
-\subsubsection[{\texorpdfstring{x}{x}}]{\setlength{\rightskip}{0pt plus 5cm}Botty\+\_\+\+Mc\+Botface.\+Botty.\+x\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{classBotty__McBotface_1_1Botty_ab149b8002cbcdcce9eee529f42c07d0f}{}\label{classBotty__McBotface_1_1Botty_ab149b8002cbcdcce9eee529f42c07d0f}
-
+\begin{DoxyEnumerate}
+\item Reduce state.
+\begin{DoxyEnumerate}
+\item Allow brain to learn based prev action, state, \& rewards
+\item Choose action based on current state.
+\item Update prev actions \& state.
+\item Do action. My current idea is to store many actions in an action list. This will allow our abstracted actions to do a lot more per action. 
 \begin{DoxyParams}{Parameters}
-{\em self} & The object pointer calling the function \\
+{\em self} & The object pointer calling the function. \\
 \hline
-{\em obs} & The observation maps Sets the location of the base for use by the AI. \\
+{\em obs} & The observation of current step. \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A function ID for S\+C2 to call. 
+\end{DoxyReturn}
 
+\end{DoxyEnumerate}
+\end{DoxyEnumerate}
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

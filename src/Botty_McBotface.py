@@ -121,12 +121,10 @@ class Botty(base_agent.BaseAgent):
         self.unit_queue = UnitQueue()
         self.research_queue = ResearchQueue()
 
+    ## Sets the location of the base for use by the AI.
+    #  @param self The object pointer calling the function
+    #  @param obs The observation maps
     def init_base(self, obs):
-    """!
-      @param self The object pointer calling the function
-      @param obs The observation maps
-      Sets the location of the base for use by the AI. 
-    """
         x, y = (obs.observation['minimap'][_PLAYER_RELATIVE] == _PLAYER_SELF).nonzero()
 
         if y.any() and y.mean() <= _MAP_SIZE // 2:
@@ -134,17 +132,17 @@ class Botty(base_agent.BaseAgent):
         else:
             self.base = 'right'
 
+
+    ##  1. Reduce state.
+    #   2. Allow brain to learn based prev action, state, & rewards
+    #   3. Choose action based on current state.
+    #   4. Update prev actions & state.
+    #   5. Do action. My current idea is to store many actions in an action list.
+    #      This will allow our abstracted actions to do a lot more per action.
+    #   @param self The object pointer calling the function.
+    #   @param obs The observation of current step.
+    #   @return A function ID for SC2 to call.
     def step(self, obs):
-        """
-        1. reduce state.
-        2. Allow brain to learn based prev action, state, & rewards
-        3. Choose action based on current state.
-        4. Update prev actions & state.
-        5. Do action. My current idea is to store many actions in an action list.
-           This will allow our abstracted actions to do a lot more per action.
-        :param obs: The observation of current step.
-        :return: A function ID for SC2 to call.
-        """
         super(Botty, self).step(obs)
 
         # gives us info about where our base is. Left side or right side. Works for 2 base pos maps.
@@ -180,11 +178,10 @@ class Botty(base_agent.BaseAgent):
         else:
             return actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])
 
-    # reward_and_learn(self,obs)
-    # @param self The object pointer calling the function
-    # @param obs The observation map.
-    # Takes information about the current game state, creates a 'reward'
-    # based on how good the current state is, and passes the reward to Brain.
+    ## Takes information about the current game state, creates a 'reward'
+    #  based on how good the current state is, and passes the reward to Brain.
+    #  @param self The object pointer calling the function
+    #  @param obs The observation map.
     def reward_and_learn(self, obs):
         if self.prev_action and self.prev_state:
             # Update the reward, we going to need to give it to Brain/
@@ -211,11 +208,10 @@ class Botty(base_agent.BaseAgent):
             # Todo finish reward stuff
             self.strategy_manager.learn(self.prev_state, self.state, self.prev_action, reward)
 
-    # get_action_list(self, action_str, obs)
+    ##Takes in actions, and if the action is one that needs specific parameters, it passes those to it.
     # @param self The object pointer calling the function
     # @param action_str A string containing one of the actions from those available to the AI.
     # @obs The observation maps
-    # Takes in actions, and if the action is one that needs specific parameters, it passes those to it.
     def get_action_list(self, action_str, obs):
         """ This function will set up the appropriate args for the various actions."""
         if 'moveview' in action_str:
@@ -250,12 +246,12 @@ class Botty(base_agent.BaseAgent):
 
         return [actions.FunctionCall(actions.FUNCTIONS.no_op.id, [])]
 
-    # get_building(obs,building)
-    # @param obs The observation maps
-    # @param building A macro used to refer to specific buildings.
-    # Whenever we build a building, we call this function. If it is a 
+    ## Whenever we build a building, we call this function. If it is a 
     # building with special requirements, we fullfill those. 
     # We also use offset to make sure the building does not overlap with any other buildings.
+    # @param obs The observation maps
+    # @param building A macro used to refer to specific buildings.
+    # @return The location where we are building.
     @staticmethod
     def get_building_target(obs, building):
         unit_type = obs.observation['screen'][_UNIT_TYPE]
@@ -272,14 +268,14 @@ class Botty(base_agent.BaseAgent):
             hatchery_x, hatchery_y = (unit_type == Zerg.Hatchery).nonzero()
             return [hatchery_x.mean() + x_offset, hatchery_y.mean() + y_offset]
 
-    # transform_location(self, x, x_distance, y, y_distance)
+    ## Called in order to move a set of coordinates by some distance, depending
+    # on whether the base is on the right or left side of the map.
     # @param self The object pointer calling the function
     # @param x The initial x
     # @param x_distance The distance between the initial and final x
     # @param y The initial y
     # @param y_distance The distance between the initial and final y
-    # Called in order to move a set of coordinates by some distance, depending
-    # on whether the base is on the right or left side of the map. 
+    # @return The transformed x and y.
     def transform_location(self, x, x_distance, y, y_distance):
         if self.base == 'right':
             return [x - x_distance, y - y_distance]
