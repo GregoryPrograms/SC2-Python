@@ -31,10 +31,15 @@ To do all of this we decided to use PySC2. As a language python is obvious for a
 
 ### Design and Technical Approach 
    Reinforcement learning (RL) is the primary technique by which we will be designing our StarCraft II bot. This will be accomplished by  utilizing DeepMind’s pysc2, the Python component of the StarCraft II Learning Environment, which provides an interface for RL agents to interact with StarCraft II.  The primary focus of our RL agent will be in the Q-Learning RL technique, which relies on mapping state space to action space in a simple array. By abstracting vital gameplay phases and tasks into reduced search spaces, we can experiment with a variety of different mini-games to help our AI learn to play the game. 
+   
    Reducing the state space for the RL agent itself will be a for an AI technique. We need to make intelligent decisions about what in the state in important and what is not. To start, instead of considering continuous info about unit position, we can abstract units onto a grid. To take that even further, instead of worrying about individual unit position, it may be smarter to think about total unit position and unit numbers instead. We can make similar assumptions about enemy movement as well, all with the goal of removing state space as much as possible.
-   Once state is reduced, the RL algorithm can decide what action to do. Because the Q-Learning technique relies on both state and action space, reducing the action space as much as possible it also advantageous. Abstracting actions to a much smaller set of actions allows us to remove much of the context around an action. Without context actions become simple and concise, which heavily reduces action space. The penalty in the technique is of course that we much add the context back in at a later point. For our bot actions will mainly be implemented via expert rules based systems. This allows the easiest and quickest way to issue commands. <br />
+   
+   Once state is reduced, the RL algorithm can decide what action to do. Because the Q-Learning technique relies on both state and action space, reducing the action space as much as possible it also advantageous. Abstracting actions to a much smaller set of actions allows us to remove much of the context around an action. Without context actions become simple and concise, which heavily reduces action space. The penalty in the technique is of course that we much add the context back in at a later point. For our bot actions will mainly be implemented via expert rules based systems. This allows the easiest and quickest way to issue commands.
+   
    Successfully creating our bot will ultimately be about making the correct decisions in the cutoff points in abstraction. If we reduce state too much we may end up with meaningless assumptions. And if we reduce action space too much we may put too much work in the wrong place. This is all about juggling levels of abstraction in various algorithms, with the end goal of creating a functional bot in SC2. To train our bot we will be pitting the bot against ingame AI and eventually real players on the headless SC2. This will speed up training and allow more testing on the best ways to train our bot.
+   
    It follows that we have chosen Python as the primary language to use to code our AI. Python and PySC2 allows us to keep everything under the same hood. Because we are working with a problem that is ultimately unsolved, working with a language that won’t bog us down is a huge selling point.
+   
    In order to maintain a uniform workflow, all members of the group will use the PyCharm IDE (student edition). For many of us not used to python outside of a scripting setting, the IDE will hopefully keep our build system straight and force everybody to adhere to good style and coding standards. We will also use Pylint, a separate code analysis and QA package for Python, which follows PEP 8, the Python style guide. Primary means of communication will be through a private Discord server.
 
 
@@ -80,23 +85,21 @@ class Botty(base_agent.BaseAgent):
 
 ##### Constructor for our bot. It initializes the AI, passes it actions and gamestate
 ```Python
-    def __init__(self):
-        super(Botty, self).__init__()
-        self.strategy_manager = RLBrain(smart_actions)  # keeping default rates for now.
-        self.state = GameState()
-
-        # if we want to have predefined initialization actions, we can hard code values in here.
-        self.action_list = []
-        self.prev_action = None
-        self.prev_state = None
-        self.prev_killed_units = 0
-        self.prev_value_units = 0
-        self.prev_mineral_rate = 0
-        self.prev_vespene_rate = 0
-        self.base = 'right'
-        self.building_queue = BuildingQueue()
-        self.unit_queue = UnitQueue()
-        self.research_queue = ResearchQueue()
+def __init__(self):
+    super(Botty, self).__init__()
+    self.strategy_manager = RLBrain(smart_actions)  # keeping default rates for now.
+    self.state = GameState()
+    self.action_list = []
+    self.prev_action = None
+    self.prev_state = None
+    self.prev_killed_units = 0
+    self.prev_value_units = 0
+    self.prev_mineral_rate = 0
+    self.prev_vespene_rate = 0
+    self.base = 'right'
+    self.building_queue = BuildingQueue()
+    self.unit_queue = UnitQueue()
+    self.research_queue = ResearchQueue()
 ```
 ##### Initializes the base location of our bot
 ```Python
@@ -145,11 +148,11 @@ class RLBrain:
 #### The init method for the brain.
 ```Python
 def __init__(self, reduced_actions=None, decay_rate=0.1):
-        self.actions = reduced_actions  # list of actions
-        self.QTable = pd.DataFrame(columns=self.actions, dtype=np.float64)
-        self.learn_rate = self.learning(0)
-        self.decay_rate = decay_rate
-        self.rand_rate = self.explore(0)
+    self.actions = reduced_actions  # list of actions
+    self.QTable = pd.DataFrame(columns=self.actions, dtype=np.float64)
+    self.learn_rate = self.learning(0)
+    self.decay_rate = decay_rate
+    self.rand_rate = self.explore(0)
 ```
 #### Methods
 ```Python
@@ -176,19 +179,19 @@ class GameState:
 ```
 #### Constructor, initializes the returned list.
 ```Python
-    def __init__(self, obs=None):
-        self.minerals = None
-        self.vespene = None
-        self.availFood = None
-        self.armyCount = 0
-        self.larvaCount = 0
+def __init__(self, obs=None):
+    self.minerals = None
+    self.vespene = None
+    self.availFood = None
+    self.armyCount = 0
+    self.larvaCount = 0
 ```
 
 #### returns current state of the game
 ```Python
-    # @param self The object pointer
-    # @param obs The observation maps
-    def update(self, obs):
+# @param self The object pointer
+# @param obs The observation maps
+def update(self, obs):
 ```
 
 ### [Actions.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/actions.py)
@@ -242,29 +245,29 @@ class BuildingQueue:
 ```
 Implemented using two lists. The first list indicates the priority level of the corresponding structure. The higher the priority, the more quickly it will be built.<br />
 Build Order:<br />
-    1. Hatchery<br />
-    2. Spawning Pool<br />
-    3. Spine crawler<br />
-    4. Extractor<br />
-    5. Roach Warren<br />
-    6. Evolution Chamber<br />
-    7. Extractor <br />
-    8. Lair<br />
-    9. Hydralisk Den<br />
-    10. Spore Crawler<br />
-    11. Hive<br />
-    12. Ultralisk cavern<br />
+ - 1. Hatchery<br />
+ - 2. Spawning Pool<br />
+ - 3. Spine crawler<br />
+ - 4. Extractor<br />
+ - 5. Roach Warren<br />
+ - 6. Evolution Chamber<br />
+ - 7. Extractor <br />
+ - 8. Lair<br />
+ - 9. Hydralisk Den<br />
+ - 10. Spore Crawler<br />
+ - 11. Hive<br />
+ - 12. Ultralisk cavern<br />
     
 ```Python
 class UnitQueue:
 ```
 Uses same method as building queue but for units.<br />
 Military Build order:<br />
-    1. Queen (every time a new base is built)<br />
-    2. Zerglings<br />
-    3. Roaches<br />
-    4. Hydralisks<br />
-    5. Overlord (only when supply is low i.e. max supply - current supply < supply required for next unit)<br />
+ - 1. Queen (every time a new base is built)<br />
+ - 2. Zerglings<br />
+ - 3. Roaches<br />
+ - 4. Hydralisks<br />
+ - 5. Overlord (only when supply is low i.e. max supply - current supply < supply required for next unit)<br />
     
 
 ```Python
@@ -272,16 +275,16 @@ class ResearchQueue:
 ```
 Implemented using a stack instead of a priority queue for ease of checking availability and pushing<br />
 Order:<br />
-    1. Metabolic Boost<br />
-    2. Glial reconstitution<br />
-    3. Zerg Missile Attacks level 1<br />
-    4. Grooved Spines<br />
-    5. Zerg Missile Attacks level 2<br />
-    6. Zerg Carapace Level 1<br />
-    7. Zerg Carapace Level 2<br />
-    8. Zerg Missile Attacks level 3<br />
-    9. Zerg Carapace Level 3<br />
-    10. Chitinous Plating<br />
-    11. Pneumatized Carapace<br />
+ - 1. Metabolic Boost<br />
+ - 2. Glial reconstitution<br />
+ - 3. Zerg Missile Attacks level 1<br />
+ - 4. Grooved Spines<br />
+ - 5. Zerg Missile Attacks level 2<br />
+ - 6. Zerg Carapace Level 1<br />
+ - 7. Zerg Carapace Level 2<br />
+ - 8. Zerg Missile Attacks level 3<br />
+ - 9. Zerg Carapace Level 3<br />
+ - 10. Chitinous Plating<br />
+ - 11. Pneumatized Carapace<br />
 
 ## Written by us, made better by you
