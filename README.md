@@ -173,11 +173,9 @@ def attack(obs):
 # check to see if enemy units are too close. As such, this function is a simpler version of attack.
 def defend(x_defend, y_defend):
 
-# return_to_base(rally_x,rally_y)
 # @param rally_x x location for the units to move to.
 # @param rally_y y location for the units to move to.
-# Takes in some point on the map, and moves army to that point. 
-# Meant to be used to move army to base, but can be used to move army anywhere.
+# Takes in some point on the map, and moves army to that point. Can also be used to move army anywhere
 def return_to_base(rally_x, rally_y):
 ```
 
