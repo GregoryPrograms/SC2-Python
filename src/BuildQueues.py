@@ -37,7 +37,9 @@ _BUILD_EVOLUTION_CHAMBER = actions.FUNCTIONS.Build_EvolutionChamber_screen.id
 _BUILD_HIVE = actions.FUNCTIONS.Morph_Hive_quick.id
 _BUILD_ULTRA_CAVERN = actions.FUNCTIONS.Build_UltraliskCavern_screen.id
 
-
+# class BuildingQueue
+#
+# Holds a priority queue of the building order.
 class BuildingQueue:
 
     # Build order:
@@ -59,6 +61,9 @@ class BuildingQueue:
     # Data structure is two lists:
     # the first list indicates the priority level of the corresponding structures
     # the higher the priority, the more quickly it will be built
+
+    #Constructor 
+    #Initializes the queue in the order we want our things built.
     def __init__(self):
         self.BuildQ = [[0 for x in range(11)] for y in range(2)]
         # self.BuildQ[0] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
@@ -75,6 +80,12 @@ class BuildingQueue:
     # repeated: hatchery, spine_crawler, spore crawler, extractor
     # everything else just need one of
     # Dequeue: finds the max priority in the list, and returns the associated build, if available
+   
+    # dequeue(self, obs)
+    # @param self Object pointer calling the function.
+    # @param obs The observation feature maps.
+    # Takes the highest 'value' (thing that needs to be built first) item
+    # From the queue, returns the build command for it.
     def dequeue(self, obs):
         global num_bases
         global have_roach_warren
@@ -140,7 +151,12 @@ class BuildingQueue:
 
     # Update: if a building does not exist, then push it up in priority
     # ***needs reconfiguring, a more intuitive numbering system***
-    def update(self, obs):
+
+   # update(self, obs)
+   # @param self Object pointer calling the function.
+   # @param obs The observation feature maps. 
+   # 'Updates' the queue. If a building is found to have been destroyed, it is re-added to the queue.
+   def update(self, obs):
         global have_roach_warren
         global have_spawning_pool
         global have_hydra_den
@@ -244,7 +260,9 @@ _TRAIN_WORKER = actions.FUNCTIONS.Train_Drone_quick.id
 _TRAIN_OVERLORD = actions.FUNCTIONS.Train_Overlord_quick.id
 _TRAIN_ULTRALISK = actions.FUNCTIONS.Train_Ultralisk_quick.id
 
-
+# class UnitQueue
+#
+# Similar to BuildingQueue, except for units instead of buildings.
 class UnitQueue:
     # Military Build order:
     # Queen (every time a new base is built)
@@ -267,6 +285,8 @@ class UnitQueue:
 
     # Late game ultralisks? (Basic strategy is to have a few ultralisks backed up by a large number of hydralisks)
 
+    #Constructor
+    #Initializes the queue
     def __init__(self):
         """Set build order"""
         self.UnitQ = [[0 for x in range(7)] for y in range(2)]
@@ -276,6 +296,10 @@ class UnitQueue:
         #Supply required for each unit
         self.supply = [2, 1, 2, 2, 1, 0, 6]
 
+    # dequeue(self,obs)
+    # @param self Object pointer calling the function.
+    # @param obs  The observation feature maps.
+    # Dequeues the unit with the highest 'priority' and returns it's build command.
     def dequeue(self, obs):
         global num_queens
         global overlord_counter
@@ -308,6 +332,11 @@ class UnitQueue:
         else:
             return _NOOP
 
+    # update(self,obs)
+    # @param self Object pointer calling the function.
+    # @param obs  The observation feature maps.
+    # If one of the units is killed and it can be remade, then add the unit
+    # back to the queue.
     def update(self, obs):
         global num_queens
         global num_bases
@@ -371,6 +400,9 @@ _RESEARCH_PNEUMATIZED_CARAPACE = actions.FUNCTIONS.Research_PneumatizedCarapace_
 
 # Research Queue
 
+# class ResearchQueue
+#
+# Holds the queue for what research to do.
 class ResearchQueue:
     # Order:
     # Metabolic Boost
@@ -385,12 +417,18 @@ class ResearchQueue:
     # Chitinous Plating
     # Pneumatized Carapace
 
+    #Constructor
+    #Initializes the constructor queue.
     def __init__(self):
         self.ResearchQ = [_RESEARCH_PNEUMATIZED_CARAPACE, _RESEARCH_CHITINOUS_PLATING, _RESEARCH_ZERG_CARAPACE_LVL3,
                           _RESEARCH_ZERG_MISSILE_LVL3, _RESEARCH_ZERG_CARAPACE_LVL2, _RESEARCH_ZERG_CARAPACE_LVL3,
                           _RESEARCH_GROOVED_SPINES, _RESEARCH_ZERG_MISSILE_LVL1, _RESEARCH_ZERG_MISSILE_WEAPONS,
                           _RESEARCH_GLIAL, _RESEARCH_METABOLIC_BOOST]
-
+    # dequeue(self,obs)
+    # @param self The object pointer calling the function.
+    # @param obs The observation feature maps.
+    # Removes the highest 'priority' research from the queue, returning 
+    # the command to start the research.
     def dequeue(self, obs):
         # pop, check for viability; if not, push it back on
         if self.ResearchQ[-1] in obs.observation['available_actions']:
@@ -402,7 +440,9 @@ class ResearchQueue:
     def enqueue(self, order):
         self.ResearchQ.append(order)
 
-
+# class Zerg
+#
+# A "dictionary" of the unit ID's of the different zerg units.
 class Zerg():
     """Zerg units."""
     Baneling = 9
