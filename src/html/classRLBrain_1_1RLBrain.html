@@ -95,31 +95,38 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">RLBrain.RLBrain Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>class that holds the reinforcement learning for our program.  
+ <a href="classRLBrain_1_1RLBrain.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a40f979542aaadb4826a1b6ab8cb76fa9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRLBrain_1_1RLBrain.html#a40f979542aaadb4826a1b6ab8cb76fa9">__init__</a> (self, reduced_actions=None, decay_rate=0.1)</td></tr>
+<tr class="memdesc:a40f979542aaadb4826a1b6ab8cb76fa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor:- Takes in the list of actions, and sets the decay, learn, and random rates.  <a href="#a40f979542aaadb4826a1b6ab8cb76fa9">More...</a><br /></td></tr>
 <tr class="separator:a40f979542aaadb4826a1b6ab8cb76fa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64d74e364a6d9fb49b888363dbd9f922"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRLBrain_1_1RLBrain.html#a64d74e364a6d9fb49b888363dbd9f922">choose_action</a> (self, state)</td></tr>
+<tr class="memdesc:a64d74e364a6d9fb49b888363dbd9f922"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chooses which action to carry out.  <a href="#a64d74e364a6d9fb49b888363dbd9f922">More...</a><br /></td></tr>
 <tr class="separator:a64d74e364a6d9fb49b888363dbd9f922"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af39e6aad4cc89b805c6cb09877db1e09"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRLBrain_1_1RLBrain.html#af39e6aad4cc89b805c6cb09877db1e09">add_state</a> (self, state)</td></tr>
+<tr class="memdesc:af39e6aad4cc89b805c6cb09877db1e09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a new state + reward.  <a href="#af39e6aad4cc89b805c6cb09877db1e09">More...</a><br /></td></tr>
 <tr class="separator:af39e6aad4cc89b805c6cb09877db1e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cdec6a8eb09e6bb0f5c24251659ed56"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2cdec6a8eb09e6bb0f5c24251659ed56"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>explore</b> (self, t)</td></tr>
+<tr class="memitem:a2cdec6a8eb09e6bb0f5c24251659ed56"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRLBrain_1_1RLBrain.html#a2cdec6a8eb09e6bb0f5c24251659ed56">explore</a> (self, t)</td></tr>
+<tr class="memdesc:a2cdec6a8eb09e6bb0f5c24251659ed56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the rate at which random states are chosen.  <a href="#a2cdec6a8eb09e6bb0f5c24251659ed56">More...</a><br /></td></tr>
 <tr class="separator:a2cdec6a8eb09e6bb0f5c24251659ed56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5cd8667073eafe18d7e9a42cda61606d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5cd8667073eafe18d7e9a42cda61606d"></a>
 def&#160;</td><td class="memItemRight" valign="bottom"><b>learning</b> (self, t)</td></tr>
 <tr class="separator:a5cd8667073eafe18d7e9a42cda61606d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfa575d5f9331948ca20f9ccbf408886"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRLBrain_1_1RLBrain.html#acfa575d5f9331948ca20f9ccbf408886">learn</a> (self, state, next_state, action, reward)</td></tr>
+<tr class="memdesc:acfa575d5f9331948ca20f9ccbf408886"><td class="mdescLeft">&#160;</td><td class="mdescRight">Learns the value of a state transition, stores it in q-table.  <a href="#acfa575d5f9331948ca20f9ccbf408886">More...</a><br /></td></tr>
 <tr class="separator:acfa575d5f9331948ca20f9ccbf408886"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32246b81b1fef3ea2ae090b234c3b4f3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a32246b81b1fef3ea2ae090b234c3b4f3"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>read_from_file_QT</b> (self, filename)</td></tr>
+<tr class="memitem:a32246b81b1fef3ea2ae090b234c3b4f3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRLBrain_1_1RLBrain.html#a32246b81b1fef3ea2ae090b234c3b4f3">read_from_file_QT</a> (self, filename)</td></tr>
+<tr class="memdesc:a32246b81b1fef3ea2ae090b234c3b4f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a QTable from a file for the RL bot.  <a href="#a32246b81b1fef3ea2ae090b234c3b4f3">More...</a><br /></td></tr>
 <tr class="separator:a32246b81b1fef3ea2ae090b234c3b4f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a250a60c697c0748a12ac58eebaee6f7d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a250a60c697c0748a12ac58eebaee6f7d"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>write_to_file_QT</b> (self, filename)</td></tr>
+<tr class="memitem:a250a60c697c0748a12ac58eebaee6f7d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRLBrain_1_1RLBrain.html#a250a60c697c0748a12ac58eebaee6f7d">write_to_file_QT</a> (self, filename)</td></tr>
+<tr class="memdesc:a250a60c697c0748a12ac58eebaee6f7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows us to store a QTable in a file.  <a href="#a250a60c697c0748a12ac58eebaee6f7d">More...</a><br /></td></tr>
 <tr class="separator:a250a60c697c0748a12ac58eebaee6f7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a007381445651792bf63a1d7b80c4a7f2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a007381445651792bf63a1d7b80c4a7f2"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_size</b> (self)</td></tr>
+<tr class="memitem:a007381445651792bf63a1d7b80c4a7f2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRLBrain_1_1RLBrain.html#a007381445651792bf63a1d7b80c4a7f2">get_size</a> (self)</td></tr>
+<tr class="memdesc:a007381445651792bf63a1d7b80c4a7f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the size of the current QTable.  <a href="#a007381445651792bf63a1d7b80c4a7f2">More...</a><br /></td></tr>
 <tr class="separator:a007381445651792bf63a1d7b80c4a7f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58ffb2733e58bba78ad1bdc47a7566cb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a58ffb2733e58bba78ad1bdc47a7566cb"></a>
 def&#160;</td><td class="memItemRight" valign="bottom"><b>read_from_file_states</b> (self, filename)</td></tr>
@@ -155,7 +162,9 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>MIN_EXP</b> = 0.01</
 float&#160;</td><td class="memItemRight" valign="bottom"><b>MIN_LEARN</b> = 0.1</td></tr>
 <tr class="separator:a122ac433b266b7b98100f554851e14e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>class that holds the reinforcement learning for our program. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a40f979542aaadb4826a1b6ab8cb76fa9"></a>
 <div class="memitem">
 <div class="memproto">
@@ -185,6 +194,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>MIN_LEARN</b> = 0.1<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Constructor:- Takes in the list of actions, and sets the decay, learn, and random rates. </p>
 <pre class="fragment">The init method for the brain.
 actions is a list of actions detailed in Botty_McBotface.py
 I am implementing the QTable as a pandas DataFrame. This is to easily index our Q-table with strings.
@@ -215,7 +226,16 @@ I am implementing the QTable as a pandas DataFrame. This is to easily index our 
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">This method gets new state and reward from the environment </pre> 
+
+<p>Gets a new state + reward. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Object pointer calling the function. </td></tr>
+    <tr><td class="paramname">state</td><td>Gamestate information. <pre class="fragment">This method gets new state and reward from the environment </pre> </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="a64d74e364a6d9fb49b888363dbd9f922"></a>
@@ -241,8 +261,77 @@ I am implementing the QTable as a pandas DataFrame. This is to easily index our 
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">This method chooses which action to do. This method assume check for new states first.
-:returns an action.</pre> 
+
+<p>Chooses which action to carry out. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Object pointer calling the function. </td></tr>
+    <tr><td class="paramname">state</td><td>Gamestate information. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The chosen action. <pre class="fragment">This method chooses which action to do. This method assume check for new states first.
+:returns an action.</pre> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2cdec6a8eb09e6bb0f5c24251659ed56"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def RLBrain.RLBrain.explore </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds the rate at which random states are chosen. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Object pointer calling the function. </td></tr>
+    <tr><td class="paramname">t</td><td>Number of states explored so far. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a007381445651792bf63a1d7b80c4a7f2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def RLBrain.RLBrain.get_size </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the size of the current QTable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Object pointer calling the function. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="acfa575d5f9331948ca20f9ccbf408886"></a>
@@ -286,7 +375,88 @@ I am implementing the QTable as a pandas DataFrame. This is to easily index our 
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">This method will use the given information to update the q-table.</pre> 
+
+<p>Learns the value of a state transition, stores it in q-table. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Object pointer calling the function. </td></tr>
+    <tr><td class="paramname">state</td><td>First of the two states in the state transition being learned. </td></tr>
+    <tr><td class="paramname">next_state</td><td>Second of the two states in the state transition being learned. </td></tr>
+    <tr><td class="paramname">action</td><td>Action that was taken that transitioned between the two states. </td></tr>
+    <tr><td class="paramname">reward</td><td>Reward for the action. <pre class="fragment">This method will use the given information to update the q-table.</pre> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a32246b81b1fef3ea2ae090b234c3b4f3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def RLBrain.RLBrain.read_from_file_QT </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>filename</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads a QTable from a file for the RL bot. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Object pointer calling the function.  Name of the file being read from. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a250a60c697c0748a12ac58eebaee6f7d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def RLBrain.RLBrain.write_to_file_QT </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>filename</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allows us to store a QTable in a file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Object pointer calling the function. </td></tr>
+    <tr><td class="paramname">filename</td><td>Name of the file being written to. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>

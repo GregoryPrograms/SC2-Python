@@ -2,15 +2,13 @@ import numpy as np
 import pandas as pd
 import math
 
-#class RLBrain
+##class that holds the reinforcement learning for our program.
 #
-#Class that holds the reinforcement learning for our program.
-
 class RLBrain:
     MIN_EXP = 0.01
     MIN_LEARN = 0.1
     
-    #Constructor for RLBrain
+    ##Constructor:-
     #Takes in the list of actions, and sets the decay, learn, and random rates.
     def __init__(self, reduced_actions=None, decay_rate=0.1):
         """The init method for the brain.
@@ -22,11 +20,11 @@ class RLBrain:
         self.learn_rate = self.learning(0)
         self.decay_rate = decay_rate
         self.rand_rate = self.explore(0)
-	
-    # choose_action(self, state)
+    
+    ## Chooses which action to carry out.	
     # @param self Object pointer calling the function.
     # @param state Gamestate information.
-    # Chooses which action to carry out.
+    # @return The chosen action.
     def choose_action(self, state):
         """This method chooses which action to do. This method assume check for new states first.
         :returns an action."""
@@ -37,10 +35,9 @@ class RLBrain:
         else:
             return self.QTable.loc[state, :].idxmax()
 
-    # add_state(self, state)
+    ## Gets a new state + reward.
     # @param self Object pointer calling the function.
     # @param state Gamestate information.
-    # Gets a new state + reward
     def add_state(self, state):
         """This method gets new state and reward from the environment """
         if state not in self.QTable.index:
@@ -48,26 +45,24 @@ class RLBrain:
             self.QTable = self.QTable.append(
                 pd.Series(data=np.zeros(len(self.actions)), index=self.actions, name=state))
 
-    # explore(self, t)
+    ## Finds the rate at which random states are chosen.
     # @param self Object pointer calling the function.
     # @param t Number of states explored so far.
-    # Finds the rate at which random states are chosen.
     def explore(self, t):
         return max(self.MIN_EXP, min(1.0, 1 - math.log10((t + 1) / 25)))
 
-    # learning(self, t)
+    ## Finds the rate at which the RL bot learns.
     # @param self Object pointer calling the function.
     # @param t Number of states explored so far.
     def learning(self, t):
         return max(self.MIN_LEARN, min(1.0, 1 - math.log10((t + 1) / 25)))
 
-    # learn(self, state, next_state, action, reward)
+    ## Learns the value of a state transition, stores it in q-table.
     # @param self Object pointer calling the function.
     # @param state First of the two states in the state transition being learned.
     # @param next_state Second of the two states in the state transition being learned.
-    # @action action that was taken that transitioned between the two states.
-    # @reward reward for the action.
-    # Learns the value of a state transition, stores it in q-table.
+    # @param action Action that was taken that transitioned between the two states.
+    # @param reward Reward for the action.
     def learn(self, state, next_state, action, reward):
         """This method will use the given information to update the q-table."""
         q_value = self.QTable.at[state, action]
@@ -76,23 +71,20 @@ class RLBrain:
 
         self.QTable.at[state, action] += self.learn_rate * (q_target - q_value)
 
-    # read_from_file_QT(self, filename)
+    ## Reads a QTable from a file for the RL bot.
     # @param self Object pointer calling the function.
     # @filename Name of the file being read from.
-    # Reads a QTable from a file for the RL bot.
     def read_from_file_QT(self, filename):
         self.QTable = pd.read_csv(filename, index_col=0)
 
-    # write_to_file_QT(self,filename)
+    ## Allows us to store a QTable in a file.
     # @param self Object pointer calling the function.
     # @param filename Name of the file being written to.
-    # Allows us to store a QTable in a file.
     def write_to_file_QT(self, filename):
         self.QTable.to_csv(filename)
 
-    # get_size(self)
+    ## Gets the size of the current QTable.
     # @param self Object pointer calling the function.
-    # Gets the size of the current QTable.
     def get_size(self):
         print(self.QTable.shape)
 

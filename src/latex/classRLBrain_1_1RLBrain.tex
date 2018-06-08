@@ -1,31 +1,32 @@
 \hypertarget{classRLBrain_1_1RLBrain}{}\section{R\+L\+Brain.\+R\+L\+Brain Class Reference}
 \label{classRLBrain_1_1RLBrain}\index{R\+L\+Brain.\+R\+L\+Brain@{R\+L\+Brain.\+R\+L\+Brain}}
+
+
+class that holds the reinforcement learning for our program.  
+
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 def \hyperlink{classRLBrain_1_1RLBrain_a40f979542aaadb4826a1b6ab8cb76fa9}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, reduced\+\_\+actions=None, decay\+\_\+rate=0.\+1)
-\item 
+\begin{DoxyCompactList}\small\item\em Constructor\+:-\/ Takes in the list of actions, and sets the decay, learn, and random rates. \end{DoxyCompactList}\item 
 def \hyperlink{classRLBrain_1_1RLBrain_a64d74e364a6d9fb49b888363dbd9f922}{choose\+\_\+action} (self, state)
-\item 
+\begin{DoxyCompactList}\small\item\em Chooses which action to carry out. \end{DoxyCompactList}\item 
 def \hyperlink{classRLBrain_1_1RLBrain_af39e6aad4cc89b805c6cb09877db1e09}{add\+\_\+state} (self, state)
-\item 
-def {\bfseries explore} (self, t)\hypertarget{classRLBrain_1_1RLBrain_a2cdec6a8eb09e6bb0f5c24251659ed56}{}\label{classRLBrain_1_1RLBrain_a2cdec6a8eb09e6bb0f5c24251659ed56}
-
-\item 
+\begin{DoxyCompactList}\small\item\em Gets a new state + reward. \end{DoxyCompactList}\item 
+def \hyperlink{classRLBrain_1_1RLBrain_a2cdec6a8eb09e6bb0f5c24251659ed56}{explore} (self, t)
+\begin{DoxyCompactList}\small\item\em Finds the rate at which random states are chosen. \end{DoxyCompactList}\item 
 def {\bfseries learning} (self, t)\hypertarget{classRLBrain_1_1RLBrain_a5cd8667073eafe18d7e9a42cda61606d}{}\label{classRLBrain_1_1RLBrain_a5cd8667073eafe18d7e9a42cda61606d}
 
 \item 
 def \hyperlink{classRLBrain_1_1RLBrain_acfa575d5f9331948ca20f9ccbf408886}{learn} (self, state, next\+\_\+state, action, reward)
-\item 
-def {\bfseries read\+\_\+from\+\_\+file\+\_\+\+QT} (self, filename)\hypertarget{classRLBrain_1_1RLBrain_a32246b81b1fef3ea2ae090b234c3b4f3}{}\label{classRLBrain_1_1RLBrain_a32246b81b1fef3ea2ae090b234c3b4f3}
-
-\item 
-def {\bfseries write\+\_\+to\+\_\+file\+\_\+\+QT} (self, filename)\hypertarget{classRLBrain_1_1RLBrain_a250a60c697c0748a12ac58eebaee6f7d}{}\label{classRLBrain_1_1RLBrain_a250a60c697c0748a12ac58eebaee6f7d}
-
-\item 
-def {\bfseries get\+\_\+size} (self)\hypertarget{classRLBrain_1_1RLBrain_a007381445651792bf63a1d7b80c4a7f2}{}\label{classRLBrain_1_1RLBrain_a007381445651792bf63a1d7b80c4a7f2}
-
-\item 
+\begin{DoxyCompactList}\small\item\em Learns the value of a state transition, stores it in q-\/table. \end{DoxyCompactList}\item 
+def \hyperlink{classRLBrain_1_1RLBrain_a32246b81b1fef3ea2ae090b234c3b4f3}{read\+\_\+from\+\_\+file\+\_\+\+QT} (self, filename)
+\begin{DoxyCompactList}\small\item\em Reads a Q\+Table from a file for the RL bot. \end{DoxyCompactList}\item 
+def \hyperlink{classRLBrain_1_1RLBrain_a250a60c697c0748a12ac58eebaee6f7d}{write\+\_\+to\+\_\+file\+\_\+\+QT} (self, filename)
+\begin{DoxyCompactList}\small\item\em Allows us to store a Q\+Table in a file. \end{DoxyCompactList}\item 
+def \hyperlink{classRLBrain_1_1RLBrain_a007381445651792bf63a1d7b80c4a7f2}{get\+\_\+size} (self)
+\begin{DoxyCompactList}\small\item\em Gets the size of the current Q\+Table. \end{DoxyCompactList}\item 
 def {\bfseries read\+\_\+from\+\_\+file\+\_\+states} (self, filename)\hypertarget{classRLBrain_1_1RLBrain_a58ffb2733e58bba78ad1bdc47a7566cb}{}\label{classRLBrain_1_1RLBrain_a58ffb2733e58bba78ad1bdc47a7566cb}
 
 \item 
@@ -61,6 +62,9 @@ float {\bfseries M\+I\+N\+\_\+\+L\+E\+A\+RN} = 0.\+1\hypertarget{classRLBrain_1_
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+class that holds the reinforcement learning for our program. 
+
 \subsection{Constructor \& Destructor Documentation}
 \index{R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
 \index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}}
@@ -71,6 +75,10 @@ float {\bfseries M\+I\+N\+\_\+\+L\+E\+A\+RN} = 0.\+1\hypertarget{classRLBrain_1_
 \item[{}]{decay\+\_\+rate = {\ttfamily 0.1}}
 \end{DoxyParamCaption}
 )}\hypertarget{classRLBrain_1_1RLBrain_a40f979542aaadb4826a1b6ab8cb76fa9}{}\label{classRLBrain_1_1RLBrain_a40f979542aaadb4826a1b6ab8cb76fa9}
+
+
+Constructor\+:-\/ Takes in the list of actions, and sets the decay, learn, and random rates. 
+
 \begin{DoxyVerb}The init method for the brain.
 actions is a list of actions detailed in Botty_McBotface.py
 I am implementing the QTable as a pandas DataFrame. This is to easily index our Q-table with strings.
@@ -86,8 +94,19 @@ I am implementing the QTable as a pandas DataFrame. This is to easily index our 
 \item[{}]{state}
 \end{DoxyParamCaption}
 )}\hypertarget{classRLBrain_1_1RLBrain_af39e6aad4cc89b805c6cb09877db1e09}{}\label{classRLBrain_1_1RLBrain_af39e6aad4cc89b805c6cb09877db1e09}
-\begin{DoxyVerb}This method gets new state and reward from the environment \end{DoxyVerb}
- \index{R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}!choose\+\_\+action@{choose\+\_\+action}}
+
+
+Gets a new state + reward. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Object pointer calling the function. \\
+\hline
+{\em state} & Gamestate information. \begin{DoxyVerb}This method gets new state and reward from the environment \end{DoxyVerb}
+ \\
+\hline
+\end{DoxyParams}
+\index{R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}!choose\+\_\+action@{choose\+\_\+action}}
 \index{choose\+\_\+action@{choose\+\_\+action}!R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}}
 \subsubsection[{\texorpdfstring{choose\+\_\+action(self, state)}{choose_action(self, state)}}]{\setlength{\rightskip}{0pt plus 5cm}def R\+L\+Brain.\+R\+L\+Brain.\+choose\+\_\+action (
 \begin{DoxyParamCaption}
@@ -95,9 +114,58 @@ I am implementing the QTable as a pandas DataFrame. This is to easily index our 
 \item[{}]{state}
 \end{DoxyParamCaption}
 )}\hypertarget{classRLBrain_1_1RLBrain_a64d74e364a6d9fb49b888363dbd9f922}{}\label{classRLBrain_1_1RLBrain_a64d74e364a6d9fb49b888363dbd9f922}
-\begin{DoxyVerb}This method chooses which action to do. This method assume check for new states first.
+
+
+Chooses which action to carry out. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Object pointer calling the function. \\
+\hline
+{\em state} & Gamestate information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The chosen action. \begin{DoxyVerb}This method chooses which action to do. This method assume check for new states first.
 :returns an action.\end{DoxyVerb}
- \index{R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}!learn@{learn}}
+ 
+\end{DoxyReturn}
+\index{R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}!explore@{explore}}
+\index{explore@{explore}!R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}}
+\subsubsection[{\texorpdfstring{explore(self, t)}{explore(self, t)}}]{\setlength{\rightskip}{0pt plus 5cm}def R\+L\+Brain.\+R\+L\+Brain.\+explore (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{classRLBrain_1_1RLBrain_a2cdec6a8eb09e6bb0f5c24251659ed56}{}\label{classRLBrain_1_1RLBrain_a2cdec6a8eb09e6bb0f5c24251659ed56}
+
+
+Finds the rate at which random states are chosen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Object pointer calling the function. \\
+\hline
+{\em t} & Number of states explored so far. \\
+\hline
+\end{DoxyParams}
+\index{R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}!get\+\_\+size@{get\+\_\+size}}
+\index{get\+\_\+size@{get\+\_\+size}!R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}}
+\subsubsection[{\texorpdfstring{get\+\_\+size(self)}{get_size(self)}}]{\setlength{\rightskip}{0pt plus 5cm}def R\+L\+Brain.\+R\+L\+Brain.\+get\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}\hypertarget{classRLBrain_1_1RLBrain_a007381445651792bf63a1d7b80c4a7f2}{}\label{classRLBrain_1_1RLBrain_a007381445651792bf63a1d7b80c4a7f2}
+
+
+Gets the size of the current Q\+Table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Object pointer calling the function. \\
+\hline
+\end{DoxyParams}
+\index{R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}!learn@{learn}}
 \index{learn@{learn}!R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}}
 \subsubsection[{\texorpdfstring{learn(self, state, next\+\_\+state, action, reward)}{learn(self, state, next_state, action, reward)}}]{\setlength{\rightskip}{0pt plus 5cm}def R\+L\+Brain.\+R\+L\+Brain.\+learn (
 \begin{DoxyParamCaption}
@@ -108,8 +176,61 @@ I am implementing the QTable as a pandas DataFrame. This is to easily index our 
 \item[{}]{reward}
 \end{DoxyParamCaption}
 )}\hypertarget{classRLBrain_1_1RLBrain_acfa575d5f9331948ca20f9ccbf408886}{}\label{classRLBrain_1_1RLBrain_acfa575d5f9331948ca20f9ccbf408886}
-\begin{DoxyVerb}This method will use the given information to update the q-table.\end{DoxyVerb}
- 
+
+
+Learns the value of a state transition, stores it in q-\/table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Object pointer calling the function. \\
+\hline
+{\em state} & First of the two states in the state transition being learned. \\
+\hline
+{\em next\+\_\+state} & Second of the two states in the state transition being learned. \\
+\hline
+{\em action} & Action that was taken that transitioned between the two states. \\
+\hline
+{\em reward} & Reward for the action. \begin{DoxyVerb}This method will use the given information to update the q-table.\end{DoxyVerb}
+ \\
+\hline
+\end{DoxyParams}
+\index{R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}!read\+\_\+from\+\_\+file\+\_\+\+QT@{read\+\_\+from\+\_\+file\+\_\+\+QT}}
+\index{read\+\_\+from\+\_\+file\+\_\+\+QT@{read\+\_\+from\+\_\+file\+\_\+\+QT}!R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}}
+\subsubsection[{\texorpdfstring{read\+\_\+from\+\_\+file\+\_\+\+Q\+T(self, filename)}{read_from_file_QT(self, filename)}}]{\setlength{\rightskip}{0pt plus 5cm}def R\+L\+Brain.\+R\+L\+Brain.\+read\+\_\+from\+\_\+file\+\_\+\+QT (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{filename}
+\end{DoxyParamCaption}
+)}\hypertarget{classRLBrain_1_1RLBrain_a32246b81b1fef3ea2ae090b234c3b4f3}{}\label{classRLBrain_1_1RLBrain_a32246b81b1fef3ea2ae090b234c3b4f3}
+
+
+Reads a Q\+Table from a file for the RL bot. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Object pointer calling the function.  Name of the file being read from. \\
+\hline
+\end{DoxyParams}
+\index{R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}!write\+\_\+to\+\_\+file\+\_\+\+QT@{write\+\_\+to\+\_\+file\+\_\+\+QT}}
+\index{write\+\_\+to\+\_\+file\+\_\+\+QT@{write\+\_\+to\+\_\+file\+\_\+\+QT}!R\+L\+Brain\+::\+R\+L\+Brain@{R\+L\+Brain\+::\+R\+L\+Brain}}
+\subsubsection[{\texorpdfstring{write\+\_\+to\+\_\+file\+\_\+\+Q\+T(self, filename)}{write_to_file_QT(self, filename)}}]{\setlength{\rightskip}{0pt plus 5cm}def R\+L\+Brain.\+R\+L\+Brain.\+write\+\_\+to\+\_\+file\+\_\+\+QT (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{filename}
+\end{DoxyParamCaption}
+)}\hypertarget{classRLBrain_1_1RLBrain_a250a60c697c0748a12ac58eebaee6f7d}{}\label{classRLBrain_1_1RLBrain_a250a60c697c0748a12ac58eebaee6f7d}
+
+
+Allows us to store a Q\+Table in a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Object pointer calling the function. \\
+\hline
+{\em filename} & Name of the file being written to. \\
+\hline
+\end{DoxyParams}
+
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
