@@ -16,9 +16,7 @@ _PLAYER_HOSTILE = 4
 _MAP_SIZE = 128
 
 
-# class GameState
-#
-#  Used to represent the current state of the game.
+##  Used to represent the current state of the game.
 #  Takes necessary information from the SC2 API,
 #  and shares it with the RL bot.
 class GameState:
@@ -33,7 +31,8 @@ class GameState:
     # larvaCount
     # state
 
-    # Constructor, initializes the returned list.
+    ## Constructor:-
+    # initializes the returned list.
     def __init__(self, obs=None):
         self.minerals = None
         self.vespene = None
@@ -41,7 +40,7 @@ class GameState:
         self.armyCount = 0
         self.larvaCount = 0
 
-    #  update(self,obs)
+    ## Updates the state list with current information
     # @param self The object pointer
     # @param obs The observation maps
     def update(self, obs):

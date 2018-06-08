@@ -1,14 +1,17 @@
 \hypertarget{classLearner_1_1GameState}{}\section{Learner.\+Game\+State Class Reference}
 \label{classLearner_1_1GameState}\index{Learner.\+Game\+State@{Learner.\+Game\+State}}
+
+
+Used to represent the current state of the game.  
+
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-def {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, obs=None)\hypertarget{classLearner_1_1GameState_a1839473bc83bc75d01684ec5aea9cbb8}{}\label{classLearner_1_1GameState_a1839473bc83bc75d01684ec5aea9cbb8}
-
-\item 
-def {\bfseries update} (self, obs)\hypertarget{classLearner_1_1GameState_a6f8a28737862d479f5bf027296613ea1}{}\label{classLearner_1_1GameState_a6f8a28737862d479f5bf027296613ea1}
-
-\end{DoxyCompactItemize}
+def \hyperlink{classLearner_1_1GameState_a1839473bc83bc75d01684ec5aea9cbb8}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, obs=None)
+\begin{DoxyCompactList}\small\item\em Constructor\+:-\/ initializes the returned list. \end{DoxyCompactList}\item 
+def \hyperlink{classLearner_1_1GameState_a6f8a28737862d479f5bf027296613ea1}{update} (self, obs)
+\begin{DoxyCompactList}\small\item\em Updates the state list with current information. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -27,6 +30,48 @@ def {\bfseries update} (self, obs)\hypertarget{classLearner_1_1GameState_a6f8a28
 {\bfseries larva\+Count}\hypertarget{classLearner_1_1GameState_a9fbf37652166056005e255288d8fe624}{}\label{classLearner_1_1GameState_a9fbf37652166056005e255288d8fe624}
 
 \end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Used to represent the current state of the game. 
+
+Takes necessary information from the S\+C2 A\+PI, and shares it with the RL bot. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Learner\+::\+Game\+State@{Learner\+::\+Game\+State}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!Learner\+::\+Game\+State@{Learner\+::\+Game\+State}}
+\subsubsection[{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+(self, obs=\+None)}{__init__(self, obs=None)}}]{\setlength{\rightskip}{0pt plus 5cm}def Learner.\+Game\+State.\+\_\+\+\_\+init\+\_\+\+\_\+ (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{obs = {\ttfamily None}}
+\end{DoxyParamCaption}
+)}\hypertarget{classLearner_1_1GameState_a1839473bc83bc75d01684ec5aea9cbb8}{}\label{classLearner_1_1GameState_a1839473bc83bc75d01684ec5aea9cbb8}
+
+
+Constructor\+:-\/ initializes the returned list. 
+
+
+
+\subsection{Member Function Documentation}
+\index{Learner\+::\+Game\+State@{Learner\+::\+Game\+State}!update@{update}}
+\index{update@{update}!Learner\+::\+Game\+State@{Learner\+::\+Game\+State}}
+\subsubsection[{\texorpdfstring{update(self, obs)}{update(self, obs)}}]{\setlength{\rightskip}{0pt plus 5cm}def Learner.\+Game\+State.\+update (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{obs}
+\end{DoxyParamCaption}
+)}\hypertarget{classLearner_1_1GameState_a6f8a28737862d479f5bf027296613ea1}{}\label{classLearner_1_1GameState_a6f8a28737862d479f5bf027296613ea1}
+
+
+Updates the state list with current information. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & The object pointer \\
+\hline
+{\em obs} & The observation maps \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
