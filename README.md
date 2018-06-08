@@ -103,6 +103,8 @@ def __init__(self):
 ```
 ##### Initializes the base location of our bot
 ```Python
+# @param self:The object pointer calling the function
+# @param obs:The observation maps
 def init_base(self, obs):
 ```
 ##### This step function will:
@@ -121,18 +123,30 @@ building_offsets = {...}
 
 ##### Methods
 ```Python
+# @param self:The object pointer calling the function
+# @param obs:The observation map.
 # Takes information about the current game state, creates a 'reward'
 # A reward is based on how good the current state is, and it gets passed to the Brain.
 def reward_and_learn(self, obs):
 
+# @param self The object pointer calling the function
+# @param action_str A string containing one of the actions from those available to the AI.
+# @obs The observation maps
 # Takes in actions and if an action needs specific parameters, it passes those to it.
 def get_action_list(self, action_str, obs):
 
+# @param obs The observation maps
+# @param building A macro used to refer to specific buildings.
 # Whenever we build a building, we call this function. If it is a 
 # building with special requirements, we fullfill those requirements 
 # We also use offset to make sure the building does not overlap with any other buildings.
 def get_building_target(obs, building):
 
+# @param self The object pointer calling the function
+# @param x The initial x
+# @param x_distance The distance between the initial and final x
+# @param y The initial y
+# @param y_distance The distance between the initial and final y
 # Called in order to move a set of coordinates by some distance, depending
 # on whether the base is on the right or left side of the map. 
 def transform_location(self, x, x_distance, y, y_distance):
@@ -156,18 +170,31 @@ def __init__(self, reduced_actions=None, decay_rate=0.1):
 ```
 #### Methods
 ```Python
+# @param self:Object pointer calling the function.
+# @param state:Gamestate information.
 #This method chooses which action to do and returns that action
 def choose_action(self, state):
 
+# @param self:Object pointer calling the function.
+# @param state:Gamestate information.
 #This method gets new state and reward from the environment
 def add_state(self, state):
 
-#finds a max value and then it gets passed onto rand_rate
+# @param self:Object pointer calling the function.
+# @param t:Number of states explored so far.
+# Finds the rate at which random states are chosen.
 def explore(self, t):
-
+   
+# @param self:Object pointer calling the function.
+# @param t:Number of states explored so far.
 #returns max value and then it gets passed onto learn_rate
 def learning(self, t):
 
+# @param self: Object pointer calling the function.
+# @param state: First of the two states in the state transition being learned.
+# @param next_state: Second of the two states in the state transition being learned.
+# @action action: that was taken that transitioned between the two states.
+# @reward reward: for the action.
 #This uses given information to update the q-table
 def learn(self, state, next_state, action, reward):
 ```
@@ -189,8 +216,8 @@ def __init__(self, obs=None):
 
 #### returns current state of the game
 ```Python
-# @param self The object pointer
-# @param obs The observation maps
+# @param self: The object pointer
+# @param obs: The observation maps
 def update(self, obs):
 ```
 
@@ -211,22 +238,18 @@ def build_building(obs, building, target):
 # Takes a unit from the build queue and builds that unit.
 def build_units(unit):
 
-# @param drone_func Function to build a drone from available larvae.
+# @param drone_func: Function to build a drone from available larvae.
 # Makes a new drone.
 def build_worker(drone_func):
 
-
-# research
-# @param research_func Function to start researching
+# @param research_func: Function to start researching
 # Starts research on the next thing in the research queue.
 def research(research_func):
-
-# View control
 
 # chooses x and y location to move to. Allows bot to see more
 def moveview(x, y):
 
-# @param obs The observation maps
+# @param obs: The observation maps
 # Looks for enemies, and attacks them.
 def attack(obs):
 
