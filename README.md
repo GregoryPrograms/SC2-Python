@@ -103,7 +103,37 @@ def transform_location(self, x, x_distance, y, y_distance):
 
 
 ### [RLBrain.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/RLBrain.py)
+#### Q-Learning attempts to learn the value of being in a given state, and taking a specific action there. This was implemented with the help of panda(open-source library that provides easy-to-use data structures and data analysis tools) and numpy(undamental package for scientific computing)
+```Python
+class RLBrain:
+```
 
+#### The init method for the brain.
+```Python
+def __init__(self, reduced_actions=None, decay_rate=0.1):
+        self.actions = reduced_actions  # list of actions
+        self.QTable = pd.DataFrame(columns=self.actions, dtype=np.float64)
+        self.learn_rate = self.learning(0)
+        self.decay_rate = decay_rate
+        self.rand_rate = self.explore(0)
+```
+
+```Python
+#This method chooses which action to do and returns that action
+def choose_action(self, state):
+
+#This method gets new state and reward from the environment
+def add_state(self, state):
+
+#finds a max value and then it gets passed onto rand_rate
+def explore(self, t):
+
+#returns max value and then it gets passed onto learn_rate
+def learning(self, t):
+
+#This uses given information to update the q-table
+def learn(self, state, next_state, action, reward):
+```
 ### [Actions.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/actions.py)
 
 ### [BuildQueues.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/BuildQueues.py)
