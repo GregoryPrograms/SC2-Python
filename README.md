@@ -39,6 +39,11 @@ $ git clone https://github.com/GregoryPrograms/SC2-Python.git
 
 ### [Botty_McBotface.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/Botty_McBotface.py)
 
+## Controls what information is passed to and from the AI.
+```Python
+class Botty(base_agent.BaseAgent):
+```
+
 ### [RLBrain.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/RLBrain.py)
 
 ### [Actions.py](https://github.com/GregoryPrograms/SC2-Python/blob/master/src/actions.py)
